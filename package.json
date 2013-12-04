@@ -23,7 +23,12 @@
     "time-grunt": "~0.1.1",
     "jshint-stylish": "~0.1.4",
     "grunt-wintersmith": "0.0.2",
-    "wintersmith-less": "~0.2.1"
+    "wintersmith-less": "~0.2.1",
+    "grunt-requirejs": "~0.4.0",
+    "wintersmith-handlebars": "0.0.3",
+    "grunt-contrib-less": "~0.8.2",
+    "wintersmith": "~2.0.9",
+    "wintersmith-livereload": "~0.1.0"
   },
   "engines": {
     "node": ">=0.8.0"

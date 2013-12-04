@@ -1,7 +1,0 @@
-{
-  "locals": {
-  },
-  "plugins": [
-    "wintersmith-less"
-  ]
-}
