@@ -212,12 +212,14 @@ module.exports = function (grunt) {
       ]
     },
     wintersmith: {
-      options: {
-          config: '<%= yeoman.app %>/config.json'
+      build: {
+        options: {
+          config: '<%= yeoman.app %>/config-build.json'
+        }
       },
-      build: {},
       preview: {
         options: {
+          config: '<%= yeoman.app %>/config-preview.json',
           action: 'preview'
         }
       }
