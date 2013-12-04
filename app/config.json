@@ -1,0 +1,9 @@
+{
+  "locals": {
+  },
+  "plugins": [
+    "wintersmith-less"
+  ],
+  "output": "../dist",
+  "ignore": ["bower_components/**"]
+}
