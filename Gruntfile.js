@@ -208,7 +208,8 @@ module.exports = function (grunt) {
             plugins: [
               'wintersmith-less', 
               'wintersmith-handlebars',
-              'wintersmith-livereload'
+              'wintersmith-livereload',
+              './<%= yeoman.app %>/plugins/open'
             ],
           },
           action: 'preview'

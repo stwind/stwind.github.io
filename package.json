@@ -28,7 +28,8 @@
     "wintersmith-handlebars": "0.0.3",
     "grunt-contrib-less": "~0.8.2",
     "wintersmith": "~2.0.9",
-    "wintersmith-livereload": "~0.1.0"
+    "wintersmith-livereload": "~0.1.0",
+    "open": "0.0.4"
   },
   "engines": {
     "node": ">=0.8.0"
