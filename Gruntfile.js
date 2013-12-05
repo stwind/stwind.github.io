@@ -7,6 +7,10 @@
 // use this if you want to recursively match all subfolders:
 // 'test/spec/**/*.js'
 
+var path = require('path'),
+    sh = require('shelljs'),
+    util = require('./lib/util');
+
 module.exports = function (grunt) {
 
   var yeomanConfig = {
@@ -242,6 +246,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean',
+    'setup',
     'useminPrepare',
     'concurrent:staging',
     'concat',
@@ -255,4 +260,40 @@ module.exports = function (grunt) {
   grunt.registerTask('default', [
     'build'
   ]);
+
+  grunt.registerTask('setup', function(force) {
+    var dist = yeomanConfig.dist,
+        pwd = process.cwd();
+
+    var done = this.async();
+
+    function getRemoteUrl() {
+      var cmd = 'git config --get remote.origin.url';
+      return sh.exec(cmd, { silent: true }).output.trim();
+    }
+
+    function setup() {
+      var remote = getRemoteUrl();
+
+      sh.mkdir(dist);
+      sh.cd(yeomanConfig.dist);
+      sh.exec('git init');
+      sh.exec('git remote add origin ' + remote);
+      sh.exec('git pull origin master');
+      sh.exec('git branch --set-upstream-to=origin/master master');
+      sh.cd(pwd);
+    }
+
+    util.isDir(dist + '/.git', function(error, val) {
+      if (force) {
+        sh.rm('-rf', dist);
+        setup();
+      }
+
+      if (!val) setup();
+
+      done();
+    });
+
+  });
 };

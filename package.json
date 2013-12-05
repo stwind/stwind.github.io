@@ -28,7 +28,8 @@
     "grunt-contrib-less": "~0.8.2",
     "wintersmith": "~2.0.9",
     "wintersmith-livereload": "~0.1.0",
-    "open": "0.0.4"
+    "open": "0.0.4",
+    "shelljs": "~0.2.6"
   },
   "engines": {
     "node": ">=0.8.0"
