@@ -247,7 +247,7 @@ module.exports = function (grunt) {
     'concat',
     'cssmin',
     'usemin',
-    'wintersmith:build',
+    'wintersmith:build'
     //'autoprefixer',
     //'rev',
   ]);
