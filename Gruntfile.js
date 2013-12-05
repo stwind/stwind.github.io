@@ -9,6 +9,7 @@
 
 var path = require('path'),
     sh = require('shelljs'),
+    moment = require('moment'),
     util = require('./lib/util');
 
 module.exports = function (grunt) {
@@ -276,7 +277,7 @@ module.exports = function (grunt) {
       var remote = getRemoteUrl();
 
       sh.mkdir(dist);
-      sh.cd(yeomanConfig.dist);
+      sh.cd(dist);
       sh.exec('git init');
       sh.exec('git remote add origin ' + remote);
       sh.exec('git pull origin master');
@@ -284,16 +285,33 @@ module.exports = function (grunt) {
       sh.cd(pwd);
     }
 
+    if (force) {
+      sh.rm('-rf', dist);
+      setup();
+    }
+
     util.isDir(dist + '/.git', function(error, val) {
-      if (force) {
-        sh.rm('-rf', dist);
-        setup();
-      }
-
       if (!val) setup();
-
       done();
     });
 
+  });
+
+  grunt.registerTask('deploy', function() {
+    var dist = yeomanConfig.dist,
+        pwd = process.cwd();
+
+    var time = moment().local().format(),
+        msg = '"Site updated at ' + time + '"';
+
+    sh.cd(dist);
+    sh.exec('git pull');
+    sh.exec('git add -A');
+    grunt.log.write('Committing: ' + msg + '\n');
+    sh.exec('git commit -m ' + msg);
+    grunt.log.write('Pushing: ' + msg) + '\n';
+    sh.exec('git push origin master');
+    grunt.log.write('Github Page deploy completed.\n');
+    sh.cd(pwd);
   });
 };

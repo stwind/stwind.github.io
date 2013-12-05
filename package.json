@@ -29,7 +29,8 @@
     "wintersmith": "~2.0.9",
     "wintersmith-livereload": "~0.1.0",
     "open": "0.0.4",
-    "shelljs": "~0.2.6"
+    "shelljs": "~0.2.6",
+    "moment": "~2.4.0"
   },
   "engines": {
     "node": ">=0.8.0"
