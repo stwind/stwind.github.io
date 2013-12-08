@@ -12,7 +12,6 @@ require.config({
       deps: ['underscore', 'jquery'],
       exports: 'Backbone'
     },
-    handlebars: { exports: 'Handlebars' },
   },
   deps: []
 });

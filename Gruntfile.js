@@ -12,12 +12,18 @@ var path = require('path'),
     moment = require('moment'),
     util = require('./lib/util');
 
+var LIVERELOAD_PORT = 35729;
+
+var mountFolder = function (connect, dir) {
+  return connect.static(path.resolve(dir));
+};
+
 module.exports = function (grunt) {
 
   var yeomanConfig = {
-    app: 'app',
+    src: 'src',
     dist: 'dist',
-    staging: 'staging'
+    tmpl: 'src/templates'
   };
 
   // show elapsed time at the end
@@ -28,12 +34,47 @@ module.exports = function (grunt) {
   grunt.initConfig({
     // configurable paths
     yeoman: yeomanConfig,
+    watch: {
+      assemble: {
+        files: [
+          '<%= yeoman.tmpl %>/pages/**/*.hbs', 
+          '<%= assemble.options.data %>'
+        ],
+        tasks: ['assemble']
+      },
+      less: {
+        files: ['<%= yeoman.src %>/styles/*.less'],
+        tasks: ['less']
+      },
+      livereload: {
+        options: {
+          livereload: LIVERELOAD_PORT
+        },
+        files: [
+          '<%= yeoman.dist %>/*.html',
+          '.tmp/styles/{,*/}*.css',
+          '{.tmp,<%= yeoman.src %>}/scripts/{,*/,*/*/}*.js',
+          '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+        ]
+      }
+    },
     connect: {
       options: {
         port: 9000,
-        livereload: 35729,
-        // change this to '0.0.0.0' to access the server from outside
+        livereload: LIVERELOAD_PORT,
         hostname: 'localhost'
+      },
+      livereload: {
+        options: {
+          open: true,
+          middleware: function (connect) {
+            return [
+              mountFolder(connect, '.tmp'),
+              mountFolder(connect, yeomanConfig.src),
+              mountFolder(connect, yeomanConfig.dist)
+            ];
+          }
+        }
       },
       dist: {
         options: {
@@ -48,13 +89,12 @@ module.exports = function (grunt) {
         files: [{
           dot: true,
           src: [
-            '.tmp',
             '<%= yeoman.dist %>/*',
             '!<%= yeoman.dist %>/.git*'
           ]
         }]
       },
-      staging: ['.tmp', '<%= yeoman.staging %>']
+      server: '.tmp'
     },
     jshint: {
       options: {
@@ -95,16 +135,16 @@ module.exports = function (grunt) {
     },
     useminPrepare: {
       options: {
-        dest: '<%= yeoman.staging %>/contents'
+        dest: '<%= yeoman.dist %>'
       },
-      html: '<%= yeoman.app %>/templates/index.html',
+      html: '<%= yeoman.src %>/templates/layouts/default.hbs',
     },
     usemin: {
       options: {
         assetsDirs: ['<%= yeoman.dist %>']
       },
-      html: ['<%= yeoman.staging %>/{,*/}*.html'],
-      css: ['<%= yeoman.staging %>/styles/{,*/}*.css']
+      html: ['<%= yeoman.dist %>/{,*/,*/*/}*.html'],
+      css: ['<%= yeoman.dist %>/styles/{,*/}*.css']
     },
     imagemin: {
       dist: {
@@ -128,17 +168,6 @@ module.exports = function (grunt) {
     },
     htmlmin: {
       dist: {
-        options: {
-          /*removeCommentsFromCDATA: true,
-           // https://github.com/yeoman/grunt-usemin/issues/44
-           //collapseWhitespace: true,
-            collapseBooleanAttributes: true,
-            removeAttributeQuotes: true,
-            removeRedundantAttributes: true,
-            useShortDoctype: true,
-            removeEmptyAttributes: true,
-            removeOptionalTags: true*/
-        },
         files: [{
           expand: true,
           cwd: '<%= yeoman.app %>',
@@ -149,87 +178,51 @@ module.exports = function (grunt) {
     },
     // Put files not handled in other tasks here
     copy: {
-      staging: {
-        files: [{
-          expand: true,
-          dot: true,
-          cwd: '<%= yeoman.app %>/contents',
-          dest: '<%= yeoman.staging %>/contents',
-          src: [
-            '**/*.{ico,png,txt,jpg,json,md}',
-            'images/{,*/}*.{webp,gif}',
-            'styles/fonts/{,*/}*.*',
-            '!bower_components/**'
-          ]
-        }, {
-          expand: true,
-          dot: true,
-          cwd: '<%= yeoman.app %>/templates',
-          dest: '<%= yeoman.staging %>/templates',
-          src: ['**']
-        }]
-      }
     },
     concurrent: {
-      staging: [
-        'copy:staging',
-        'requirejs',
-        'less'
-      ]
-    },
-    wintersmith: {
-      build: {
-        options: {
-          config: {
-            contents: '<%= yeoman.staging %>/contents',
-            templates: '<%= yeoman.staging %>/templates',
-            plugins: ['wintersmith-handlebars'],
-            output: '<%= yeoman.dist %>'
-          }
-        }
-      },
-      preview: {
-        options: {
-          config: {
-            contents: '<%= yeoman.app %>/contents',
-            templates: '<%= yeoman.app %>/templates',
-            plugins: [
-              'wintersmith-less', 
-              'wintersmith-handlebars',
-              'wintersmith-livereload',
-              './<%= yeoman.app %>/plugins/open'
-            ],
-          },
-          action: 'preview'
-        }
-      }
+      dev: ['assemble','less'],
+      dist: ['assemble', 'less', 'requirejs']
     },
     requirejs: {
       dist: {
         options: {
           almond: true,
           wrap: true,
-          baseUrl: '<%= yeoman.app %>/contents/scripts',
+          baseUrl: '<%= yeoman.src %>/scripts',
           optimize: 'uglify',
           preserveLicenseComments: false,
           useStrict: true,
-          mainConfigFile: '<%= yeoman.app %>/contents/scripts/main.js',
-          out: '<%= yeoman.staging %>/contents/scripts/main.js',
+          mainConfigFile: '<%= yeoman.src %>/scripts/main.js',
+          out: '<%= yeoman.dist %>/scripts/main.js',
           name: 'main',
           replaceRequireScript: [{
-            files: ['<%= yeoman.staging %>/templates/index.html'],
+            files: ['<%= yeoman.dist %>/**/*.html'],
             module: 'main'
           }]
         }
       }
     },
     less: {
-      staging: {
+      dev: {
         options: {
-          paths: ['<%= yeoman.app %>/contents/styles']
+          paths: ['<%= yeoman.src %>/styles']
         },
         files: {
-          '.tmp/styles/main.css': '<%= yeoman.app %>/contents/styles/main.less'
+          '.tmp/styles/main.css': '<%= yeoman.src %>/styles/main.less'
+        }
+      }
+    },
+    assemble: {
+      options: {
+        partials: '<%= yeoman.src %>/partials/*.hbs',
+        data: '<%= yeoman.src %>/data/*.{json,yml}',
+        layoutdir: '<%= yeoman.src %>/templates/layouts',
+        layout: 'default.hbs',
+        flatten: true
+      },
+      index: {
+        files: {
+          '<%= yeoman.dist %>/': ['<%= yeoman.tmpl %>/pages/index.hbs']
         }
       }
     }
@@ -241,7 +234,10 @@ module.exports = function (grunt) {
     }
 
     grunt.task.run([
-      'wintersmith:preview'
+      'clean',
+      'concurrent:dev',
+      'connect:livereload',
+      'watch'
     ]);
   });
 
@@ -249,11 +245,10 @@ module.exports = function (grunt) {
     'clean',
     'setup',
     'useminPrepare',
-    'concurrent:staging',
+    'concurrent:dist',
     'concat',
     'cssmin',
-    'usemin',
-    'wintersmith:build'
+    'usemin'
     //'autoprefixer',
     //'rev',
   ]);
@@ -314,4 +309,6 @@ module.exports = function (grunt) {
     grunt.log.write('Github Page deploy completed.\n');
     sh.cd(pwd);
   });
+
+  grunt.loadNpmTasks('assemble');
 };

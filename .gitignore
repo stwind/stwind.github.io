@@ -1,7 +1,6 @@
 node_modules
 dist
-staging
 .tmp
 .sass-cache
-app/contents/bower_components
+src/bower_components
 doc/*.ai
