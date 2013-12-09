@@ -1,0 +1,11 @@
+{
+  "sections": [{
+    "name": "photos"
+  },{
+    "name": "code"
+  },{
+    "name": "posts"
+  },{
+    "name": "about"
+  }]
+}

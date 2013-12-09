@@ -28,7 +28,9 @@
     "assemble": "~0.4.32",
     "connect-livereload": "~0.3.0",
     "grunt-contrib-watch": "~0.5.3",
-    "grunt-newer": "~0.6.0"
+    "grunt-newer": "~0.6.0",
+    "handlebars-helpers": "~0.4.2",
+    "lodash": "~2.4.1"
   },
   "engines": {
     "node": ">=0.8.0"

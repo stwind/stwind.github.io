@@ -1,16 +1,11 @@
 // Generated on 2013-12-03 using generator-webapp 0.4.4
 'use strict';
 
-// # Globbing
-// for performance reasons we're only matching one level down:
-// 'test/spec/{,*/}*.js'
-// use this if you want to recursively match all subfolders:
-// 'test/spec/**/*.js'
-
 var path = require('path'),
     sh = require('shelljs'),
     moment = require('moment'),
-    util = require('./lib/util');
+    util = require('./lib/util'),
+    _ = require('lodash');
 
 var LIVERELOAD_PORT = 35729;
 
@@ -26,6 +21,25 @@ module.exports = function (grunt) {
     tmpl: 'src/templates'
   };
 
+  var pageHbs = function(name) {
+    return path.join('pages', name) + '.hbs';
+  };
+
+  var pageFiles = function(src) {
+    return [{
+      expand: true,
+      cwd: '<%= yeoman.tmpl %>',
+      src: _.isArray(src) ? _.map(src, pageHbs) : src,
+      dest: '<%= yeoman.dist %>/',
+      flatten: true,
+      rename: function(dest, src) {
+        return path.join(yeomanConfig.dist, path.basename(src, '.hbs'), 'index');
+      }
+    }];
+  };
+
+  var config = grunt.file.readJSON('src/data/data.json');
+
   // show elapsed time at the end
   require('time-grunt')(grunt);
   // load all grunt tasks
@@ -37,7 +51,7 @@ module.exports = function (grunt) {
     watch: {
       assemble: {
         files: [
-          '<%= yeoman.tmpl %>/pages/**/*.hbs', 
+          '<%= yeoman.tmpl %>/**/*.hbs', 
           '<%= assemble.options.data %>'
         ],
         tasks: ['assemble']
@@ -167,16 +181,23 @@ module.exports = function (grunt) {
       }
     },
     htmlmin: {
+      options: {
+        //collapseWhitespace: true
+        //collapseBooleanAttributes: true,
+        //removeAttributeQuotes: true,
+        //removeRedundantAttributes: true,
+        //useShortDoctype: true,
+        //removeOptionalTags: true
+      },
       dist: {
         files: [{
           expand: true,
-          cwd: '<%= yeoman.app %>',
-          src: '*.html',
+          cwd: '<%= yeoman.dist %>',
+          src: '**/*.html',
           dest: '<%= yeoman.dist %>'
         }]
       }
     },
-    // Put files not handled in other tasks here
     copy: {
     },
     concurrent: {
@@ -214,9 +235,11 @@ module.exports = function (grunt) {
     },
     assemble: {
       options: {
-        partials: '<%= yeoman.src %>/partials/*.hbs',
+        partials: '<%= yeoman.tmpl %>/partials/*.hbs',
         data: '<%= yeoman.src %>/data/*.{json,yml}',
-        layoutdir: '<%= yeoman.src %>/templates/layouts',
+        layoutdir: '<%= yeoman.tmpl %>/layouts',
+        plugins: ['<%= yeoman.src %>/plugins/**/*.js'],
+        helpers: ['<%= yeoman.src %>/helpers/*.js', 'handlebars-helpers'],
         layout: 'default.hbs',
         flatten: true
       },
@@ -224,6 +247,9 @@ module.exports = function (grunt) {
         files: {
           '<%= yeoman.dist %>/': ['<%= yeoman.tmpl %>/pages/index.hbs']
         }
+      },
+      sections: {
+        files: pageFiles(_.pluck(config.sections, 'name'))
       }
     }
   });
@@ -235,6 +261,7 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean',
+      'setup',
       'concurrent:dev',
       'connect:livereload',
       'watch'
@@ -248,6 +275,7 @@ module.exports = function (grunt) {
     'concurrent:dist',
     'concat',
     'cssmin',
+    'htmlmin',
     'usemin'
     //'autoprefixer',
     //'rev',
@@ -311,4 +339,8 @@ module.exports = function (grunt) {
   });
 
   grunt.loadNpmTasks('assemble');
+
+  grunt.registerTask('fuck', function() {
+    console.log(grunt.config(['assemble','sections','files']));
+  });
 };

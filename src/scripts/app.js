@@ -1,9 +1,19 @@
 define([
-  'jquery'
-], function ($) {
+  'router',
+  'models/main',
+  'views/main'
+], function (Router, Model, View) {
   'use strict';
 
   return { 
-    name: 'antagonista'
+    start: function(opts) {
+      var app = {};
+
+      var model = app.model = new Model();
+      app.view = new View({ model: model });
+      app.router = new Router({ model: model });
+
+      return app;
+    }
   };
 });

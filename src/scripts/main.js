@@ -3,8 +3,7 @@ require.config({
     jquery: '../bower_components/jquery/jquery',
     backbone: '../bower_components/backbone/backbone',
     'backbone.layoutmanager': '../bower_components/layoutmanager/backbone.layoutmanager',
-    underscore: '../bower_components/underscore/underscore',
-    handlebars: '../bower_components/handlebars/handlebars.runtime'
+    underscore: '../bower_components/underscore/underscore'
   },
   shim: {
     underscore: { exports: '_' },
@@ -16,9 +15,9 @@ require.config({
   deps: []
 });
 
-require(['app','jquery'], function (App, $) {
+require(['app'], function (App) {
     'use strict';
 
-    console.log('jquery', $);
-    console.log('app', App);
+    window.app = App.start({ });
+    console.log('app started');
 });
