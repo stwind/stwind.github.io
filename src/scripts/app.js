@@ -10,7 +10,7 @@ define([
       var app = {};
 
       var model = app.model = new Model();
-      app.view = new View({ model: model });
+      app.view = new View({ model: model, el: opts.mainEl });
       app.router = new Router({ model: model });
 
       return app;

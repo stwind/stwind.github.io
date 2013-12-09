@@ -12,12 +12,14 @@ require.config({
       exports: 'Backbone'
     },
   },
-  deps: []
+  deps: ['lib/backbone.layout']
 });
 
 require(['app'], function (App) {
     'use strict';
 
-    window.app = App.start({ });
+    window.app = App.start({
+      mainEl: '#main'
+    });
     console.log('app started');
 });

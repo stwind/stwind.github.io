@@ -1,5 +1,3 @@
-<ul>
-    {{#each sections}}
-    <li><a href="/{{name}}">_{{name}}</a></li>
-    {{/each}}
-</ul>
+{{#ul sections}}
+<a class="{{#is ../section name}}active{{/is}}" href="/{{name}}">_{{name}}</a>
+{{/ul}}
