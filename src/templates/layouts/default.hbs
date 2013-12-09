@@ -10,7 +10,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-        <!-- build:css({src,.tmp}) styles/main.css -->
+        <!-- build:css({src,.tmp}) /styles/main.css -->
         <link rel="stylesheet" href="/bower_components/normalize-css/normalize.css">
         <link rel="stylesheet" href="/styles/main.css">
         <!-- endbuild -->
@@ -19,9 +19,15 @@
         <!--[if lt IE 10]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-        {{> logo}}
-        {{> nav}}
-        {{> body}}
+        <div id="main" class="grid">
+            <div class="nav grid-item two-twelfths">
+                <div class="grid">
+                    <div class="logo grid-item one-whole">{{> logo}}</div>
+                    <div class="menu grid-item one-whole">{{> menu}}</div>
+                </div>
+            </div>
+            <div class="content grid-item">{{> body}}</div>
+        </div>
         <script data-main="/scripts/main" src="/bower_components/requirejs/require.js"></script>
 </body>
 </html>
