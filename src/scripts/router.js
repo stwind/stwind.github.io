@@ -6,6 +6,8 @@ define([
     var section = page.section,
         parts = ['', section];
 
+    if (section == 'home')  parts.pop(); 
+
     if (section == 'photos') {
       if (page.album) {
         parts.push(page.album);
