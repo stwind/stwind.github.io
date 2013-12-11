@@ -9,6 +9,7 @@ define([
       this.section = href.substr(1, href.length - 1);
 
       this.listenTo(this.model, 'change:page', this._pageChanged);
+      this._pageChanged();
     },
 
     events: {

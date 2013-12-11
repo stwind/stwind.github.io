@@ -27,11 +27,8 @@ define([
 
     changePage: function(page) {
       var self = this,
-          model = this.mode;
-
-      var Page = Pages[viewOf(page)];
-
-      var view = new Page({ model: model });
+          Page = Pages[viewOf(page)],
+          view = new Page({ model: this.model });
 
       view.render().promise().then(function() {
         self.setView(view);
