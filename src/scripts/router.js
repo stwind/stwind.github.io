@@ -1,6 +1,7 @@
 define([
-  'backbone'
-], function(Backbone) {
+  'backbone',
+  'log'
+], function(Backbone, Log) {
 
   var pageUrl = function(page) {
     var section = page.section,
@@ -43,17 +44,17 @@ define([
 
     home: function() {
       this.model.setPage({ section: 'home' });
-      console.log('route home');
+      Log.debug('route home');
     },
 
     photos: function() {
       this.model.setPage({ section: 'photos' });
-      console.log('route photos');
+      Log.debug('route photos');
     },
 
     album: function(album) {
       this.model.setPage({ section: 'photos', album: album });
-      console.log('route album', album);
+      Log.debug('route album', album);
     },
 
     photo: function(album, photo) {
@@ -61,22 +62,22 @@ define([
         section: 'photos',
         album: album, photo: photo
       });
-      console.log('route album', album, 'photo', photo);
+      Log.debug('route album', album, 'photo', photo);
     },
 
     code: function() {
       this.model.setPage({ section: 'code' });
-      console.log('route code');
+      Log.debug('route code');
     },
 
     posts: function() {
       this.model.setPage({ section: 'posts' });
-      console.log('route posts');
+      Log.debug('route posts');
     },
 
     about: function() {
       this.model.setPage({ section: 'about' });
-      console.log('route about');
+      Log.debug('route about');
     }
 
   });

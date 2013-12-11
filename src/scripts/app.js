@@ -1,12 +1,15 @@
 define([
   'router',
   'models/main',
-  'views/main'
-], function (Router, Model, View) {
+  'views/main',
+  'log'
+], function (Router, Model, View, Log) {
   'use strict';
 
   return { 
     start: function(opts) {
+      Log.setLevel(opts.logLevel);
+
       var app = {};
 
       var model = app.model = new Model();
