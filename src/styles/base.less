@@ -1,7 +1,6 @@
 body {
     background: @bgcolor;
-    font-family: "Andale Mono", AndaleMono, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    /*font-family: "Andale Mono", AndaleMono, monospace;*/
+    font-family: @font-text;
     color: #333;
     padding: 40px;
     font-size: 14px;
@@ -27,6 +26,7 @@ a {
     a {
         padding: 0 4px;
         font-size: 18px;
+        font-family: @font-mono;
         background: #ffffff;
     }
 }
@@ -37,6 +37,7 @@ a {
     }
 
     a {
+        font-family: @font-mono;
         padding: 0 4px;
         background: #ffffff;
         width: 60px;
