@@ -29,7 +29,7 @@ module.exports = function (grunt) {
     return [{
       expand: true,
       cwd: '<%= yeoman.tmpl %>',
-      src: _.isArray(src) ? _.map(src, pageHbs) : src,
+      src: _.isArray(src) ? _.map(src, pageHbs) : pageHbs(src),
       dest: '<%= yeoman.dist %>/',
       flatten: true,
       rename: function(dest, src) {
@@ -243,7 +243,7 @@ module.exports = function (grunt) {
         layout: 'default.hbs',
         flatten: true
       },
-      index: {
+      home: {
         files: {
           '<%= yeoman.dist %>/': ['<%= yeoman.tmpl %>/pages/index.hbs']
         }

@@ -12,7 +12,7 @@ require.config({
       exports: 'Backbone'
     },
   },
-  deps: ['lib/backbone.layout']
+  deps: ['lib/backbone.layout', 'lib/backbone.page']
 });
 
 require(['app'], function (App) {
