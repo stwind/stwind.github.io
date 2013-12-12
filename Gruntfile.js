@@ -60,6 +60,10 @@ module.exports = function (grunt) {
         files: ['<%= yeoman.src %>/styles/*.less'],
         tasks: ['less']
       },
+      handlebars: {
+        files: ['<%= yeoman.src %>/scripts/templates**/*.hbs'],
+        tasks: ['handlebars']
+      },
       livereload: {
         options: {
           livereload: LIVERELOAD_PORT
@@ -201,14 +205,14 @@ module.exports = function (grunt) {
     copy: {
     },
     concurrent: {
-      dev: ['assemble','less'],
+      dev: ['assemble','less', 'handlebars'],
       dist: ['assemble', 'less', 'requirejs']
     },
     requirejs: {
       dist: {
         options: {
           almond: true,
-          wrap: true,
+          wrap: false, // not wrap for handlebars
           baseUrl: '<%= yeoman.src %>/scripts',
           optimize: 'uglify',
           preserveLicenseComments: false,
@@ -216,6 +220,9 @@ module.exports = function (grunt) {
           mainConfigFile: '<%= yeoman.src %>/scripts/main.js',
           out: '<%= yeoman.dist %>/scripts/main.js',
           name: 'main',
+          paths: {
+            templates: '../../.tmp/scripts/templates'
+          },
           replaceRequireScript: [{
             files: ['<%= yeoman.dist %>/**/*.html'],
             module: 'main'
@@ -230,6 +237,25 @@ module.exports = function (grunt) {
         },
         files: {
           '.tmp/styles/main.css': '<%= yeoman.src %>/styles/main.less'
+        }
+      }
+    },
+    handlebars: {
+      compile: {
+        options: {
+          amd: true,
+          processName: function (filename) {
+            var tmplPath = yeomanConfig.src + '/scripts/templates/';
+            return filename.replace(tmplPath, '').replace('.hbs', '');
+          },
+          processContent: function (content) {
+            return content.replace(/^[\s\r\n]+/, '').replace(/[\s\r\n]*$/, '');
+          }
+        },
+        files: {
+          '.tmp/scripts/templates.js': [
+            '<%= yeoman.src %>/scripts/templates**/*.hbs'
+          ]
         }
       }
     },
@@ -272,6 +298,7 @@ module.exports = function (grunt) {
     'clean',
     'setup',
     'useminPrepare',
+    'handlebars',
     'concurrent:dist',
     'concat',
     'cssmin',

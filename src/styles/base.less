@@ -1,7 +1,7 @@
 body {
     background: @bgcolor;
     font-family: @font-text;
-    color: @font-color;
+    color: @text-color;
     padding: 40px;
     font-size: 14px;
 }
@@ -36,6 +36,7 @@ a {
         margin-bottom: 2px;
     }
 
+
     a {
         font-family: @font-mono;
         padding: 0 4px;
@@ -48,4 +49,62 @@ a {
             color: #ffffff;
         }
     }
+}
+
+@-webkit-keyframes 'blink2' {
+    0% { opacity: 0 }
+    19% { opacity: 0 }
+    20% { opacity: 1 }
+    60% { opacity: 1 }
+    79% { opacity: 1 }
+    80% { opacity: 0 }
+    100% { opacity: 0 }
+}
+
+@-webkit-keyframes 'blink3' {
+    0% { opacity: 0 }
+    20% { opacity: 0 }
+    39% { opacity: 0 }
+    40% { opacity: 1 }
+    59% { opacity: 1 }
+    60% { opacity: 0 }
+    100% { opacity: 0 }
+}
+
+.ani-blink (@blink) {
+    -webkit-animation-direction: alternate;
+    -webkit-animation-duration: 400ms;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-name: @blink;
+}
+
+.loading {
+    position: fixed;
+    top: 41%;
+    left: 45%;
+
+    .block {
+        background: @text-color;
+        height: 8px;
+        width: 8px;
+        float: left;
+        margin-left: 3px;
+    }
+
+    .block-2 {
+        opacity: 0;
+        .ani-blink(blink2);
+    }
+
+    .block-3 {
+        opacity: 0;
+        .ani-blink(blink3);
+    }
+}
+
+.content {
+    position: fixed;
+    top: 40%;
+    left: 43%;
+    font-weight: bold;
 }

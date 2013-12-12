@@ -1,14 +1,15 @@
 define([
   'backbone',
+  'templates',
   'backbone.layoutmanager'
-], function(Backbone) {
+], function(Backbone, JST) {
 
   Backbone.Layout.configure({
-    manage: true
+    manage: true,
 
-    //fetchTemplate: function(tmpl) {
-      //return JST[tmpl];
-    //}
+    fetchTemplate: function(tmpl) {
+      return JST[tmpl];
+    }
   });
 
 });

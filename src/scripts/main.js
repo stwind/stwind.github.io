@@ -4,7 +4,8 @@ require.config({
     backbone: '../bower_components/backbone/backbone',
     'backbone.layoutmanager': '../bower_components/layoutmanager/backbone.layoutmanager',
     underscore: '../bower_components/underscore/underscore',
-    log: '../bower_components/loglevel/dist/loglevel'
+    log: '../bower_components/loglevel/dist/loglevel',
+    handlebars: '../bower_components/handlebars/handlebars.runtime'
   },
   shim: {
     underscore: { exports: '_' },
@@ -12,6 +13,7 @@ require.config({
       deps: ['underscore', 'jquery'],
       exports: 'Backbone'
     },
+    handlebars: { exports: 'Handlebars' }
   },
   deps: ['lib/backbone.layout', 'lib/backbone.page']
 });

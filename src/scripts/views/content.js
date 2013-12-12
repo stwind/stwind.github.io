@@ -1,7 +1,8 @@
 define([
   'backbone',
+  './loading',
   './pages'
-], function(Backbone, Pages) {
+], function(Backbone, Loading, Pages) {
 
   var viewOf = function(page) {
     if (page.photo) return 'photo';
@@ -26,13 +27,26 @@ define([
     },
 
     changePage: function(page) {
-      var self = this,
-          Page = Pages[viewOf(page)],
+      var self = this;
+
+      var Page = Pages[viewOf(page)],
           view = new Page({ model: this.model });
+
+      self.loading();
 
       view.render().promise().then(function() {
         self.setView(view);
       });
+
+      return this;
+    },
+
+    loading: function() {
+      var loading = new Loading({ model: this.model });
+
+      this.setView(loading).render();
+
+      return this;
     }
 
   });
