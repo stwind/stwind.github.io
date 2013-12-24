@@ -17,36 +17,40 @@ a {
     text-decoration: none;
 }
 
-.grid-line {
+.grid-row {
     height: 80px;
     padding: 10px;
 }
 
-.logo {
-    a {
-        padding: 0 4px;
-        font-size: 18px;
-        font-family: @font-mono;
-        background: #ffffff;
-    }
-}
+.nav {
+    position: fixed;
 
-.menu {
-    li {
-        margin-bottom: 2px;
+    .logo {
+        a {
+            padding: 0 4px;
+            font-size: 18px;
+            font-family: @font-mono;
+            background: #ffffff;
+        }
     }
 
+    .menu {
+        li {
+            margin-bottom: 2px;
+        }
 
-    a {
-        font-family: @font-mono;
-        padding: 0 4px;
-        background: #ffffff;
-        width: 60px;
-        display: block;
 
-        &.active {
-            background: #333333;
-            color: #ffffff;
+        a {
+            font-family: @font-mono;
+            padding: 0 4px;
+            background: #ffffff;
+            width: 60px;
+            display: block;
+
+            &.active {
+                background: #333333;
+                color: #ffffff;
+            }
         }
     }
 }

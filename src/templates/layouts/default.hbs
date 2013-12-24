@@ -20,14 +20,12 @@
         <!--[if lt IE 10]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-        <div id="main" class="grid">
-            <div class="nav grid-item two-twelfths">
-                <div class="grid">
-                    <div class="logo grid-item one-whole grid-line">{{> logo}}</div>
-                    <div class="menu grid-item one-whole grid-line">{{> menu}}</div>
-                </div>
+        <div id="main">
+            <div class="nav two-twelfths grid">
+                <div class="logo grid-item one-whole grid-row">{{> logo}}</div>
+                <div class="menu grid-item one-whole grid-row">{{> menu}}</div>
             </div>
-            <div class="content grid-item">{{> body}}</div>
+            <div class="content">{{> body}}</div>
         </div>
         <script data-main="/scripts/main" src="/bower_components/requirejs/require.js"></script>
 </body>
