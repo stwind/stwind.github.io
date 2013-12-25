@@ -366,8 +366,4 @@ module.exports = function (grunt) {
   });
 
   grunt.loadNpmTasks('assemble');
-
-  grunt.registerTask('fuck', function() {
-    console.log(grunt.config(['assemble','sections','files']));
-  });
 };

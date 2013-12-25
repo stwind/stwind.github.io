@@ -106,9 +106,27 @@ a {
     }
 }
 
-.content {
-    position: fixed;
-    top: 40%;
-    left: 43%;
+/*http://coding.smashingmagazine.com/2013/08/09/absolute-horizontal-vertical-centering-css/*/
+.abs-center-container {
+    position: relative;
+}
+
+.abs-center {
+    bottom: 0;
+    left: 0;
+    top: 0;
+    right: 0;
+    margin: auto;
+    position: absolute;
+
+    &.fixed {
+        position: fixed;
+        z-index: 999;
+    }
+}
+
+.fly {
+    height: 100px;
+    width: 150px;
     font-weight: bold;
 }
