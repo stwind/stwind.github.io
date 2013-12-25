@@ -6,7 +6,7 @@ define([
 
     template: 'loading',
 
-    className: 'loading'
+    className: 'loading abs-center'
 
   });
 
