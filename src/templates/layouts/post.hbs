@@ -1,15 +1,12 @@
 ---
-section: posts
 layout: grid-4-7.hbs
 ---
-{{#each posts}}
 <article class="post">
     <header>
         <h1 class="post-title"><a href="/posts/{{name}}">{{title}}</a></h1>
         <div class="pubdate">{{formatDate time "%b %d, %Y"}}</div>
     </header>
-    {{#markdown}}
-    {{text}}
-    {{/markdown}}
+{{#markdown}}
+{{> body}}
+{{/markdown}}
 </article>
-{{/each}}

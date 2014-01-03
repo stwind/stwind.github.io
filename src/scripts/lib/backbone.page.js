@@ -18,7 +18,9 @@ define([
 
     renderTemplate: function(template) {
       return template;
-    }
+    },
+
+    noel: true
 
   });
 

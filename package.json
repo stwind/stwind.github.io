@@ -31,7 +31,8 @@
     "grunt-newer": "~0.6.0",
     "handlebars-helpers": "~0.4.2",
     "lodash": "~2.4.1",
-    "grunt-contrib-handlebars": "~0.6.0"
+    "grunt-contrib-handlebars": "~0.6.0",
+    "assemble-yaml": "~0.2.1"
   },
   "engines": {
     "node": ">=0.8.0"

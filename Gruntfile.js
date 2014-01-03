@@ -2,9 +2,9 @@
 'use strict';
 
 var path = require('path'),
+    fs = require('fs'),
     sh = require('shelljs'),
     moment = require('moment'),
-    util = require('./lib/util'),
     _ = require('lodash');
 
 var LIVERELOAD_PORT = 35729;
@@ -18,27 +18,9 @@ module.exports = function (grunt) {
   var yeomanConfig = {
     src: 'src',
     dist: 'dist',
-    tmpl: 'src/templates'
+    tmpl: 'src/templates',
+    data: 'src/data'
   };
-
-  var pageHbs = function(name) {
-    return path.join('pages', name) + '.hbs';
-  };
-
-  var pageFiles = function(src) {
-    return [{
-      expand: true,
-      cwd: '<%= yeoman.tmpl %>',
-      src: _.isArray(src) ? _.map(src, pageHbs) : pageHbs(src),
-      dest: '<%= yeoman.dist %>/',
-      flatten: true,
-      rename: function(dest, src) {
-        return path.join(yeomanConfig.dist, path.basename(src, '.hbs'), 'index');
-      }
-    }];
-  };
-
-  var config = grunt.file.readJSON('src/data/data.json');
 
   // show elapsed time at the end
   require('time-grunt')(grunt);
@@ -262,7 +244,7 @@ module.exports = function (grunt) {
     assemble: {
       options: {
         partials: '<%= yeoman.tmpl %>/partials/*.hbs',
-        data: '<%= yeoman.src %>/data/*.{json,yml}',
+        data: '<%= yeoman.data %>/*.{json,yml}',
         layoutdir: '<%= yeoman.tmpl %>/layouts',
         plugins: ['<%= yeoman.src %>/plugins/**/*.js'],
         helpers: ['<%= yeoman.src %>/helpers/*.js', 'handlebars-helpers'],
@@ -275,7 +257,27 @@ module.exports = function (grunt) {
         }
       },
       sections: {
-        files: pageFiles(_.pluck(config.sections, 'name'))
+        files: [{
+          expand: true,
+          cwd: '<%= yeoman.tmpl %>/pages',
+          src: ['*.hbs', '!index.hbs'],
+          dest: '<%= yeoman.dist %>',
+          flatten: true,
+          ext: '/index'
+        }]
+      },
+      posts: {
+        options: {
+          layout: "post.hbs",
+        },
+        files: [{
+          expand: true,
+          cwd: '<%= yeoman.data %>/posts',
+          src: '*.md',
+          dest: '<%= yeoman.dist %>/posts',
+          flatten: true,
+          ext: '/index'
+        }]
       }
     }
   });
@@ -316,8 +318,6 @@ module.exports = function (grunt) {
     var dist = yeomanConfig.dist,
         pwd = process.cwd();
 
-    var done = this.async();
-
     function getRemoteUrl() {
       var cmd = 'git config --get remote.origin.url';
       return sh.exec(cmd, { silent: true }).output.trim();
@@ -335,15 +335,9 @@ module.exports = function (grunt) {
       sh.cd(pwd);
     }
 
-    if (force) {
-      sh.rm('-rf', dist);
-      setup();
-    }
+    if (force) sh.rm('-rf', dist);
 
-    util.isDir(dist + '/.git', function(error, val) {
-      if (!val) setup();
-      done();
-    });
+    if (!grunt.file.isDir(dist + '/.git')) setup();
 
   });
 
@@ -357,12 +351,31 @@ module.exports = function (grunt) {
     sh.cd(dist);
     sh.exec('git pull');
     sh.exec('git add -A');
-    grunt.log.write('Committing: ' + msg + '\n');
+    grunt.log.writeln('Committing: ' + msg);
     sh.exec('git commit -m ' + msg);
-    grunt.log.write('Pushing: ' + msg) + '\n';
+    grunt.log.writeln('Pushing: ' + msg);
     sh.exec('git push origin master');
-    grunt.log.write('Github Page deploy completed.\n');
+    grunt.log.writeln('Github Page deploy completed.');
     sh.cd(pwd);
+  });
+
+  grunt.registerTask('new-post', function() {
+    var title = grunt.option('title') || 'untitled post';
+    var context = {
+      title: title,
+      time: moment().local().format()
+    };
+    var template = "---\n" +
+    "title: <%= title %>\n" + 
+    "time: <%= time %>\n" +
+    "---\n";
+
+    var filename = title.replace(/ /gi, '_').toLowerCase(),
+        target = yeomanConfig.data + '/posts/' + filename + '.md';
+
+    grunt.log.write('Writing file:', target.cyan);
+    grunt.file.write(target, grunt.template.process(template, {data: context}));
+    grunt.log.write(' OK'.green);
   });
 
   grunt.loadNpmTasks('assemble');
