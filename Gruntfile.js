@@ -42,6 +42,10 @@ module.exports = function (grunt) {
         files: ['<%= yeoman.src %>/styles/*.less'],
         tasks: ['less']
       },
+      css: {
+        files: ['<%= yeoman.src %>/styles/*.css'],
+        tasks: ['copy']
+      },
       handlebars: {
         files: ['<%= yeoman.src %>/scripts/templates**/*.hbs'],
         tasks: ['handlebars']
@@ -185,10 +189,18 @@ module.exports = function (grunt) {
       }
     },
     copy: {
+      css: {
+        files: [{
+          expand: true, 
+          src: ['<%= yeoman.src %>/styles/*.css'], 
+          dest: '<%= yeoman.dist %>/styles',
+          flatten: true
+        }]
+      }
     },
     concurrent: {
-      dev: ['assemble','less', 'handlebars'],
-      dist: ['assemble', 'less', 'requirejs']
+      dev: ['assemble', 'copy','less', 'handlebars'],
+      dist: ['assemble', 'copy', 'less', 'requirejs']
     },
     requirejs: {
       dist: {
@@ -249,7 +261,10 @@ module.exports = function (grunt) {
         plugins: ['<%= yeoman.src %>/plugins/**/*.js'],
         helpers: ['<%= yeoman.src %>/helpers/*.js', 'handlebars-helpers'],
         layout: 'default.hbs',
-        flatten: true
+        flatten: true,
+        marked: {
+          breaks: true
+        }
       },
       home: {
         files: {
@@ -370,7 +385,7 @@ module.exports = function (grunt) {
     "time: <%= time %>\n" +
     "---\n";
 
-    var filename = title.replace(/ /gi, '_').toLowerCase(),
+    var filename = title.replace(/ /gi, '-').toLowerCase(),
         target = yeomanConfig.data + '/posts/' + filename + '.md';
 
     grunt.log.write('Writing file:', target.cyan);

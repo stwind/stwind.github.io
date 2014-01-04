@@ -6,10 +6,13 @@ body {
     font-size: 14px;
 }
 
-ul {
-    list-style: none;
+ul, ol {
     padding: 0;
     margin: 0;
+}
+
+ul {
+    list-style: none;
 }
 
 a {
@@ -144,15 +147,80 @@ a {
 .post {
     font-size: 12px;
 
-    h1, h2 {
+    h1, h2, h3, h4, h5, h6 {
         font-family: @font-header;
     }
 
     h1 {
-        margin-bottom: 0.1em;
+        margin: 0.3em 0 0.1em;
+    }
+
+    a {
+        border-bottom: 1px solid #424242;
+    }
+
+    .post-title a{
+        border-bottom: 0;
     }
 
     .pubdate {
         color: #b5b5b5;
+    }
+
+    pre {
+        padding: 6px 10px;
+    }
+
+    pre, code {
+        font-family: @font-mono;
+        background: #ffffff;
+    }
+
+    p code, table code {
+        padding: 1px 3px;
+    }
+
+    ol, ul {
+        padding-left: 1.5em;
+    }
+    
+    ul {
+        list-style: disc;
+    }
+
+    table {
+        width: 100%;
+        overflow: auto;
+        display: block;
+
+        tr {
+            border-top: 1px solid #ccc;
+            background: #ffffff;
+        }
+        
+        th, td {
+            border: 1px solid #ccc;
+            padding: 3px 6px;
+        }
+    }
+
+    blockquote {
+        border-left: 4px solid #ccc;
+        padding: 0 15px;
+        margin: 0;
+        color: #666666;
+    }
+
+    dl { 
+        dt {
+            font-weight: bold;
+            font-style: italic;
+            padding: 0;
+        }
+
+        dd {
+            margin: 0;
+            padding: 0 15px;
+        }
     }
 }
