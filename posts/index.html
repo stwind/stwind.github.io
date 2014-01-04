@@ -6,9 +6,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-        <!--<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,700' rel='stylesheet' type='text/css'>-->
-        <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700" rel="stylesheet" type="text/css">
-        <!--<link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>-->
+        <link href="http://fonts.googleapis.com/css?family=Ubuntu+Mono|Open+Sans:400,700|Open+Sans+Condensed:700" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="/styles/main.css"/>
     </head>
     <body>
@@ -34,7 +32,282 @@
 </div>
             </div>
             <div class="content">
-<div class="abs-center fly">Coming soon...</div>
+<div class="grid">
+    <div class="grid-item four-twelfths"></div>
+    <div class="grid-item seven-twelfths">
+
+<article class="post">
+    <header>
+        <h1 class="post-title"><a href="/posts/hello-world">Hello World</a></h1>
+        <div class="pubdate">03 Jan 2014</div>
+    </header>
+    <p>This is intended as a quick reference and showcase. For more complete info, see <a href="http://daringfireball.net/projects/markdown/">John Gruber's original spec</a> and the <a href="http://github.github.com/github-flavored-markdown/">Github-flavored Markdown info page</a>.</p>
+<p>Note that there is also a <a href="./Markdown-Here-Cheatsheet">Cheatsheet specific to Markdown Here</a> if that's what you're looking for.</p>
+<p>You can play around with Markdown on our <a href="http://www.markdown-here.com/livedemo.html">live demo page</a>.</p>
+<h5 id="table-of-contents">Table of Contents</h5>
+<p><a href="#headers">Headers</a><br><a href="#emphasis">Emphasis</a><br><a href="#lists">Lists</a><br><a href="#links">Links</a><br><a href="#images">Images</a><br><a href="#code">Code and Syntax Highlighting</a><br><a href="#tables">Tables</a><br><a href="#blockquotes">Blockquotes</a><br><a href="#html">Inline HTML</a><br><a href="#hr">Horizontal Rule</a><br><a href="#lines">Line Breaks</a><br><a href="#videos">Youtube videos</a>  </p>
+<h2 id="headers">Headers</h2>
+<p>```no-highlight</p>
+<h1 id="h1">H1</h1>
+<h2 id="h2">H2</h2>
+<h3 id="h3">H3</h3>
+<h4 id="h4">H4</h4>
+<h5 id="h5">H5</h5>
+<h6 id="h6">H6</h6>
+<p>Alternatively, for H1 and H2, an underline-ish style:</p>
+<h1 id="alt-h1">Alt-H1</h1>
+<h2 id="alt-h2">Alt-H2</h2>
+<p>```</p>
+<h1 id="h1">H1</h1>
+<h2 id="h2">H2</h2>
+<h3 id="h3">H3</h3>
+<h4 id="h4">H4</h4>
+<h5 id="h5">H5</h5>
+<h6 id="h6">H6</h6>
+<p>Alternatively, for H1 and H2, an underline-ish style:</p>
+<h1 id="alt-h1">Alt-H1</h1>
+<h2 id="alt-h2">Alt-H2</h2>
+<h2 id="emphasis">Emphasis</h2>
+<p>```no-highlight<br>Emphasis, aka italics, with <em>asterisks</em> or <em>underscores</em>.</p>
+<p>Strong emphasis, aka bold, with <strong>asterisks</strong> or <strong>underscores</strong>.</p>
+<p>Combined emphasis with <strong>asterisks and <em>underscores</em></strong>.</p>
+<p>Strikethrough uses two tildes. <del>Scratch this.</del><br>```</p>
+<p>Emphasis, aka italics, with <em>asterisks</em> or <em>underscores</em>.</p>
+<p>Strong emphasis, aka bold, with <strong>asterisks</strong> or <strong>underscores</strong>.</p>
+<p>Combined emphasis with <strong>asterisks and <em>underscores</em></strong>.</p>
+<p>Strikethrough uses two tildes. <del>Scratch this.</del></p>
+<h2 id="lists">Lists</h2>
+<p>(In this example, leading and trailing spaces are shown with with dots: ⋅)</p>
+<p>```no-highlight</p>
+<ol>
+<li>First ordered list item</li>
+<li>Another item<br>⋅⋅* Unordered sub-list. </li>
+<li>Actual numbers don't matter, just that it's a number<br>⋅⋅1. Ordered sub-list</li>
+<li>And another item.</li>
+</ol>
+<p>⋅⋅⋅You can have properly indented paragraphs within list items. Notice the blank line above, and the leading spaces (at least one, but we'll use three here to also align the raw Markdown).</p>
+<p>⋅⋅⋅To have a line break without a paragraph, you will need to use two trailing spaces.⋅⋅<br>⋅⋅⋅Note that this line is separate, but within the same paragraph.⋅⋅<br>⋅⋅⋅(This is contrary to the typical GFM line break behaviour, where trailing spaces are not required.)</p>
+<ul>
+<li>Unordered list can use asterisks</li>
+</ul>
+<ul>
+<li>Or minuses</li>
+</ul>
+<ul>
+<li>Or pluses<br>```</li>
+</ul>
+<ol>
+<li>First ordered list item</li>
+<li>Another item<ul>
+<li>Unordered sub-list. </li>
+</ul>
+</li>
+<li>Actual numbers don't matter, just that it's a number<ol>
+<li>Ordered sub-list</li>
+</ol>
+</li>
+<li><p>And another item.</p>
+<p>You can have properly indented paragraphs within list items. Notice the blank line above, and the leading spaces (at least one, but we'll use three here to also align the raw Markdown).</p>
+<p>To have a line break without a paragraph, you will need to use two trailing spaces.<br>Note that this line is separate, but within the same paragraph.<br>(This is contrary to the typical GFM line break behaviour, where trailing spaces are not required.)</p>
+</li>
+</ol>
+<ul>
+<li>Unordered list can use asterisks</li>
+</ul>
+<ul>
+<li>Or minuses</li>
+</ul>
+<ul>
+<li>Or pluses</li>
+</ul>
+<h2 id="links">Links</h2>
+<p>There are two ways to create links.</p>
+<p>```no-highlight<br><a href="https://www.google.com">I'm an inline-style link</a></p>
+<p><a href="https://www.google.com &quot;Google's Homepage&quot;">I'm an inline-style link with title</a></p>
+<p><a href="https://www.mozilla.org">I'm a reference-style link</a></p>
+<p><a href="../blob/master/LICENSE">I'm a relative reference to a repository file</a></p>
+<p><a href="http://slashdot.org">You can use numbers for reference-style link definitions</a></p>
+<p>Or leave it empty and use the <a href="http://www.reddit.com">link text itself</a></p>
+<p>Some text to show that the reference links can follow later.</p>
+<p>```</p>
+<p><a href="https://www.google.com">I'm an inline-style link</a></p>
+<p><a href="https://www.google.com &quot;Google's Homepage&quot;">I'm an inline-style link with title</a></p>
+<p><a href="https://www.mozilla.org">I'm a reference-style link</a></p>
+<p><a href="../blob/master/LICENSE">I'm a relative reference to a repository file</a></p>
+<p><a href="http://slashdot.org">You can use numbers for reference-style link definitions</a></p>
+<p>Or leave it empty and use the <a href="http://www.reddit.com">link text itself</a></p>
+<p>Some text to show that the reference links can follow later.</p>
+<h2 id="images">Images</h2>
+<p>```no-highlight<br>Here's our logo (hover to see the title text):</p>
+<p>Inline-style:<br><img src="https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png &quot;Logo Title Text 1&quot;" alt="alt text"></p>
+<p>Reference-style:<br>![alt text][logo]</p>
+<p>[logo]: <a href="https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png">https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png</a> "Logo Title Text 2"<br>```</p>
+<p>Here's our logo (hover to see the title text):</p>
+<p>Inline-style:<br><img src="https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png &quot;Logo Title Text 1&quot;" alt="alt text"></p>
+<p>Reference-style:<br>![alt text][logo]</p>
+<p>[logo]: <a href="https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png">https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png</a> "Logo Title Text 2"</p>
+<h2 id="code-and-syntax-highlighting">Code and Syntax Highlighting</h2>
+<p>Code blocks are part of the Markdown spec, but syntax highlighting isn't. However, many renderers -- like Github's and <em>Markdown Here</em> -- support syntax highlighting. <em>Markdown Here</em> supports highlighting for dozens of languages (and not-really-languages, like diffs and HTTP headers); to see the complete list, and how to write the language names, see the <a href="http://softwaremaniacs.org/media/soft/highlight/test.html">highlight.js demo page</a>.</p>
+<p>```no-highlight<br>Inline `code` has `back-ticks around` it.<br>```</p>
+<p>Inline `code` has `back-ticks around` it.</p>
+<p>Blocks of code are either fenced by lines with three back-ticks &lt;code&gt;```&lt;/code&gt;, or are indented with four spaces. I recommend only using the fenced code blocks -- they're easier and only they support syntax highlighting.</p>
+<p>```erlang<br>-module(ssh_cli).</p>
+<p>-behaviour(ssh_channel).</p>
+<p>-include("ssh.hrl").<br>%% backwards compatibility<br>-export([listen/1, listen/2, listen/3, listen/4, stop/1]).</p>
+<p>%% state<br>-record(state, {<br>    cm,<br>    channel<br>   }).</p>
+<p>test(Foo)-&gt;Foo.</p>
+<p>init([Shell, Exec]) -&gt;<br>    {ok, #state{shell = Shell, exec = Exec}};<br>init([Shell]) -&gt;<br>    false = not true,<br>    io:format("Hello, \"~p!~n", [atom_to_list('World')]),<br>    {ok, #state{shell = Shell}}.</p>
+<p>concat([Single]) -&gt; Single;<br>concat(RList) -&gt;<br>    EpsilonFree = lists:filter(<br>        fun (Element) -&gt;<br>            case Element of<br>                epsilon -&gt; false;<br>                _ -&gt; true<br>            end<br>        end,<br>        RList),<br>    case EpsilonFree of<br>        [Single] -&gt; Single;<br>        Other -&gt; {concat, Other}<br>    end.</p>
+<p>union<em>dot_union({union, </em>}=U1, {union, _}=U2) -&gt;<br>    union(lists:flatten(<br>        lists:map(<br>            fun (X1) -&gt;<br>                lists:map(<br>                    fun (X2) -&gt;<br>                        concat([X1, X2])<br>                    end,<br>                    union_to_list(U2)<br>                )<br>            end,<br>            union_to_list(U1)<br>        ))).<br>```</p>
+<h2 id="tables">Tables</h2>
+<p>Tables aren't part of the core Markdown spec, but they are part of GFM and <em>Markdown Here</em> supports them. They are an easy way of adding tables to your email -- a task that would otherwise require copy-pasting from another application.</p>
+<p>```no-highlight<br>Colons can be used to align columns.</p>
+<table>
+<thead>
+<tr>
+<th>Tables</th>
+<th style="text-align:center">Are</th>
+<th style="text-align:right">Cool</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>col 3 is</td>
+<td style="text-align:center">right-aligned</td>
+<td style="text-align:right">$1600</td>
+</tr>
+<tr>
+<td>col 2 is</td>
+<td style="text-align:center">centered</td>
+<td style="text-align:right">$12</td>
+</tr>
+<tr>
+<td>zebra stripes</td>
+<td style="text-align:center">are neat</td>
+<td style="text-align:right">$1</td>
+</tr>
+</tbody>
+</table>
+<p>The outer pipes (|) are optional, and you don't need to make the raw Markdown line up prettily. You can also use inline Markdown.</p>
+<table>
+<thead>
+<tr>
+<th>Markdown</th>
+<th>Less</th>
+<th>Pretty</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>Still</em></td>
+<td>`renders`</td>
+<td><strong>nicely</strong></td>
+</tr>
+<tr>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+<p>```</p>
+<p>Colons can be used to align columns.</p>
+<table>
+<thead>
+<tr>
+<th>Tables</th>
+<th style="text-align:center">Are</th>
+<th style="text-align:right">Cool</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>col 3 is</td>
+<td style="text-align:center">right-aligned</td>
+<td style="text-align:right">$1600</td>
+</tr>
+<tr>
+<td>col 2 is</td>
+<td style="text-align:center">centered</td>
+<td style="text-align:right">$12</td>
+</tr>
+<tr>
+<td>zebra stripes</td>
+<td style="text-align:center">are neat</td>
+<td style="text-align:right">$1</td>
+</tr>
+</tbody>
+</table>
+<p>The outer pipes (|) are optional, and you don't need to make the raw Markdown line up prettily. You can also use inline Markdown.</p>
+<table>
+<thead>
+<tr>
+<th>Markdown</th>
+<th>Less</th>
+<th>Pretty</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>Still</em></td>
+<td>`renders`</td>
+<td><strong>nicely</strong></td>
+</tr>
+<tr>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+<h2 id="blockquotes">Blockquotes</h2>
+<p>```no-highlight<br>&gt; Blockquotes are very handy in email to emulate reply text.<br>&gt; This line is part of the same quote.</p>
+<p>Quote break.</p>
+<p>&gt; This is a very long line that will still be quoted properly when it wraps. Oh boy let's keep writing to make sure this is long enough to actually wrap for everyone. Oh, you can <em>put</em> <strong>Markdown</strong> into a blockquote.<br>```</p>
+<p>&gt; Blockquotes are very handy in email to emulate reply text.<br>&gt; This line is part of the same quote.</p>
+<p>Quote break.</p>
+<p>&gt; This is a very long line that will still be quoted properly when it wraps. Oh boy let's keep writing to make sure this is long enough to actually wrap for everyone. Oh, you can <em>put</em> <strong>Markdown</strong> into a blockquote. </p>
+<h2 id="inline-html">Inline HTML</h2>
+<p>You can also use raw HTML in your Markdown, and it'll mostly work pretty well. </p>
+<p>```no-highlight<br>&lt;dl&gt;<br>  &lt;dt&gt;Definition list&lt;/dt&gt;<br>  &lt;dd&gt;Is something people use sometimes.&lt;/dd&gt;</p>
+<p>  &lt;dt&gt;Markdown in HTML&lt;/dt&gt;<br>  &lt;dd&gt;Does <em>not</em> work <strong>very</strong> well. Use HTML &lt;em&gt;tags&lt;/em&gt;.&lt;/dd&gt;<br>&lt;/dl&gt;<br>```</p>
+<p>&lt;dl&gt;<br>  &lt;dt&gt;Definition list&lt;/dt&gt;<br>  &lt;dd&gt;Is something people use sometimes.&lt;/dd&gt;</p>
+<p>  &lt;dt&gt;Markdown in HTML&lt;/dt&gt;<br>  &lt;dd&gt;Does <em>not</em> work <strong>very</strong> well. Use HTML &lt;em&gt;tags&lt;/em&gt;.&lt;/dd&gt;<br>&lt;/dl&gt;</p>
+<h2 id="horizontal-rule">Horizontal Rule</h2>
+<p>```<br>Three or more...</p>
+<hr>
+<p>Hyphens</p>
+<hr>
+<p>Asterisks</p>
+<hr>
+<p>Underscores<br>```</p>
+<p>Three or more...</p>
+<hr>
+<p>Hyphens</p>
+<hr>
+<p>Asterisks</p>
+<hr>
+<p>Underscores</p>
+<h2 id="line-breaks">Line Breaks</h2>
+<p>My basic recommendation for learning how line breaks work is to experiment and discover -- hit &amp;lt;Enter&amp;gt; once (i.e., insert one newline), then hit it twice (i.e., insert two newlines), see what happens. You'll soon learn to get what you want. "Markdown Toggle" is your friend. </p>
+<p>Here are some things to try out:</p>
+<p>```<br>Here's a line for us to start with.</p>
+<p>This line is separated from the one above by two newlines, so it will be a <em>separate paragraph</em>.</p>
+<p>This line is also a separate paragraph, but...<br>This line is only separated by a single newline, so it's a separate line in the <em>same paragraph</em>.<br>```</p>
+<p>Here's a line for us to start with.</p>
+<p>This line is separated from the one above by two newlines, so it will be a <em>separate paragraph</em>.</p>
+<p>This line is also begins a separate paragraph, but...<br>This line is only separated by a single newline, so it's a separate line in the <em>same paragraph</em>.</p>
+<p>(Technical note: <em>Markdown Here</em> uses GFM line breaks, so there's no need to use MD's two-space line breaks.)</p>
+<h2 id="youtube-videos">Youtube videos</h2>
+<p>They can't be added directly but you can add an image with a link to the video like this:</p>
+<p>```no-highlight<br>&lt;a href="<a href="http://www.youtube.com/watch?feature=player_embedded&amp;v=YOUTUBE_VIDEO_ID_HERE">http://www.youtube.com/watch?feature=player_embedded&amp;v=YOUTUBE_VIDEO_ID_HERE</a><br>" target="_blank"&gt;&lt;img src="<a href="http://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg&amp;quot">http://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg&amp;quot</a>;<br>alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /&gt;&lt;/a&gt;<br>```</p>
+<p>Or, in pure Markdown, but losing the image sizing and border:</p>
+<p>```no-highlight<br><a href="http://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE"><img src="http://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg" alt="IMAGE ALT TEXT HERE"></a><br>```</p>
+
+</article>
+
+</div>
+</div>
 </div>
         </div>
         <script src="/scripts/main.js"></script>
