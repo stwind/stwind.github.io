@@ -5,8 +5,8 @@ layout: text.hbs
 <div class="posts">
     {{#each posts}}
     <article class="post">
-        <header class="grid-row">
-            <h1><a class="post-title" data-name="{{name}}" href="/{{../section}}/{{name}}">{{title}}</a></h1>
+        <header class="post-title">
+            <h1><a data-name="{{name}}" href="/{{../section}}/{{name}}">{{title}}</a></h1>
             <div class="pubdate">{{formatDate time "%d %b %Y"}}</div>
         </header>
         <div class="post-body">
