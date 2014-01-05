@@ -13,7 +13,7 @@ define([
 
     _clicked: function(e) {
       e.preventDefault();
-      var el = $(e.currentTarget);
+      var el = $(e.target);
       this.model.setPage({ section: 'blog', post: el.data('name') });
     }
 
