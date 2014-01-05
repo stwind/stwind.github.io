@@ -36,7 +36,7 @@ module.exports = function (grunt) {
           '<%= yeoman.tmpl %>/**/*.hbs', 
           '<%= assemble.options.data %>'
         ],
-        tasks: ['assemble']
+        tasks: ['assemble', 'htmlmin']
       },
       less: {
         files: ['<%= yeoman.src %>/styles/*.less'],
