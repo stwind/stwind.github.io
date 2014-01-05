@@ -208,7 +208,7 @@ module.exports = function (grunt) {
     },
     concurrent: {
       dev: ['assemble', 'copy','less', 'handlebars'],
-      dist: ['assemble', 'copy', 'less', 'requirejs']
+      dist: ['assemble', 'copy:fonts', 'less', 'requirejs']
     },
     requirejs: {
       dist: {

@@ -8,8 +8,10 @@ layout: grid-4-7.hbs
         <h1><a class="post-title" data-name="{{name}}" href="/{{../section}}/{{name}}">{{title}}</a></h1>
         <div class="pubdate">{{formatDate time "%d %b %Y"}}</div>
     </header>
-    {{#markdown}}
-    {{text}}
-    {{/markdown}}
+    <div class="post-body">
+        {{#markdown}}
+        {{{text}}}
+        {{/markdown}}
+    </div>
 </article>
 {{/each}}
