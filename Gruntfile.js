@@ -172,7 +172,7 @@ module.exports = function (grunt) {
     },
     htmlmin: {
       options: {
-        //collapseWhitespace: true
+        collapseWhitespace: true
         //collapseBooleanAttributes: true,
         //removeAttributeQuotes: true,
         //removeRedundantAttributes: true,
@@ -289,7 +289,7 @@ module.exports = function (grunt) {
           expand: true,
           cwd: '<%= yeoman.data %>/posts',
           src: '*.md',
-          dest: '<%= yeoman.dist %>/posts',
+          dest: '<%= yeoman.dist %>/blog',
           flatten: true,
           ext: '/index'
         }]
@@ -306,6 +306,7 @@ module.exports = function (grunt) {
       'clean',
       'setup',
       'concurrent:dev',
+      'htmlmin',
       'connect:livereload',
       'watch'
     ]);
@@ -319,8 +320,8 @@ module.exports = function (grunt) {
     'concurrent:dist',
     'concat',
     'cssmin',
-    'htmlmin',
-    'usemin'
+    'usemin',
+    'htmlmin'
     //'autoprefixer',
     //'rev',
   ]);

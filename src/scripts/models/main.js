@@ -6,6 +6,9 @@ define([
     'photos': function(p1, p2) {
       return p1.album == p2.album && p1.photo == p2.photo;
     },
+    'blog': function(p1, p2) {
+      return p1.post == p2.post;
+    },
     'default': function(p1, p2) {
       return true;
     }

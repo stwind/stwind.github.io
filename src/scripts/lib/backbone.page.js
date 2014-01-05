@@ -20,7 +20,7 @@ define([
       return template;
     },
 
-    noel: true
+    el: false
 
   });
 

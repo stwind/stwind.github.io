@@ -4,12 +4,6 @@ define([
   './pages'
 ], function(Backbone, Loading, Pages) {
 
-  var viewOf = function(page) {
-    if (page.photo) return 'photo';
-    else if (page.album) return 'album';
-    else return page.section;
-  };
-
   return Backbone.View.extend({
 
     initialize: function() {
@@ -20,7 +14,7 @@ define([
         self.changePage(page);
       });
 
-      var Page = Pages[viewOf(model.getPage())];
+      var Page = Pages.get(model.getPage());
       var view = new Page({ model: model, el: this.$el.children() });
 
       this.setView(view);
@@ -29,7 +23,7 @@ define([
     changePage: function(page) {
       var self = this;
 
-      var Page = Pages[viewOf(page)],
+      var Page = Pages.get(page),
           view = new Page({ model: this.model });
 
       self.loading();

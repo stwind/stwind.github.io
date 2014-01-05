@@ -16,6 +16,10 @@ define([
       }
     }
 
+    if (section == 'blog') {
+      parts.push(page.post);
+    }
+
     return parts.join('/');
   };
 
@@ -38,7 +42,8 @@ define([
       //'photos/:album(/)': 'alubm',
       //'photos/:album/:photo(/)': 'photo',
       'code(/)': 'code',
-      'posts(/)': 'posts',
+      'blog(/)': 'blog',
+      'blog/:post(/)': 'post',
       'about(/)': 'about'
     },
 
@@ -70,9 +75,14 @@ define([
       Log.debug('route code');
     },
 
-    posts: function() {
-      this.model.setPage({ section: 'posts' });
-      Log.debug('route posts');
+    blog: function() {
+      this.model.setPage({ section: 'blog' });
+      Log.debug('route blog');
+    },
+
+    post: function(post) {
+      this.model.setPage({ section: 'blog', post: post });
+      Log.debug('route blog post', post);
     },
 
     about: function() {
