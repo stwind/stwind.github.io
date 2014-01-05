@@ -44,7 +44,7 @@ module.exports = function (grunt) {
       },
       css: {
         files: ['<%= yeoman.src %>/styles/*.css'],
-        tasks: ['copy']
+        tasks: ['copy:css']
       },
       handlebars: {
         files: ['<%= yeoman.src %>/scripts/templates**/*.hbs'],
@@ -194,6 +194,14 @@ module.exports = function (grunt) {
           expand: true, 
           src: ['<%= yeoman.src %>/styles/*.css'], 
           dest: '<%= yeoman.dist %>/styles',
+          flatten: true
+        }]
+      },
+      fonts: {
+        files: [{
+          expand: true, 
+          src: ['<%= yeoman.src %>/styles/fonts/*.woff'], 
+          dest: '<%= yeoman.dist %>/styles/fonts',
           flatten: true
         }]
       }
