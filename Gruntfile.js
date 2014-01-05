@@ -377,8 +377,10 @@ module.exports = function (grunt) {
     sh.exec('git add -A');
     grunt.log.writeln('Committing: ' + msg);
     sh.exec('git commit -m ' + msg);
+    grunt.log.writeln(' OK'.green);
     grunt.log.writeln('Pushing: ' + msg);
     sh.exec('git push origin master');
+    grunt.log.writeln(' OK'.green);
     grunt.log.writeln('Github Page deploy completed.');
     sh.cd(pwd);
   });
@@ -399,7 +401,7 @@ module.exports = function (grunt) {
 
     grunt.log.write('Writing file:', target.cyan);
     grunt.file.write(target, grunt.template.process(template, {data: context}));
-    grunt.log.write(' OK'.green);
+    grunt.log.writeln(' OK'.green);
   });
 
   grunt.loadNpmTasks('assemble');
