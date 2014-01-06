@@ -18,7 +18,7 @@ define([
     }
 
     if (section == 'blog') {
-      parts.push(page.post);
+      page.post && parts.push(page.post);
       page.id && (hash = page.id);
     }
 

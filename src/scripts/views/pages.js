@@ -24,7 +24,7 @@ define([
     home: function(page) {
       return Home;
     }
-  }
+  };
 
   return {
     get: function(page) {
