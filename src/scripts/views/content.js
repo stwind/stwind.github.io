@@ -11,7 +11,6 @@ define([
           model = this.model;
 
       this.listenTo(model, 'change:page', function(model, page) {
-        console.log('page', page);
         self.changePage(page);
       });
 
@@ -31,8 +30,10 @@ define([
 
       view.render().promise().then(function() {
         self.setView(view);
-        // XXX: use pushstate, don't put history entry
-        page.id && (window.location.hash = page.id);
+        // XXX: use scrolling, so no history entry
+        if (page.id) {
+          window.location.hash = page.id;
+        }
       });
 
       return this;

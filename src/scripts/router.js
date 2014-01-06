@@ -5,7 +5,8 @@ define([
 
   var pageUrl = function(page) {
     var section = page.section,
-        parts = ['', section];
+        parts = ['', section],
+        hash;
 
     if (section == 'home')  parts.pop(); 
 
@@ -18,9 +19,10 @@ define([
 
     if (section == 'blog') {
       parts.push(page.post);
+      page.id && (hash = page.id);
     }
 
-    return parts.join('/');
+    return parts.join('/') + (hash ? '#' + hash : '');
   };
 
   return Backbone.Router.extend({
