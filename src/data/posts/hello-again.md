@@ -58,7 +58,7 @@ There are two tasks I have to implement:
 
 ### Single Page Site
 
-One last thing I want to achive is that smooth page switching, using backbone's [router](http://backbonejs.org/#Router). Under the hood, every page is already rendered as an `html` file on github. When you click on any in-site link, instead of fetching the model data like an [SPA](http://en.wikipedia.org/wiki/Single-page_application) will do, it will just fetch that `html` file, extract the DOMs inside, place them in the current page and finally initialze the correspondent js module for interaction behaviours.
+One last thing I want to achive is that smooth page switching, using backbone's [router](http://backbonejs.org/#Router). Under the hood, every page is already rendered as an `html` file on github, like [this page](https://github.com/stwind/stwind.github.io/blob/master/blog/hello-again/index.html). When you click on any in-site link, instead of fetching the model data like an [SPA](http://en.wikipedia.org/wiki/Single-page_application) will do, it will just fetch that `html` file, extract the DOMs inside, place them in the current page and finally initialze the correspondent js module for interaction behaviours.
 
 ## Where To Go From Here
 
