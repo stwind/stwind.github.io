@@ -1,5 +1,6 @@
 ---
 title: Hello World
+name: hello-world
 time: 2014-01-03T16:27:00+08:00
 ---
 This is intended as a quick reference and showcase. For more complete info, see [John Gruber's original spec](http://daringfireball.net/projects/markdown/) and the [Github-flavored Markdown info page](http://github.github.com/github-flavored-markdown/).
@@ -7,6 +8,8 @@ This is intended as a quick reference and showcase. For more complete info, see 
 Note that there is also a [Cheatsheet specific to Markdown Here](./Markdown-Here-Cheatsheet) if that's what you're looking for.
 
 You can play around with Markdown on our [live demo page](http://www.markdown-here.com/livedemo.html).
+
+[readmore]: #headers
 
 ##### Table of Contents  
 [Headers](#headers)  

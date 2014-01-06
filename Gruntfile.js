@@ -386,18 +386,21 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('new-post', function() {
-    var title = grunt.option('title') || 'untitled post';
+    var title = grunt.option('title') || 'untitled post',
+        name = title.replace(/ /gi, '-').toLowerCase(),
+        target = yeomanConfig.data + '/posts/' + name + '.md';
+
     var context = {
       title: title,
+      name: name,
       time: moment().local().format()
     };
+
     var template = "---\n" +
     "title: <%= title %>\n" + 
+    "name: <%= name %>\n" + 
     "time: <%= time %>\n" +
     "---\n";
-
-    var filename = title.replace(/ /gi, '-').toLowerCase(),
-        target = yeomanConfig.data + '/posts/' + filename + '.md';
 
     grunt.log.write('Writing file:', target.cyan);
     grunt.file.write(target, grunt.template.process(template, {data: context}));
