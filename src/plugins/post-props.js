@@ -13,7 +13,7 @@ var plugin = function(params, next) {
 
   var postsOpt = grunt.config(['assemble','posts','files'])[0],
       files = grunt.file.expand(postsOpt.cwd + '/' + postsOpt.src),
-      posts = options.posts = [];
+      posts = [];
 
   _.forEach(files, function(file) {
     var raw = yfm.extract(file),
@@ -23,6 +23,8 @@ var plugin = function(params, next) {
 
     posts.push(context);
   });
+
+  options.posts = _(posts).sortBy("time").reverse().valueOf();
 
   next();
 };
