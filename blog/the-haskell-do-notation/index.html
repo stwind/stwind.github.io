@@ -1,0 +1,19 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Antagonista</title><meta name="description" content=""><meta name="viewport" content="width=device-width"><!-- Place favicon.ico and apple-touch-icon.png in the root directory --><link rel="stylesheet" href="/styles/main.css"></head><body><div id="main"><div class="nav grid"><div class="logo grid-item one-whole grid-row"><a href="/">&lt;a&gt;ntagonist&lt;/a</a></div><div class="menu grid-item one-whole grid-row"><ul><li><a href="/photos">_photos</a></li><li><a href="/code">_code</a></li><li><a href="/blog">_blog</a></li><li><a href="/about">_about</a></li></ul></div></div><div class="content"><div class="grid"><div class="grid-item three-twelfths"></div><div class="grid-item eight-twelfths"><article class="post"><header class="post-title"><h1><a href="the-haskell-do-notation">The Haskell Do notation</a></h1><div class="pubdate">13 Jan 2014</div></header><div class="post-body"><p>The excellent <a href="http://learnyouahaskell.com/">Haskell Tutorial</a> has a very good explanation of the <a href="http://learnyouahaskell.com/a-fistful-of-monads#do-notation"><code>do</code> notation</a>. But it still took me quite some hours to finally understand how to convert to and from plain <code>&gt;&gt;=</code> statements and <code>do</code> notations. I wrote a simple script to help me memorize it.</p><h2 id="monad-for-functions">Monad For Functions</h2><p>In the chapter of <a href="http://learnyouahaskell.com/for-a-few-monads-more#reader">Reader Monad</a>, there is an example demostrating usage fo function monad:</p><pre><code class="language-haskell"><span class="import"><span class="keyword">import</span> Control.Monad.Instances  </span>
+
+<span class="title">addStuff</span> :: <span class="type">Int</span> -&gt; <span class="type">Int</span>  
+<span class="title">addStuff</span> = <span class="keyword">do</span>  
+    a &lt;- (*<span class="number">2</span>)  
+    b &lt;- (+<span class="number">10</span>)  
+    return (a+b)</code></pre><p>Can you convert this <code>do</code> notation back to plain <code>&gt;&gt;=</code> statement? Well as an Haskell newbie I finally did. Create a <code>monad.hs</code> with following content:</p><pre><code class="language-haskell"><span class="import"><span class="keyword">import</span> Text.Printf</span>
+
+<span class="title">literal</span> = (*<span class="number">2</span>) &gt;&gt;= (\x -&gt; (+<span class="number">10</span>) &gt;&gt;= (\y -&gt; \_ -&gt; x + y) )
+<span class="title">doNotation</span> = <span class="keyword">do</span> 
+       x &lt;- (*<span class="number">2</span>)
+       y &lt;- (+<span class="number">10</span>)
+       return (x + y)
+
+<span class="title">main</span> = <span class="keyword">do</span> 
+          printf <span class="string">"literal: %d\n"</span> (literal <span class="number">3</span> :: <span class="type">Int</span>)
+          printf <span class="string">"do notation: %d\n"</span> (doNotation <span class="number">3</span> :: <span class="type">Int</span>)</code></pre><p>and run it:</p><pre><code class="language-bash">$ runghc monad.hs
+literal: <span class="number">19</span>
+<span class="keyword">do</span> notation: <span class="number">19</span></code></pre><p>Greate! Actually the important part in the last lambda:</p><pre><code class="language-haskell">\y -&gt; \_ -&gt; x + y</code></pre><p>It should be a function that ignore its argument and just return the result.</p></div></article></div></div></div></div><script src="/scripts/main.js"></script></body></html>
