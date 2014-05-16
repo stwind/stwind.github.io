@@ -1,22 +1,35 @@
-define([
-  'router',
-  'models/main',
-  'views/main',
-  'log'
-], function (Router, Model, View, Log) {
-  'use strict';
+'use strict';
 
-  return { 
-    start: function(opts) {
-      Log.setLevel(opts.logLevel);
+angular
+  .module('antagonista', [
+    'ngCookies',
+    'ngResource',
+    'ngSanitize',
+    'ngRoute'
+  ])
+  .config(function ($routeProvider, $locationProvider) {
+    $routeProvider
+      .when('/', {
+        redirectTo: '/n/home'
+      })
+      .when('/n/:node', {
+        template: function(p) {
+          var defer = $.Deferred();
 
-      var app = {};
+          $.ajax('n/' + p.node, {
+            success: function(data) {
+              var content = $(data).filter('#main').html();
+              defer.resolve(content);
+            }
+          });
 
-      var model = app.model = new Model();
-      app.router = new Router({ model: model, pushState: true });
-      app.view = new View({ model: model, el: opts.mainEl });
+          return defer.promise();
+        },
+        controller: 'MainCtrl'
+      })
+      .otherwise({
+        redirectTo: '/'
+      });
 
-      return app;
-    }
-  };
-});
+    $locationProvider.html5Mode(true);
+  });

@@ -32,31 +32,27 @@ module.exports = function (grunt) {
     // configurable paths
     yeoman: yeomanConfig,
     watch: {
-      assemble: {
-        files: [
-          '<%= yeoman.tmpl %>/**/*.hbs', 
-          '<%= assemble.options.data %>'
-        ],
-        tasks: ['assemble', 'htmlmin']
-      },
+      //assemble: {
+        //files: [
+          //'<%= yeoman.tmpl %>/**/*.hbs', 
+          //'<%= assemble.options.data %>'
+        //],
+        //tasks: ['assemble', 'htmlmin']
+      //},
       less: {
         files: ['<%= yeoman.src %>/styles/*.less'],
         tasks: ['less']
       },
-      css: {
-        files: ['<%= yeoman.src %>/styles/*.css'],
-        tasks: ['copy:css']
-      },
-      handlebars: {
-        files: ['<%= yeoman.src %>/scripts/templates**/*.hbs'],
-        tasks: ['handlebars']
-      },
+      //css: {
+        //files: ['<%= yeoman.src %>/styles/*.css'],
+        //tasks: ['copy:css']
+      //},
       livereload: {
         options: {
           livereload: LIVERELOAD_PORT
         },
         files: [
-          '<%= yeoman.dist %>/*.html',
+          '<%= yeoman.dist %>/**/*.html',
           '.tmp/styles/{,*/}*.css',
           '{.tmp,<%= yeoman.src %>}/scripts/**/*.js',
           '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
@@ -208,30 +204,8 @@ module.exports = function (grunt) {
       }
     },
     concurrent: {
-      dev: ['assemble', 'copy','less', 'handlebars'],
-      dist: ['assemble', 'copy:fonts', 'less', 'requirejs']
-    },
-    requirejs: {
-      dist: {
-        options: {
-          almond: true,
-          wrap: false, // not wrap for handlebars
-          baseUrl: '<%= yeoman.src %>/scripts',
-          optimize: 'uglify',
-          preserveLicenseComments: false,
-          useStrict: true,
-          mainConfigFile: '<%= yeoman.src %>/scripts/main.js',
-          out: '<%= yeoman.dist %>/scripts/main.js',
-          name: 'main',
-          paths: {
-            templates: '../../.tmp/scripts/templates'
-          },
-          replaceRequireScript: [{
-            files: ['<%= yeoman.dist %>/**/*.html'],
-            module: 'main'
-          }]
-        }
-      }
+      dev: ['assemble', 'copy', 'less'],
+      dist: ['assemble', 'copy:fonts', 'less']
     },
     less: {
       dev: {
@@ -243,31 +217,12 @@ module.exports = function (grunt) {
         }
       }
     },
-    handlebars: {
-      compile: {
-        options: {
-          amd: true,
-          processName: function (filename) {
-            var tmplPath = yeomanConfig.src + '/scripts/templates/';
-            return filename.replace(tmplPath, '').replace('.hbs', '');
-          },
-          processContent: function (content) {
-            return content.replace(/^[\s\r\n]+/, '').replace(/[\s\r\n]*$/, '');
-          }
-        },
-        files: {
-          '.tmp/scripts/templates.js': [
-            '<%= yeoman.src %>/scripts/templates**/*.hbs'
-          ]
-        }
-      }
-    },
     assemble: {
       options: {
         partials: '<%= yeoman.tmpl %>/partials/*.hbs',
         data: '<%= yeoman.data %>/*.{json,yml}',
         layoutdir: '<%= yeoman.tmpl %>/layouts',
-        plugins: ['<%= yeoman.src %>/plugins/**/*.js'],
+        //plugins: ['<%= yeoman.src %>/plugins/**/*.js'],
         helpers: ['<%= yeoman.src %>/helpers/*.js', 'handlebars-helpers'],
         layout: 'default.hbs',
         flatten: true,
@@ -275,30 +230,20 @@ module.exports = function (grunt) {
           breaks: true
         }
       },
-      home: {
+      index: {
         files: {
           '<%= yeoman.dist %>/': ['<%= yeoman.tmpl %>/pages/index.hbs']
         }
       },
-      sections: {
-        files: [{
-          expand: true,
-          cwd: '<%= yeoman.tmpl %>/pages',
-          src: ['*.hbs', '!index.hbs'],
-          dest: '<%= yeoman.dist %>',
-          flatten: true,
-          ext: '/index'
-        }]
-      },
-      posts: {
+      nodes: {
         options: {
-          layout: "post.hbs",
+          layout: "node.hbs",
         },
         files: [{
           expand: true,
-          cwd: '<%= yeoman.data %>/posts',
+          cwd: '<%= yeoman.data %>/nodes',
           src: '*.md',
-          dest: '<%= yeoman.dist %>/blog',
+          dest: '<%= yeoman.dist %>/n',
           flatten: true,
           ext: '/index'
         }]
@@ -315,7 +260,6 @@ module.exports = function (grunt) {
       'clean',
       'setup',
       'concurrent:dev',
-      'htmlmin',
       'connect:livereload',
       'watch'
     ]);
