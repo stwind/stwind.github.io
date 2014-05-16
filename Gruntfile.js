@@ -15,17 +15,18 @@ var mountFolder = function (connect, dir) {
 
 module.exports = function (grunt) {
 
+  // Load grunt tasks automatically
+  require('load-grunt-tasks')(grunt);
+
+  // Time how long tasks take. Can help when optimizing build times
+  require('time-grunt')(grunt);
+
   var yeomanConfig = {
     src: 'src',
     dist: 'dist',
     tmpl: 'src/templates',
     data: 'src/data'
   };
-
-  // show elapsed time at the end
-  require('time-grunt')(grunt);
-  // load all grunt tasks
-  require('load-grunt-tasks')(grunt);
 
   grunt.initConfig({
     // configurable paths
