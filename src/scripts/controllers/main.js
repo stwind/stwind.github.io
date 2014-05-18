@@ -1,5 +1,5 @@
 'use strict';
 
 angular.module('antagonista')
-  .controller('MainCtrl', function ($scope) {
+  .controller('MainCtrl', function ($scope, $routeParams, $http) {
   });

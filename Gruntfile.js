@@ -32,16 +32,20 @@ module.exports = function (grunt) {
     // configurable paths
     yeoman: yeomanConfig,
     watch: {
-      //assemble: {
-        //files: [
-          //'<%= yeoman.tmpl %>/**/*.hbs', 
-          //'<%= assemble.options.data %>'
-        //],
-        //tasks: ['assemble', 'htmlmin']
-      //},
+      assemble: {
+        files: [
+          '<%= yeoman.tmpl %>/**/*.hbs', 
+          '<%= assemble.options.data %>'
+        ],
+        tasks: ['assemble', 'htmlmin']
+      },
       less: {
         files: ['<%= yeoman.src %>/styles/*.less'],
         tasks: ['less']
+      },
+      views: {
+        files: ['<%= yeoman.tmpl %>/views/*.html'],
+        tasks: ['newer:copy:views']
       },
       //css: {
         //files: ['<%= yeoman.src %>/styles/*.css'],
@@ -236,9 +240,6 @@ module.exports = function (grunt) {
         }
       },
       nodes: {
-        options: {
-          layout: "node.hbs",
-        },
         files: [{
           expand: true,
           cwd: '<%= yeoman.data %>/nodes',

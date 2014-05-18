@@ -7,7 +7,7 @@ angular
     'ngSanitize',
     'ngRoute'
   ])
-  .config(function ($routeProvider, $locationProvider) {
+  .config(function ($routeProvider, $locationProvider, $interpolateProvider) {
     $routeProvider
       .when('/', {
         redirectTo: '/n/home'
@@ -18,11 +18,10 @@ angular
 
           $.ajax('n/' + p.node, {
             success: function(data) {
-              var content = $(data).filter('#main').html();
-              defer.resolve(content);
+              var main = $(data).filter('#main');
+              defer.resolve(main.html());
             }
           });
-
           return defer.promise();
         },
         controller: 'MainCtrl'
@@ -32,4 +31,7 @@ angular
       });
 
     $locationProvider.html5Mode(true);
+
+    $interpolateProvider.startSymbol('{%');
+    $interpolateProvider.endSymbol('%}');
   });
