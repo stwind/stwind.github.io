@@ -1,6 +1,4 @@
-var yfm = require('assemble-yaml'),
-    path = require('path'),
-    _ = require('lodash');
+var _ = require('lodash');
 
 var options = {
   stage: 'render:pre:pages'
@@ -13,11 +11,12 @@ var plugin = function(params, next) {
       pages = options.pages;
 
   _.forEach(pages, function(page) {
-    page.data.next = _.map(page.data.next, function(node){
+    page.data.next = _.map(page.data.next || [], function(node){
       var nodePage = _.find(pages, {basename: node});
       return _.extend(_.clone(nodePage.data), {content: nodePage.page});
     });
   });
+
 
   next();
 };
