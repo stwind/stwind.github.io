@@ -1,10 +1,11 @@
 ---
-layout: default.hbs
+layout: default
 ---
-<article class="node-current">
+<div class="node-current">
     <header class="node-title">
         <h1><a href="n/{{name}}">{{title}}</a></h1>
         <div class="pubdate">{{formatDate time "%d %b %Y"}}</div>
     </header>
     <div class="node-content">{{#markdown}}{{> body}}{{/markdown}}</div>
-</article>
+</div>
+{{#ul next class="node-next"}}<a href="n/{{name}}">{{title}}</a>{{/ul}}

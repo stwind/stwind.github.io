@@ -9,22 +9,15 @@ var options = {
 var plugin = function(params, next) {
 
   var options = params.assemble.options,
-      grunt = params.grunt;
+      grunt = params.grunt,
+      pages = options.pages;
 
-  var postsOpt = grunt.config(['assemble','posts','files'])[0],
-      files = grunt.file.expand(postsOpt.cwd + '/' + postsOpt.src),
-      posts = [];
-
-  _.forEach(files, function(file) {
-    var raw = yfm.extract(file),
-        context = raw.context;
-
-    context.text = raw.content;
-
-    posts.push(context);
+  _.forEach(pages, function(page) {
+    page.data.next = _.map(page.data.next, function(node){
+      var nodePage = _.find(pages, {basename: node});
+      return _.extend(_.clone(nodePage.data), {content: nodePage.page});
+    });
   });
-
-  options.posts = _(posts).sortBy("time").reverse().valueOf();
 
   next();
 };

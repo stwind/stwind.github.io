@@ -226,9 +226,10 @@ module.exports = function (grunt) {
         partials: '<%= yeoman.tmpl %>/partials/*.hbs',
         data: '<%= yeoman.data %>/*.{json,yml}',
         layoutdir: '<%= yeoman.tmpl %>/layouts',
-        //plugins: ['<%= yeoman.src %>/plugins/**/*.js'],
+        plugins: ['<%= yeoman.src %>/plugins/*.js'],
         helpers: ['<%= yeoman.src %>/helpers/*.js', 'handlebars-helpers'],
-        layout: 'default.hbs',
+        layout: 'default',
+        layoutext: '.hbs',
         flatten: true,
         marked: {
           breaks: true
