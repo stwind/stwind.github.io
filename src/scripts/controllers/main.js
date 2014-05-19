@@ -1,7 +1,9 @@
 'use strict';
 
 angular.module('antagonista')
-  .controller('MainCtrl', function ($scope, $location, $timeout) {
+  .controller('MainCtrl', function ($scope, $location, $timeout, viewManager) {
+    viewManager.show($scope);
+
     $scope.titleClass = 'blink';
 
     $scope.showCurrentNode = function(){
@@ -21,8 +23,8 @@ angular.module('antagonista')
       $scope.showTime = false; 
       $scope.showNexts = false; 
 
-      $timeout(function() {
-        $location.url('/n/' + node);
-      }, 600);
+      return $timeout(function() {
+        if (node) $location.url('/n/' + node);
+      }, 300);
     };
   });

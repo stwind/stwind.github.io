@@ -8,7 +8,26 @@ angular
     'ngRoute',
     'ngAnimate'
   ])
-  .config(function ($routeProvider, $interpolateProvider) {
+  .provider('viewManager', function() {
+    var current;
+
+    this.resolve = {
+      wait: function() {
+        if (current) return current.hideCurrentNode();
+      }
+    };
+
+    this.$get = function(){
+      return {
+        show: function(scope) {
+          current = scope
+        }
+      };
+    };
+
+  })
+  .config(function ($routeProvider, $interpolateProvider, viewManagerProvider) {
+
     $routeProvider
       .when('/', {
         redirectTo: '/n/home'
@@ -17,6 +36,7 @@ angular
         templateUrl: function(p) {
           return 'n/' + p.node + '.html';
         },
+        resolve: viewManagerProvider.resolve,
         controller: 'MainCtrl'
       })
       .otherwise({

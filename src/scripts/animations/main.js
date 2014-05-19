@@ -50,7 +50,7 @@ angular.module('antagonista')
 
           typewrite({
             elem: elem, text: text,
-            speed: Math.round(baseSpeed / (len * 5)),
+            speed: Math.round(baseSpeed / (len * 4)),
             curPos: len, done: done,
             forward: false
           });
