@@ -1,11 +1,14 @@
----
-layout: default
----
-<div class="node-current">
-    <header class="node-title">
-        <h1><a href="n/{{name}}">{{title}}</a></h1>
-        <div class="pubdate">{{formatDate time "%d %b %Y"}}</div>
-    </header>
-    <div class="node-content">{{#markdown}}{{> body}}{{/markdown}}</div>
+<div class="grid">
+    <div class="grid__item eleven-twelfths">
+        <div class="node-current">
+            <header class="grid-line">
+                <h1 ag-typing class="node-title blink">{{title}}</h1>
+                <div class="node-time" ng-show="stateTime">{{formatDate time "%d %b %Y"}}</div>
+            </header>
+            <div class="node-content grid-line" ng-show="stateContent">{{#markdown}}{{> body}}{{/markdown}}</div>
+        </div>
+    </div>
+    <div class="grid__item one-twelfths">
+        {{#ul next class="nodes-next"}}<a class="node-next" href="#/n/{{name}}"></a>{{/ul}}
+    </div>
 </div>
-{{#ul next class="node-next"}}<a href="n/{{name}}">{{title}}</a>{{/ul}}

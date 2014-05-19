@@ -7,7 +7,6 @@ var options = {
 var plugin = function(params, next) {
 
   var options = params.assemble.options,
-      grunt = params.grunt,
       pages = options.pages;
 
   _.forEach(pages, function(page) {

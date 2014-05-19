@@ -47,10 +47,10 @@ module.exports = function (grunt) {
         files: ['<%= yeoman.tmpl %>/views/*.html'],
         tasks: ['newer:copy:views']
       },
-      //css: {
-        //files: ['<%= yeoman.src %>/styles/*.css'],
-        //tasks: ['copy:css']
-      //},
+      css: {
+        files: ['<%= yeoman.src %>/styles/*.css'],
+        tasks: ['copy:css']
+      },
       livereload: {
         options: {
           livereload: LIVERELOAD_PORT
@@ -246,8 +246,7 @@ module.exports = function (grunt) {
           cwd: '<%= yeoman.data %>/nodes',
           src: '*.md',
           dest: '<%= yeoman.dist %>/n',
-          flatten: true,
-          ext: '/index'
+          flatten: true
         }]
       }
     }

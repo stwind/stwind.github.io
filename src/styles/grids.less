@@ -1,10 +1,25 @@
-@gutter: 20px;
+/*------------------------------------*\
+    @CSSWIZARDRY-GRIDS
+\*------------------------------------*/
+/**
+ * CONTENTS
+ * VARIABLES............Your settings.
+ * GRID SETUP...........Build the grid structure.
+ * WIDTHS...............Build our responsive widths around our breakpoints.
+ */
 
-.box-sizing (@val: border-box) {
-    -webkit-box-sizing:@val;
-    -moz-box-sizing:@val;
-    box-sizing:@val;
-}
+
+
+
+
+/*------------------------------------*\
+    @VARIABLES
+\*------------------------------------*/
+/**
+ * Set the spacing between your grid items.
+ */
+@gutter:                 20px;
+
 
 /**
  * At which point should lap and desk breakpoints kick in?
@@ -12,28 +27,62 @@
 @lap-start:              481px;
 @desk-start:             1024px;
 
-@palm-end:               (@lap-start - 1px);
-@lap-end:               (@desk-start - 1px);
-
-.grid {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    margin-left: 0px - @gutter;
-    letter-spacing: -0.31em;
-    word-spacing: -0.43em;
+/*------------------------------------*\
+    @GRID SETUP
+\*------------------------------------*/
+/**
+ * 1. Allow the grid system to be used on lists.
+ * 2. Remove any margins and paddings that might affect the grid system.
+ * 3. Apply a negative `margin-left` to negate the columns’ gutters.
+ * 4. Remove whitespace caused by `inline-block` elements.
+ */
+.grid{
+    list-style:none;                /* [1] */
+    margin:0;                       /* [2] */
+    padding:0;                      /* [2] */
+    margin-left: 0px - @gutter;     /* [3] */
+    letter-spacing:-0.31em;         /* [4] */
+    word-spacing:-0.43em;           /* [4] */
 }
 
-.grid-item {
-    display: inline-block;
-    margin-left: @gutter;
-    vertical-align: top;
-    letter-spacing: normal;
-    word-spacing: normal;
-    .box-sizing(border-box);
+
+/**
+ * 1. Cause columns to stack side-by-side.
+ * 2. Space columns apart.
+ * 3. Align columns to the tops of each other.
+ * 4. Reinstate removed whitespace.
+ * 5. Required to combine fluid widths and fixed gutters.
+ */
+.grid__item{
+    display:inline-block;           /* [1] */
+    padding-left:@gutter;           /* [2] */
+    vertical-align:top;             /* [3] */
+    letter-spacing:normal;          /* [4] */
+    word-spacing:normal;            /* [4] */
+    -webkit-box-sizing:border-box;  /* [5] */
+       -moz-box-sizing:border-box;  /* [5] */
+            box-sizing:border-box;  /* [5] */
 }
 
+
+
+
+
+/*------------------------------------*\
+    @WIDTHS
+\*------------------------------------*/
+/**
+ * These next bits get worked out for you.
+ */
+@palm-end:               @lap-start - 1px;
+@lap-end:               @desk-start - 1px;
+
+
+/**
+ * Create our widths, prefixed by the specified namespace.
+ */
 .device-type(@namespace: ~""){
+
 
     /**
      * Whole
@@ -121,10 +170,19 @@
     .@{namespace}nine-twelfths     { width:75%; }
     .@{namespace}ten-twelfths      { width:83.333%; }
     .@{namespace}eleven-twelfths   { width:91.666%; }
+
+
 }
 
+
+/**
+ * Our regular, non-responsive width classes.
+ */
 .device-type();
 
+/**
+ * Our breakpoint specific widths classes.
+ */
 @media only screen and (max-width:@palm-end){
     .device-type(~"palm-");
 }
