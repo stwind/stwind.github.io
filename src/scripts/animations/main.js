@@ -2,7 +2,7 @@
 
 angular.module('antagonista')
   .animation('.typein', function($timeout){
-    var baseSpeed = 500,
+    var baseSpeed = 300,
         strBase = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!_',
         strBaseLen = strBase.length;
 
@@ -12,20 +12,20 @@ angular.module('antagonista')
       }, '');
     };
 
-    var forward = function(opts) {
+    var typewrite = function(opts) {
       var text = opts.text,
           curPos = opts.curPos;
 
-      var charPause = text.substr(curPos, 1) === " " ? 120 : 0;
+      var charPause = opts.forward ? (text.substr(curPos, 1) === " " ? 120 : 0) : 0;
 
-      if (curPos > text.length) {
+      if (opts.forward ? curPos > text.length : curPos < 0) {
         opts.done();
       } else {
         opts.elem.text(text.substring(0, curPos) + '_');
 
         $timeout(function(){
           $timeout(function(){
-            forward(_.extend(opts, {curPos: curPos + 1}));
+            typewrite(_.extend(opts, {curPos: curPos + (opts.forward ? 1 : -1)}));
           }, opts.speed);
         }, charPause);
       }
@@ -33,17 +33,28 @@ angular.module('antagonista')
 
     return {
       addClass: function(elem, className, done) {
-        var text = elem.data('text'),
-            speed = Math.round(baseSpeed / text.length);
+        if (className === 'typein') {
+          var text = elem.data('text');
 
-        forward({
-          elem: elem, text: text,
-          curPos: 0, speed: speed, done: done
-        });
+          typewrite({
+            elem: elem, text: text, curPos: 0, 
+            speed: 10, 
+            done: done, forward: true
+          });
+        }
       },
       removeClass: function(elem, className, done) {
-        console.log('removed',className);
-        done();
+        if (className === 'typein') {
+          var text = elem.data('text'),
+          len = text.length;
+
+          typewrite({
+            elem: elem, text: text,
+            speed: Math.round(baseSpeed / (len * 5)),
+            curPos: len, done: done,
+            forward: false
+          });
+        }
       }
-    }
+    };
   });

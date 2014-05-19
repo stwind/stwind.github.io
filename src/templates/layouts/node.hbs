@@ -2,13 +2,13 @@
     <div class="grid__item eleven-twelfths">
         <div class="node-current">
             <header class="grid-line">
-                <h1 ag-typing class="node-title blink">{{title}}</h1>
-                <div class="node-time" ng-show="stateTime">{{formatDate time "%d %b %Y"}}</div>
+                <h1 ag-typing class="node-title" ng-class="titleClass">{{title}}</h1>
+                <div class="node-time" ng-show="showTime">{{formatDate time "%d %b %Y"}}</div>
             </header>
-            <div class="node-content grid-line" ng-show="stateContent">{{#markdown}}{{> body}}{{/markdown}}</div>
+            <div class="node-content grid-line" ng-show="showContent">{{#markdown}}{{> body}}{{/markdown}}</div>
         </div>
     </div>
     <div class="grid__item one-twelfths">
-        {{#ul next class="nodes-next"}}<a class="node-next" href="#/n/{{name}}"></a>{{/ul}}
+        {{#ul next class="nodes-next" ng-show="showNexts"}}<a class="node-next" ng-click="hideCurrentNode('{{name}}')" href=""></a>{{/ul}}
     </div>
 </div>
