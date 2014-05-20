@@ -29,7 +29,7 @@ angular
 
     $routeProvider
       .when('/', {
-        redirectTo: '/n/home'
+        redirectTo: '/n/about'
       })
       .when('/n/:node', {
         templateUrl: function(p) {

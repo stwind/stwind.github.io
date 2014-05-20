@@ -2,6 +2,8 @@
 title: Hello Again
 name: hello-again
 time: 2014-01-06T12:50:46+08:00
+layout: node
+next: [about,infrastructure-as-code-part-1,porting-things-from-python-to-erlang,the-haskell-do-notation]
 ---
 Anyway, this is my new site [Antagonista](http://stwind.github.io/) (did I just said that like I had an old one?). Now here will be the place for me to put my thoughts, memos, photos and experiments. It was a lot of fun to build a static site that is hosted on [Github](http://pages.github.com/) and using all those awesome [node.js](http://nodejs.org/) tools (I'll explain them later).
 

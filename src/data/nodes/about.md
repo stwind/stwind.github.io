@@ -1,9 +1,9 @@
 ---
-title: Embracing The Angularity
-name: home
+title: Antagonista
+name: about
 time: 2014-01-06T12:50:46+08:00
 layout: node
-next: [intro,intro,intro,intro,intro,intro,intro,intro,intro]
+next: [hello-again,infrastructure-as-code-part-1,porting-things-from-python-to-erlang,the-haskell-do-notation]
 ---
 lorem ipsum dolor sit amet consetetur sadipscing elitr sed diam nonumy
 eirmod tempor invidunt ut labore et dolore magna aliquyam erat sed diam
