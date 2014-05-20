@@ -12,7 +12,7 @@ angular
     var current;
 
     this.resolve = {
-      wait: function() {
+      lastCtrl: function() {
         if (current) return current.hideCurrentNode();
       }
     };
@@ -24,7 +24,6 @@ angular
         }
       };
     };
-
   })
   .config(function ($routeProvider, $interpolateProvider, viewManagerProvider) {
 

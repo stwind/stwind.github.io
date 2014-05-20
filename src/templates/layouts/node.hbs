@@ -1,5 +1,5 @@
 <div class="grid">
-    <div class="grid__item eleven-twelfths">
+    <div class="grid__item six-twelfths">
         <div class="node-current">
             <header class="grid-line">
                 <h1 ag-typing class="node-title" ng-class="titleClass">{{title}}</h1>
@@ -8,7 +8,10 @@
             <div class="node-content grid-line" ng-show="showContent">{{#markdown}}{{> body}}{{/markdown}}</div>
         </div>
     </div>
+    <div class="grid__item five-twelfths">
+        <div class="next-node-title">{% nextTitle %}</div>
+    </div>
     <div class="grid__item one-twelfths">
-        {{#ul next class="nodes-next" ng-show="showNexts"}}<a class="node-next" ng-click="hideCurrentNode('{{name}}')" href=""></a>{{/ul}}
+        {{#ul next class="nodes-next" ng-show="showNexts"}}<a class="node-next" ng-mouseleave="nextTitle=''" ng-mouseover="nextTitle = '{{title}}'" ng-click="hideCurrentNode('{{name}}')" href=""></a>{{/ul}}
     </div>
 </div>
