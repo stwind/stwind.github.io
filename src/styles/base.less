@@ -63,16 +63,12 @@ h3 {
         border-bottom: 1px solid #424242;
     }
 
-    .node-title {
-    }
-
     .node-time {
         color: #999999;
         font-size: 0.8em;
     }
 
     .node-content {
-
         p {
             margin: 1.5em 0;
         }
@@ -97,25 +93,29 @@ h3 {
     }
 
     ul, ol {
-        padding:0;
+        padding: 0;
     }
 
     ul {
         list-style: none;
+
+        > li {
+            &:before {
+                content: "•";
+                margin-right: 0.7em;
+            }
+
+            padding-left: 1em; 
+            text-indent: -1em;
+        }
     }
 
     ol {
         padding-left: 1.4em; 
-    }
 
-    ul li { 
-        padding-left: 1em; 
-        text-indent: -1em;
-    }
-
-    ul > li:before {
-        content: "•";
-        margin-right: 0.7em;
+        > li {
+        text-indent: 0;
+        }
     }
 
     table {
