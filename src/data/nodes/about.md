@@ -8,13 +8,13 @@ next: [hello-again,infrastructure-as-code-part-1,porting-things-from-python-to-e
 
 A almost-full-stack software developer, automation enthusiast.
 
-- city: Shanghai
-- editor: Vim
-- worked with: 
-    - language: Erlang, Javascript, Python, Ruby
-    - database: MySQL, Elasticsearch, Redis, Graphite
-    - monitoring: Shinken
-    - logging: Fluentd,Kibana
-    - provisioner: Ansible
-    - messaging: RabbitMQ
-    - chating: Ejabberd
+- __city__: Shanghai
+- __editor__: Vim
+- __worked with__: 
+    - _language_: Erlang, Javascript, Python, Ruby
+    - _database_: MySQL, Elasticsearch, Redis, Graphite
+    - _monitoring_: Shinken
+    - _logging_: Fluentd,Kibana
+    - _provisioner_: Ansible
+    - _messaging_: RabbitMQ
+    - _chating_: Ejabberd
