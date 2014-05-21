@@ -20,9 +20,22 @@ a {
     text-decoration: none;
 }
 
+h1, h2, h3, h4, h5, h6 {
+    font-family: @font-header;
+}
+
+h2 {
+    font-size: 1.5em;
+}
+
+h3 {
+    font-size: 1.3em;
+}
+
 .grid-line {
+    box-sizing: border-box;
     padding: 10px;
-    min-height: 60px;
+    min-height: 80px;
 }
 
 .node-current {
@@ -33,16 +46,17 @@ a {
         font-weight: 300;
     }
 
-    h1, h2, h3, h4, h5, h6 {
-        font-family: @font-header;
-    }
-
     h2 {
-        margin: 1.8em 0 0.5em;
+        margin: 1.5em 0 0.5em;
+        text-align: center;
+        font-weight: 400;
+        font-style: italic;
     }
 
     h3 {
-        margin: 1em 0 0.2em;
+        margin: 1.2em 0 0.5em;
+        font-weight: 400;
+        font-style: italic;
     }
 
     a {
@@ -143,7 +157,8 @@ a {
 }
 
 .nodes-next {
-    width: 80px;
+    width: 100%;
+    padding: 10px;
 
     li {
         float: left;
@@ -163,34 +178,18 @@ a {
     text-align: right;
     line-height: 10px;
     font-size: 10px;
+
+    @media screen and (max-width:@palm-end){
+        display: none
+    }
 }
 
 .blink {
     opacity: 1;
-    -webkit-animation: blink 0.3s infinite;
-    -moz-animation: blink 0.3s infinite;
-    -ms-animation: blink 0.3s infinite;
-    -o-animation: blink 0.3s infinite;
     animation: blink 0.3s infinite;
 }
 
 @keyframes blink{
-    0% { opacity:1; }
-    49% { opacity:1; }
-    50% { opacity:0; }
-    99% { opacity:0; }
-    100% { opacity:1; }
-}
-
-@-webkit-keyframes blink{
-    0% { opacity:1; }
-    49% { opacity:1; }
-    50% { opacity:0; }
-    99% { opacity:0; }
-    100% { opacity:1; }
-}
-
-@-moz-keyframes blink{
     0% { opacity:1; }
     49% { opacity:1; }
     50% { opacity:0; }

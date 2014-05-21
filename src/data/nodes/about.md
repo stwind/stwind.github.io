@@ -11,10 +11,10 @@ An almost-full-stack software developer, automation enthusiast living in digital
 - __city__: Shanghai
 - __editor__: Vim
 - __worked with__: 
-    - _language_: Erlang, Javascript, Python, Ruby
-    - _database_: MySQL, Elasticsearch, Redis, Graphite
-    - _monitoring_: Shinken
-    - _logging_: Fluentd,Kibana
-    - _provisioner_: Ansible
-    - _messaging_: RabbitMQ
-    - _chating_: Ejabberd
+    - Erlang, Javascript, Python, Ruby
+    - MySQL, Elasticsearch, Redis, Graphite
+    - Shinken
+    - Fluentd,Kibana
+    - Ansible
+    - RabbitMQ
+    - Ejabberd

@@ -67,7 +67,7 @@ module.exports = function (grunt) {
       options: {
         port: 9000,
         livereload: LIVERELOAD_PORT,
-        hostname: 'localhost'
+        hostname: '0.0.0.0'
       },
       livereload: {
         options: {
@@ -115,7 +115,7 @@ module.exports = function (grunt) {
     },
     autoprefixer: {
       options: {
-        browsers: ['last 1 version']
+        //browsers: ['last 1 version']
       },
       dist: {
         files: [{
@@ -280,6 +280,7 @@ module.exports = function (grunt) {
       'clean',
       'setup',
       'concurrent:dev',
+      'autoprefixer',
       'connect:livereload',
       'watch'
     ]);

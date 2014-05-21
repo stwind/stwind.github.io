@@ -24,7 +24,9 @@
 /**
  * At which point should lap and desk breakpoints kick in?
  */
-@lap-start:              481px;
+@palm-end:               600px;
+@lap-start:              601px;
+@lap-end:                1023px;
 @desk-start:             1024px;
 
 /*------------------------------------*\
@@ -74,8 +76,6 @@
 /**
  * These next bits get worked out for you.
  */
-@palm-end:               @lap-start - 1px;
-@lap-end:               @desk-start - 1px;
 
 
 /**
@@ -183,18 +183,18 @@
 /**
  * Our breakpoint specific widths classes.
  */
-@media only screen and (max-width:@palm-end){
+@media screen and (max-width:@palm-end){
     .device-type(~"palm-");
 }
 
-@media only screen and (min-width:@lap-start) and (max-width:@lap-end){
+@media screen and (min-width:@lap-start) and (max-width:@lap-end){
     .device-type(~"lap-");
 }
 
-@media only screen and (max-width:@lap-end){
+@media screen and (max-width:@lap-end){
     .device-type(~"portable-");
 }
 
-@media only screen and (min-width:@desk-start){
+@media screen and (min-width:@desk-start){
     .device-type(~"desk-");
 }
