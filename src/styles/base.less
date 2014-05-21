@@ -3,7 +3,13 @@ body {
     font-family: @font-text;
     color: @text-color;
     padding: 40px;
-    font-size: 13px;
+    font-size: 12px;
+}
+
+p {
+    line-height: 1.5em;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
 }
 
 ul, ol {
@@ -24,71 +30,70 @@ h1, h2, h3, h4, h5, h6 {
     font-family: @font-header;
 }
 
+h1 {
+    font-size: 2em;
+    line-height: 1em;
+    margin-bottom: 1em;
+}
+
 h2 {
-    font-size: 1.5em;
+    font-size: 1.5em; // 18px
+    line-height: 1em;
+    margin-top: 2em;
+    margin-bottom: 1em;
 }
 
 h3 {
-    font-size: 1.3em;
-}
-
-.grid-line {
-    box-sizing: border-box;
-    padding: 10px;
-    min-height: 80px;
+    font-size: 1.1667em; // 14px
+    margin-top: 1.286em;
+    margin-bottom: 1.286em;
 }
 
 .node-current {
     h1 {
-        font-family: @font-header;
-        margin-top: -0.5em;
-        margin-bottom: 0px;
+        margin-top: 0;
+        margin-bottom: 0;
         font-weight: 300;
     }
 
     h2 {
-        margin: 1.5em 0 0.5em;
         text-align: center;
         font-weight: 400;
-        font-style: italic;
     }
 
     h3 {
-        margin: 1.2em 0 0.5em;
         font-weight: 400;
         font-style: italic;
     }
 
     a {
-        border-bottom: 1px solid #424242;
+        text-decoration: underline;
     }
 
     .node-time {
         color: #999999;
-        font-size: 0.8em;
+        font-size: 0.85em;
+        line-height: 1.8em;
     }
 
-    .node-content {
-        p {
-            margin: 1.5em 0;
-        }
+    .node-header {
+        margin-bottom: 3em;
     }
 
     pre {
-        padding: 6px 10px;
+        padding: 0.85em;
+
+        code {
+            overflow: auto;
+        }
     }
 
     pre, code {
         font-family: @font-mono;
         background: #ffffff;
-        font-size: 12px;
     }
 
-    pre code {
-        padding: 0;
-    }
-
-    code {
+    p code {
         padding: 1px 3px;
     }
 
@@ -157,7 +162,6 @@ h3 {
 
 .nodes-next {
     width: 100%;
-    padding: 10px;
 
     li {
         float: left;
@@ -168,15 +172,14 @@ h3 {
         height: 10px;
         width: 10px;
         background: #000000;
-        margin: 0 10px 10px 0;
+        margin: 0 8px 8px 0;
     }
 }
 
 .next-node-title {
-    min-width: 80px;
     text-align: right;
-    line-height: 10px;
-    font-size: 10px;
+    font-size: 0.85em;
+    line-height: 0.85em;
 
     @media screen and (max-width:@palm-end){
         display: none
