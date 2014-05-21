@@ -18,3 +18,5 @@ An almost-full-stack software developer, automation enthusiast living in digital
     - Ansible
     - RabbitMQ
     - Ejabberd
+
+0x091De4f1

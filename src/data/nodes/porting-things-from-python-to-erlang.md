@@ -19,4 +19,3 @@ Anyway I still learn something by poring things from one language to another:
 Erlang code can be very concise, which I am always fascinated of. But I had many frustrations when porting Python code to Erlang, because I always tried to rewrite the logic in Erlang way while not fully understanding the whole picture in Python. This pain was more obvious when one languge is iterative while another is functional.
 
 So yeah, just do dirty and refractor later.
-
