@@ -280,7 +280,7 @@ module.exports = function (grunt) {
       'clean',
       'setup',
       'concurrent:dev',
-      'autoprefixer',
+      //'autoprefixer',
       'connect:livereload',
       'watch'
     ]);
@@ -295,7 +295,7 @@ module.exports = function (grunt) {
     'ngmin',
     'cssmin',
     'uglify',
-    'autoprefixer',
+    //'autoprefixer',
     //'rev',
     'usemin',
     'htmlmin'
