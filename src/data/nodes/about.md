@@ -6,7 +6,7 @@ layout: node
 next: [hello-again,infrastructure-as-code-part-1,porting-things-from-python-to-erlang,the-haskell-do-notation]
 ---
 
-A almost-full-stack software developer, automation enthusiast.
+An almost-full-stack software developer, automation enthusiast living in digital but fascinated by analog.
 
 - __city__: Shanghai
 - __editor__: Vim
