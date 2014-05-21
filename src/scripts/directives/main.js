@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('antagonista')
-  .directive('agTyping', function ($animate, $timeout) {
+  .directive('agTyping', ['$animate','$timeout',function ($animate, $timeout) {
     return {
       restrict: 'A',
       link: function(scope, elem, attrs) {
@@ -9,4 +9,4 @@ angular.module('antagonista')
         scope.showCurrentNode();
       }
     };
-  });
+  }]);

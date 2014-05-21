@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('antagonista')
-  .controller('MainCtrl', function ($scope, $location, $timeout, viewManager) {
+  .controller('MainCtrl', ['$scope','$location','$timeout','viewManager', function ($scope, $location, $timeout, viewManager) {
     viewManager.show($scope);
 
     $scope.titleClass = 'blink';
@@ -27,4 +27,4 @@ angular.module('antagonista')
         if (node) $location.url('/n/' + node);
       }, 300);
     };
-  });
+  }]);

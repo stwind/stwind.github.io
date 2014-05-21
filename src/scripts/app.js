@@ -25,23 +25,24 @@ angular
       };
     };
   })
-  .config(function ($routeProvider, $interpolateProvider, viewManagerProvider) {
+  .config(
+    ['$routeProvider','$interpolateProvider','viewManagerProvider',
+      function ($routeProvider, $interpolateProvider, viewManagerProvider) {
+        $routeProvider
+        .when('/', {
+          redirectTo: '/n/about'
+        })
+        .when('/n/:node', {
+          templateUrl: function(p) {
+            return 'n/' + p.node + '.html';
+          },
+          resolve: viewManagerProvider.resolve,
+          controller: 'MainCtrl'
+        })
+        .otherwise({
+          redirectTo: '/'
+        });
 
-    $routeProvider
-      .when('/', {
-        redirectTo: '/n/about'
-      })
-      .when('/n/:node', {
-        templateUrl: function(p) {
-          return 'n/' + p.node + '.html';
-        },
-        resolve: viewManagerProvider.resolve,
-        controller: 'MainCtrl'
-      })
-      .otherwise({
-        redirectTo: '/'
-      });
-
-    $interpolateProvider.startSymbol('{%');
-    $interpolateProvider.endSymbol('%}');
-  });
+        $interpolateProvider.startSymbol('{%');
+        $interpolateProvider.endSymbol('%}');
+  }]);

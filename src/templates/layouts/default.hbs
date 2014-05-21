@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
@@ -8,16 +8,16 @@
         <meta name="description" content="Antagonista">
         <meta name="viewport" content="width=device-width">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-        <!-- build:css({src,.tmp}) /styles/main.css -->
-        <link rel="stylesheet" href="/bower_components/normalize-css/normalize.css">
-        <link rel="stylesheet" href="/styles/main.css">
-        <link rel="stylesheet" href="/styles/github.css">
+        <!-- build:css({src,.tmp}) styles/main.css -->
+        <link rel="stylesheet" href="bower_components/normalize-css/normalize.css">
+        <link rel="stylesheet" href="styles/main.css">
+        <link rel="stylesheet" href="styles/github.css">
         <!-- endbuild -->
     </head>
     <body ng-app="antagonista">
         <div id="main" class="main" ng-view>{{> body}}</div>
 
-        <!-- build:js scripts/vendor.js -->
+        <!-- build:js(src) scripts/vendor.js -->
         <!-- bower:js -->
         <script src="bower_components/jquery/dist/jquery.js"></script>
         <script src="bower_components/lodash/dist/lodash.compat.js"></script>
@@ -31,7 +31,7 @@
         <!-- endbower -->
         <!-- endbuild -->
 
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <!-- build:js(src) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/directives/main.js"></script>

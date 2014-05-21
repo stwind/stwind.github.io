@@ -37,7 +37,7 @@ module.exports = function (grunt) {
           '<%= yeoman.tmpl %>/**/*.hbs', 
           '<%= assemble.options.data %>'
         ],
-        tasks: ['assemble', 'htmlmin']
+        tasks: ['assemble']
       },
       less: {
         files: ['<%= yeoman.src %>/styles/*.less'],
@@ -132,17 +132,31 @@ module.exports = function (grunt) {
           src: [
             '<%= yeoman.dist %>/scripts/{,*/}*.js',
             '<%= yeoman.dist %>/styles/{,*/}*.css',
-            '<%= yeoman.dist %>/images/{,*/}*.{gif,jpeg,jpg,png,webp}',
-            '<%= yeoman.dist %>/styles/fonts/{,*/}*.*'
+            '<%= yeoman.dist %>/images/{,*/}*.{gif,jpeg,jpg,png,webp}'
           ]
         }
       }
     },
+    //useminPrepare: {
+      //options: {
+        //dest: '<%= yeoman.dist %>'
+      //},
+      ////html: '<%= yeoman.src %>/templates/layouts/default.hbs',
+    //},
     useminPrepare: {
-      options: {
-        dest: '<%= yeoman.dist %>'
-      },
       html: '<%= yeoman.src %>/templates/layouts/default.hbs',
+      options: {
+        dest: '<%= yeoman.dist %>',
+        flow: {
+          html: {
+            steps: {
+              js: ['concat', 'uglifyjs'],
+              css: ['cssmin']
+            },
+            post: {}
+          }
+        }
+      }
     },
     usemin: {
       options: {
@@ -151,34 +165,29 @@ module.exports = function (grunt) {
       html: ['<%= yeoman.dist %>/{,*/,*/*/}*.html'],
       css: ['<%= yeoman.dist %>/styles/{,*/}*.css']
     },
-    imagemin: {
-      dist: {
-        files: [{
-          expand: true,
-          cwd: '<%= yeoman.app %>/images',
-          src: '{,*/}*.{gif,jpeg,jpg,png}',
-          dest: '<%= yeoman.dist %>/images'
-        }]
-      }
-    },
-    svgmin: {
-      dist: {
-        files: [{
-          expand: true,
-          cwd: '<%= yeoman.app %>/images',
-          src: '{,*/}*.svg',
-          dest: '<%= yeoman.dist %>/images'
-        }]
-      }
-    },
+    //imagemin: {
+      //dist: {
+        //files: [{
+          //expand: true,
+          //cwd: '<%= yeoman.app %>/images',
+          //src: '{,*/}*.{gif,jpeg,jpg,png}',
+          //dest: '<%= yeoman.dist %>/images'
+        //}]
+      //}
+    //},
+    //svgmin: {
+      //dist: {
+        //files: [{
+          //expand: true,
+          //cwd: '<%= yeoman.app %>/images',
+          //src: '{,*/}*.svg',
+          //dest: '<%= yeoman.dist %>/images'
+        //}]
+      //}
+    //},
     htmlmin: {
       options: {
         collapseWhitespace: true
-        //collapseBooleanAttributes: true,
-        //removeAttributeQuotes: true,
-        //removeRedundantAttributes: true,
-        //useShortDoctype: true,
-        //removeOptionalTags: true
       },
       dist: {
         files: [{
@@ -219,6 +228,16 @@ module.exports = function (grunt) {
         files: {
           '.tmp/styles/main.css': '<%= yeoman.src %>/styles/main.less'
         }
+      }
+    },
+    ngmin: {
+      dist: {
+        files: [{
+          expand: true,
+          cwd: '.tmp/concat/scripts',
+          src: '*.js',
+          dest: '.tmp/concat/scripts'
+        }]
       }
     },
     assemble: {
@@ -270,14 +289,15 @@ module.exports = function (grunt) {
     'clean',
     'setup',
     'useminPrepare',
-    'handlebars',
     'concurrent:dist',
     'concat',
+    'ngmin',
     'cssmin',
+    'uglify',
+    'autoprefixer',
+    //'rev',
     'usemin',
     'htmlmin'
-    //'autoprefixer',
-    //'rev',
   ]);
 
   grunt.registerTask('default', [

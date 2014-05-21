@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('antagonista')
-  .animation('.typein', function($timeout){
+  .animation('.typein', ['$timeout', function($timeout){
     var baseSpeed = 300,
-        strBase = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!_',
-        strBaseLen = strBase.length;
+    strBase = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!_',
+    strBaseLen = strBase.length;
 
     var randomStr = function(len) {
       return _.reduce(_.range(len), function(acc){
@@ -14,7 +14,7 @@ angular.module('antagonista')
 
     var typewrite = function(opts) {
       var text = opts.text,
-          curPos = opts.curPos;
+      curPos = opts.curPos;
 
       var charPause = opts.forward ? (text.substr(curPos, 1) === " " ? 120 : 0) : 0;
 
@@ -57,4 +57,4 @@ angular.module('antagonista')
         }
       }
     };
-  });
+  }]);
