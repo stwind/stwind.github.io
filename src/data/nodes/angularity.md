@@ -10,7 +10,7 @@ One thing that I had been keep neglecting is [Angularjs](https://angularjs.org/)
 
 ## The ngAnimate Mystique
 
-The previous version of [Antagonista](#/n/hello-again) is built with the traditional Backbonejs stack, and I was confused at few decisions like animation and data-binding. Later [React](http://facebook.github.io/react/) join the scene. It is so prevaling that React can be subsititude of Backbonejs' View module, so I started to read through its docs. In the chapter of [animation](http://facebook.github.io/react/docs/animation.html), it mentioned that React got its inspiration from Angularjs' [ngAnimate] module. Suddenly I felt that maybe I just misunderstood Angularjs.
+The previous version of [Antagonista](#/n/hello-again) is built with the traditional Backbonejs stack, and I was confused at few decisions like animation and data-binding. Later [React](http://facebook.github.io/react/) joins the scene. It is so prevaling that React can be a subsititude of Backbonejs' View module, so I started to read through its docs. In the chapter of [animation](http://facebook.github.io/react/docs/animation.html), it mentioned that React got its inspiration from Angularjs' [ngAnimate](https://docs.angularjs.org/api/ngAnimate) module. Suddenly I felt that maybe I just misunderstood Angularjs.
 
 ## First Impression
 
