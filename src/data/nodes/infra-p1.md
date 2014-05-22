@@ -1,9 +1,9 @@
 ---
 title: Infrastructure As Code Part 1
-name: infrastructure-as-code-part-1
+name: infra-p1
 time: 2014-02-10T08:29:26+08:00
 layout: node
-next: [about,hello-again,porting-things-from-python-to-erlang,the-haskell-do-notation]
+next: [about,angularity,hello-again,py2erl,haskell-do]
 ---
 
 Still remember the first time I used [vagrant](http://www.vagrantup.com/) to provision a vm for development with just one simple command `vagrant provision`, I was using [chef](http://www.getchef.com/chef/) back then, it was like magic that all tedious works of copying commands and editing config files were automated, there is nothing more satisfying than watching step after step being on the screen. 

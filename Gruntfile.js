@@ -355,7 +355,7 @@ module.exports = function (grunt) {
   grunt.registerTask('new-post', function() {
     var title = grunt.option('title') || 'untitled post',
         name = title.replace(/ /gi, '-').toLowerCase(),
-        target = yeomanConfig.data + '/posts/' + name + '.md';
+        target = yeomanConfig.data + '/nodes/' + name + '.md';
 
     var context = {
       title: title,
@@ -367,6 +367,7 @@ module.exports = function (grunt) {
     "title: <%= title %>\n" + 
     "name: <%= name %>\n" + 
     "time: <%= time %>\n" +
+    "layout: node\n" +
     "---\n";
 
     grunt.log.write('Writing file:', target.cyan);

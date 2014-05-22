@@ -1,9 +1,9 @@
 ---
 title: Porting things from Python to Erlang
-name: porting-things-from-python-to-erlang
+name: py2erl
 time: 2014-01-21T10:06:32+08:00
 layout: node
-next: [about,hello-again,infrastructure-as-code-part-1,the-haskell-do-notation]
+next: [about,angularity,hello-again,infra-p1,haskell-do]
 ---
 
 Few days earlier I wanted to write a Erlang cli tool for the project I am working on. I wrote [one](https://github.com/stwind/ecli) few months ago. It just works, but I want to to be a truely universal lib that I can reuse with ease in future projects. Then I found [docopt](http://docopt.org/) and got so excited about it that I immediately decide to write an Erlang port for it. 
