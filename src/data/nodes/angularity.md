@@ -18,7 +18,7 @@ So I spent few days to learn about AngularJS, and got quite impressive.
 
 ### Clean Separation Of Concerns
 
-Clean separation of concerns. Concepts like providers, services, controllers are quite clear and straightforward, while organically intertwined with each other, achiving very high flexibility. 
+Concepts like providers, services, controllers are quite clear and straightforward, while organically intertwined with each other, achiving very high flexibility. 
 
 The most obvious example is [Forms](https://docs.angularjs.org/guide/forms), one of the most complicated use cases. To achieve different validation requirements and the correspondent visual feedback, Form controlls could soon to be a big mess. But with AngularJS, if you do it right, Forms can be done quite cleanly and elegantly. So beautiful that it feels like magic.
 
