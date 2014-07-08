@@ -6,7 +6,7 @@ layout: node
 next: [angularity,hello-again,haskell-do,infra-p1,py2erl]
 ---
 
-An quasi-full-stack software developer, automation enthusiast living in digital but fascinated by analog.
+A quasi-full-stack software developer, automation enthusiast living in digital but fascinated by analog.
 
 - __city__: Shanghai
 - __editor__: Vim
