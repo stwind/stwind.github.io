@@ -2,7 +2,8 @@
     <div class="grid__item six-twelfths palm-one-whole lap-nine-twelfths">
         <div class="node-current">
             <header class="node-header">
-                <h1 ag-typing class="node-title" ng-class="titleClass">{{title}}</h1>
+                <h1 ag-typing class="node-title" 
+                    ng-class="{typein: status.shown, blink: status.waiting}">{{title}}</h1>
                 <div class="node-time" ng-show="showTime">{{formatDate time "%d %b %Y"}}</div>
             </header>
             <div class="node-content" ng-show="showContent">{{#markdown}}{{> body}}{{/markdown}}</div>
@@ -12,6 +13,8 @@
         <div class="next-node-title">{% nextTitle %}</div>
     </div>
     <div class="grid__item one-twelfth palm-one-whole lap-one-twelfths">
-        {{#ul next class="nodes-next" ng-show="showNexts"}}<a class="node-next" ng-mouseleave="nextTitle=''" ng-mouseover="nextTitle = '{{title}}'" ng-click="hideCurrentNode('{{name}}')" href=""></a>{{/ul}}
+        {{#ul next class="nodes-next" ng-show="showNexts"}}
+        <a class="node-next" ng-mouseleave="nextTitle=''" ng-mouseover="nextTitle = '{{title}}'" ng-click="hideCurrentNode('{{name}}')" href=""></a>
+        {{/ul}}
     </div>
 </div>

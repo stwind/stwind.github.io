@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('antagonista')
-  .animation('.typein', ['$timeout', function($timeout){
+  .animation('.typein', function($timeout){
     var baseSpeed = 300,
     strBase = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!_',
     strBaseLen = strBase.length;
@@ -57,4 +57,4 @@ angular.module('antagonista')
         }
       }
     };
-  }]);
+  });

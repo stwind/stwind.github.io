@@ -1,23 +1,27 @@
 'use strict';
 
 angular.module('antagonista')
-  .controller('NodeCtrl', ['$scope','$location','$timeout','viewManager', function ($scope, $location, $timeout, viewManager) {
+  .controller('NodeCtrl', function ($scope, $location, $timeout, viewManager){
     viewManager.show($scope);
 
-    $scope.titleClass = 'blink';
+    $scope.status = {
+      waiting: true
+    };
 
     $scope.showCurrentNode = function(){
       $timeout(function() {
-        $scope.titleClass = 'typein';
+        $scope.status.shown = true;
+        $scope.status.waiting = false;
 
         $timeout(function(){ $scope.showTime = true; }, 900);
         $timeout(function(){ $scope.showContent = true; }, 1100);
-        $timeout(function(){ $scope.showNexts = true; }, 1300);
+        $timeout(function(){ $scope.showNexts = true }, 1300);
       }, 700);
     };
 
     $scope.hideCurrentNode = function(node) {
-      $scope.titleClass = 'blink';
+      $scope.status.waiting = true;
+      $scope.status.shown = false;
 
       $scope.showContent = false;
       $scope.showTime = false; 
@@ -27,4 +31,4 @@ angular.module('antagonista')
         if (node) $location.url('/n/' + node);
       }, 300);
     };
-  }]);
+  });
