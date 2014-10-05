@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('antagonista')
-  .controller('MainCtrl', ['$scope','$location','$timeout','viewManager', function ($scope, $location, $timeout, viewManager) {
+  .controller('NodeCtrl', ['$scope','$location','$timeout','viewManager', function ($scope, $location, $timeout, viewManager) {
     viewManager.show($scope);
 
     $scope.titleClass = 'blink';

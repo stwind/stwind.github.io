@@ -5,8 +5,8 @@ angular
     'ngCookies',
     'ngResource',
     'ngSanitize',
-    'ngRoute',
-    'ngAnimate'
+    'ngAnimate',
+    'ui.router'
   ])
   .provider('viewManager', function() {
     var current;
@@ -25,24 +25,18 @@ angular
       };
     };
   })
-  .config(
-    ['$routeProvider','$interpolateProvider','viewManagerProvider',
-      function ($routeProvider, $interpolateProvider, viewManagerProvider) {
-        $routeProvider
-        .when('/', {
-          redirectTo: '/n/about'
-        })
-        .when('/n/:node', {
-          templateUrl: function(p) {
-            return 'n/' + p.node + '.html';
-          },
-          resolve: viewManagerProvider.resolve,
-          controller: 'MainCtrl'
-        })
-        .otherwise({
-          redirectTo: '/'
-        });
 
-        $interpolateProvider.startSymbol('{%');
-        $interpolateProvider.endSymbol('%}');
-  }]);
+  .config(function ($stateProvider, $urlRouterProvider, $interpolateProvider){
+    $urlRouterProvider.otherwise('/n/about');
+
+    $stateProvider
+      .state('node', {
+        url: '/n/:node',
+        templateUrl: function ($stateParams){
+          return 'n/' + $stateParams.node + '.html';
+        }
+      });
+
+    $interpolateProvider.startSymbol('{%');
+    $interpolateProvider.endSymbol('%}');
+  });

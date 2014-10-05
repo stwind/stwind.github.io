@@ -16,7 +16,9 @@ var mountFolder = function (connect, dir) {
 module.exports = function (grunt) {
 
   // Load grunt tasks automatically
-  require('load-grunt-tasks')(grunt);
+  require('jit-grunt')(grunt, {
+    useminPrepare: 'grunt-usemin'
+  });
 
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
@@ -137,12 +139,6 @@ module.exports = function (grunt) {
         }
       }
     },
-    //useminPrepare: {
-      //options: {
-        //dest: '<%= yeoman.dist %>'
-      //},
-      ////html: '<%= yeoman.src %>/templates/layouts/default.hbs',
-    //},
     useminPrepare: {
       html: '<%= yeoman.src %>/templates/layouts/default.hbs',
       options: {
@@ -165,26 +161,6 @@ module.exports = function (grunt) {
       html: ['<%= yeoman.dist %>/{,*/,*/*/}*.html'],
       css: ['<%= yeoman.dist %>/styles/{,*/}*.css']
     },
-    //imagemin: {
-      //dist: {
-        //files: [{
-          //expand: true,
-          //cwd: '<%= yeoman.app %>/images',
-          //src: '{,*/}*.{gif,jpeg,jpg,png}',
-          //dest: '<%= yeoman.dist %>/images'
-        //}]
-      //}
-    //},
-    //svgmin: {
-      //dist: {
-        //files: [{
-          //expand: true,
-          //cwd: '<%= yeoman.app %>/images',
-          //src: '{,*/}*.svg',
-          //dest: '<%= yeoman.dist %>/images'
-        //}]
-      //}
-    //},
     htmlmin: {
       options: {
         collapseWhitespace: true
@@ -218,7 +194,7 @@ module.exports = function (grunt) {
     },
     concurrent: {
       dev: ['assemble', 'copy', 'less'],
-      dist: ['assemble', 'copy:fonts', 'less']
+      dist: ['assemble', 'copy:fonts', 'ngAnnotate', 'less']
     },
     less: {
       dev: {
@@ -230,13 +206,16 @@ module.exports = function (grunt) {
         }
       }
     },
-    ngmin: {
+    ngAnnotate: {
+      options: {
+        singleQuotes: true
+      },
       dist: {
         files: [{
           expand: true,
-          cwd: '.tmp/concat/scripts',
-          src: '*.js',
-          dest: '.tmp/concat/scripts'
+          cwd: '<%= yeoman.src %>/',
+          src: ['scripts/**/*.js'],
+          dest: '.tmp/'
         }]
       }
     },
@@ -292,7 +271,6 @@ module.exports = function (grunt) {
     'useminPrepare',
     'concurrent:dist',
     'concat',
-    'ngmin',
     'cssmin',
     'uglify',
     //'autoprefixer',
