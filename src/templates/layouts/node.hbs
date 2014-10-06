@@ -1,20 +1,22 @@
-<div class="grid" ng-controller="NodeCtrl">
+<div class="grid" ag-node>
     <div class="grid__item six-twelfths palm-one-whole lap-nine-twelfths">
         <div class="node-current">
             <header class="node-header">
-                <h1 ag-typing class="node-title" 
-                    ng-class="{typein: status.shown, blink: status.waiting}">{{title}}</h1>
-                <div class="node-time" ng-show="showTime">{{formatDate time "%d %b %Y"}}</div>
+                <h1 class="node-title blink" >{{title}}</h1>
+                <div class="node-time">{{formatDate time "%d %b %Y"}}</div>
             </header>
-            <div class="node-content" ng-show="showContent">{{#markdown}}{{> body}}{{/markdown}}</div>
+            <div class="node-content">{{#markdown}}{{> body}}{{/markdown}}</div>
         </div>
     </div>
     <div class="grid__item five-twelfths palm-one-whole lap-two-twelfths">
         <div class="next-node-title">{% nextTitle %}</div>
     </div>
     <div class="grid__item one-twelfth palm-one-whole lap-one-twelfths">
-        {{#ul next class="nodes-next" ng-show="showNexts"}}
-        <a class="node-next" ng-mouseleave="nextTitle=''" ng-mouseover="nextTitle = '{{title}}'" ng-click="hideCurrentNode('{{name}}')" href=""></a>
+        {{#ul next class="nodes-next"}}
+        <a class="node-next" 
+            ng-mouseleave="nextTitle=''" 
+            ng-mouseover="nextTitle = '{{title}}'" 
+            ng-click="toNext('{{name}}')" href=""></a>
         {{/ul}}
     </div>
 </div>

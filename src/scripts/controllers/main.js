@@ -1,34 +1,13 @@
 'use strict';
 
 angular.module('antagonista')
-  .controller('NodeCtrl', function ($scope, $location, $timeout, viewManager){
-    viewManager.show($scope);
+  .controller('NodeCtrl', function ($scope, $state, $timeout){
 
-    $scope.status = {
-      waiting: true
-    };
+    $scope.toNext = function (node){
+      $scope.hidden = true;
 
-    $scope.showCurrentNode = function(){
       $timeout(function() {
-        $scope.status.shown = true;
-        $scope.status.waiting = false;
-
-        $timeout(function(){ $scope.showTime = true; }, 900);
-        $timeout(function(){ $scope.showContent = true; }, 1100);
-        $timeout(function(){ $scope.showNexts = true }, 1300);
-      }, 700);
-    };
-
-    $scope.hideCurrentNode = function(node) {
-      $scope.status.waiting = true;
-      $scope.status.shown = false;
-
-      $scope.showContent = false;
-      $scope.showTime = false; 
-      $scope.showNexts = false; 
-
-      return $timeout(function() {
-        if (node) $location.url('/n/' + node);
+        if (node) $state.go('node', {node: node});
       }, 300);
     };
   });

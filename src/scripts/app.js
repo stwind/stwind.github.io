@@ -8,24 +8,6 @@ angular
     'ngAnimate',
     'ui.router'
   ])
-  .provider('viewManager', function() {
-    var current;
-
-    this.resolve = {
-      lastCtrl: function() {
-        if (current) return current.hideCurrentNode();
-      }
-    };
-
-    this.$get = function(){
-      return {
-        show: function(scope) {
-          current = scope
-        }
-      };
-    };
-  })
-
   .config(function ($stateProvider, $urlRouterProvider, $interpolateProvider){
     $urlRouterProvider.otherwise('/n/about');
 
