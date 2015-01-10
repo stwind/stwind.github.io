@@ -70,7 +70,7 @@ Some future TODOs:
 
 * Responsivness
 * __Code__, __photos__ and __about__ section
-* Refractoring the stylesheets
+* Refactoring the stylesheets
 * Unit testing
 * Performance tuning
 * Typography tuning
