@@ -18,6 +18,7 @@
     "gulp-filesize": "0.0.6",
     "gulp-filter": "^2.0.0",
     "gulp-flatten": "^0.0.4",
+    "gulp-front-matter": "^1.2.0",
     "gulp-if": "^1.2.5",
     "gulp-imagemin": "^2.1.0",
     "gulp-jshint": "^1.9.0",
