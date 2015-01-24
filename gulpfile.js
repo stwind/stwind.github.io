@@ -21,19 +21,19 @@ gulp.task('webpack', function () {
 
 gulp.task('webpack-dev-server', function (callback) {
   var compiler = webpack(webpackConfig),
-      port = 8080;
+      host = 'localhost', port = 8080,
+      address = 'http://' + host + ':' + port + '/webpack-dev-server/';
 
   new WebpackDevServer(compiler, {
     contentBase: 'src/',
-    hot: true,
-    publicPath: '/assets/',
-    port: port
+    hot: true, port: port,
+    publicPath: '/assets/'
   })
-  .listen(port, 'localhost', function (err){
+  .listen(port, host, function (err){
     if (err) $log('[webpack-dev-server] error', err);
 
-    $log('[webpack-dev-server]', 'http://localhost:8080/webpack-dev-server/');
-    require('opn')('http://localhost:8080/webpack-dev-server/');
+    $log('[webpack-dev-server]', address);
+    require('opn')(address);
   });
 });
 

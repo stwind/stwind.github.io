@@ -1,11 +1,18 @@
 'use strict';
 
 var React = require('react');
+var Router = require('react-router');
+var { Route, DefaultRoute, RouteHandler, Link } = Router;
 
 var App = React.createClass({
-  render() {
+  mixins: [ Router.State ],
+
+  render: function () {
     return (
-      <h1>Hello, world.</h1>
+      <div>
+        <h1>hello</h1>
+        <RouteHandler/>
+      </div>
     );
   }
 });
