@@ -2,14 +2,15 @@
 
 var React = require('react');
 var Router = require('react-router');
-var { Route, DefaultRoute, RouteHandler, Link } = Router;
+var { Route, DefaultRoute, Redirect, Link } = Router;
 
 var App = require('./app');
-var NodeElm = require('./node');
+var Post = require('./post');
 
 var routes = (
   <Route path="/" handler={App}>
-    <Route name="node" path="n/:nodeid" handler={NodeElm}/>
+    <Route name="node" path="p/:id" handler={Post}/>
+    <Redirect from="/" to="node" params={{id: 'about'}} />
   </Route>
 );
 

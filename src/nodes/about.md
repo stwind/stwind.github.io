@@ -1,10 +1,8 @@
 ---
-title: Antagonista
-name: about
 time: 2014-05-21T12:50:46+08:00
-layout: node
 next: [angularity,hello-again,haskell-do,infra-p1,py2erl]
 ---
+# Antagonista
 
 A quasi-full-stack software developer, automation enthusiast living in digital but fascinated by analog.
 

@@ -1,4 +1,5 @@
 'use strict';
+
 var webpack = require('webpack');
 var path = require('path');
 
@@ -34,23 +35,32 @@ module.exports = {
       loader: 'jshint'
     }],
     loaders: [{
-        test: /\.js$/,
-        loaders: ['react-hot','jsx?harmony']
-      }, {
-        test: /\.less/,
-        loader: 'style-loader!css-loader!less-loader'
-      }, {
-        test: /\.css$/,
-        loader: 'style-loader!css-loader'
-      }, {
-        test: /\.(png|jpg)$/,
-        loader: 'url-loader?limit=8192'
-      }]
+      test: /\.js$/,
+      loaders: ['react-hot','jsx?harmony']
+    }, {
+      test: /\.less/,
+      loader: 'style-loader!css-loader!less-loader'
+    }, {
+      test: /\.css$/,
+      loader: 'style-loader!css-loader'
+    }, {
+      test: /\.(png|jpg)$/,
+      loader: 'url-loader?limit=8192'
+    }, {
+      test: /\.md/,
+      loader: './post'
+    }]
   },
 
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
-  ]
+  ],
+
+  remarkable: {
+    preset: 'full',
+    linkify: true,
+    typographer: true
+  }
 
 };
