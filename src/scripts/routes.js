@@ -9,8 +9,8 @@ var Post = require('./post');
 
 var routes = (
   <Route path="/" handler={App}>
-    <Route name="node" path="p/:id" handler={Post}/>
-    <Redirect from="/" to="node" params={{id: 'about'}} />
+    <Route name="post" path="p/:id" handler={Post}/>
+    <Redirect from="/" to="post" params={{id: 'about'}} />
   </Route>
 );
 
