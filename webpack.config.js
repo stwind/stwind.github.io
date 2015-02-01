@@ -17,7 +17,10 @@ module.exports = {
   ],
 
   resolve: {
-    extensions: ['', '.js']
+    extensions: ['', '.js'],
+    alias: {
+      styles: path.resolve(__dirname, "src/styles")
+    }
   },
 
   cache: true,
@@ -38,8 +41,10 @@ module.exports = {
       test: /\.js$/,
       loaders: ['react-hot','jsx?harmony']
     }, {
-      test: /\.less/,
-      loader: 'style-loader!css-loader!less-loader'
+      test: /\.scss/,
+      loader: "style!css!sass?outputStyle=expanded&" +
+          "includePaths[]=" +
+            (path.resolve(__dirname, "./node_modules"))
     }, {
       test: /\.css$/,
       loader: 'style-loader!css-loader'
