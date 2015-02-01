@@ -8,7 +8,7 @@ var Post = React.createClass({
   mixins: [Router.State],
 
   render: function () {
-    var id = this.getParams().id;
+    var id = this.props.id;
     var post = require('../posts/' + id + '.md');
 
     return (
