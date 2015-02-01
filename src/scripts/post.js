@@ -22,7 +22,7 @@ var Post = React.createClass({
   renderNexts: function(next) {
     return (
       <li key={next}>
-        <Link to="post" params={{id: next}}>{next}</Link>
+        <a href={"#" + next}>{next}</a>
       </li>
     );
   }
