@@ -9,7 +9,7 @@ var Post = React.createClass({
 
   render: function () {
     var id = this.props.id;
-    var post = require('../posts/' + id + '.md');
+    var post = require('posts/' + id + '.md');
 
     return (
       <div>

@@ -9,10 +9,7 @@ var App = React.createClass({
 
   render: function () {
     return (
-      <div>
-        <h1>hello</h1>
         <RouteHandler/>
-      </div>
     );
   }
 });

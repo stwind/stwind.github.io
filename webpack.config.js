@@ -19,7 +19,8 @@ module.exports = {
   resolve: {
     extensions: ['', '.js'],
     alias: {
-      styles: path.resolve(__dirname, "src/styles")
+      styles: path.resolve(__dirname, "src/styles"),
+      posts: path.resolve(__dirname, "src/posts")
     }
   },
 
