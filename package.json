@@ -31,7 +31,6 @@
     "gulp-util": "^3.0.2",
     "gulp-watch": "^4.0.1",
     "gulp-webpack": "^1.1.2",
-    "gulpsmith": "^0.5.3",
     "highlight.js": "^8.4.0",
     "jshint-stylish": "^1.0.0",
     "jsx-loader": "^0.12.2",
