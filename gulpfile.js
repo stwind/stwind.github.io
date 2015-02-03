@@ -17,7 +17,7 @@ gulp.task('webpack', function () {
   .pipe(gulp.dest('.tmp/scripts'));
 });
 
-gulp.task('webpack-dev-server', function (callback) {
+gulp.task('serve', function (callback) {
   var compiler = webpack(webpackConfig),
       host = 'localhost', port = 8080,
       address = 'http://' + host + ':' + port + '/webpack-dev-server/';

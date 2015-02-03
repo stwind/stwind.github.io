@@ -1,7 +1,6 @@
 ---
 title: Antagonista
 time: 2014-05-21T12:50:46+08:00
-next: [p/angularity,p/hello-again,p/haskell-do,p/infra-p1,p/py2erl]
 ---
 # Antagonista
 

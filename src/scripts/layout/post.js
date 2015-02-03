@@ -2,7 +2,8 @@
 
 var React = require('react');
 var Router = require('react-router');
-var { Route, DefaultRoute, RouteHandler, Link } = Router;
+
+var address = require('../address');
 
 var Post = React.createClass({
   mixins: [Router.State],
@@ -14,7 +15,7 @@ var Post = React.createClass({
     return (
       <div>
         <div dangerouslySetInnerHTML={{__html: post.content}} />
-        <ul>{post.next.map(this.renderNexts)}</ul>
+        <ul>{this.props.next.map(this.renderNexts)}</ul>
       </div>
     );
   },

@@ -1,9 +1,6 @@
 ---
 title: The Angularity Is Here
-name: angularity
 time: 2014-05-22T11:33:10+08:00
-layout: node
-next: [about,hello-again,infra-p1,py2erl,haskell-do]
 ---
 
 One thing that I had been keep neglecting is [AngularJS](https://angularjs.org/), because I back then was a [BackboneJS](http://backbonejs.org/) lover, purist of HTML markup, skeptics of MVVM's flexibility, and doubter of the neccessity of another module system rather than [CommonJS](http://wiki.commonjs.org/wiki/CommonJS) or [RequireJS](http://requirejs.org/). One last reason is that if [WebComponents](http://webcomponents.org/) will be ultimate future, why AngularJS now.

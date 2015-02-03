@@ -1,9 +1,6 @@
 ---
 title: The Haskell Do notation
-name: haskell-do
 time: 2014-01-13T11:20:33+08:00
-layout: node
-next: [about,angularity,hello-again,py2erl,infra-p1]
 ---
 
 The excellent [Haskell Tutorial](http://learnyouahaskell.com/) has a very good explanation of the [`do` notation](http://learnyouahaskell.com/a-fistful-of-monads#do-notation). But it still took me quite some hours to finally understand how to convert to and from plain `>>=` statements and `do` notations. I wrote a simple script to help me memorize it.
