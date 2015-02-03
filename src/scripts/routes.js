@@ -13,6 +13,7 @@ var Address = React.createClass({
   render: function () {
     var addr = address.get(this.getParams().addr);
     var Layout = require('./layout/' + addr.layout);
+
     return (
       <Layout {...addr} />
     );

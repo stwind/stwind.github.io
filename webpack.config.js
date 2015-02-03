@@ -11,10 +11,10 @@ module.exports = {
     filename: "[name].js"
   },
 
-  entry: [
-    'webpack/hot/only-dev-server',
-    './src/scripts/main.js'
-  ],
+  entry: {
+    main: ['webpack/hot/only-dev-server', './src/scripts/main.js'],
+    vendor: ['react','react-router']
+  },
 
   resolve: {
     extensions: ['', '.js'],
@@ -60,7 +60,8 @@ module.exports = {
 
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.NoErrorsPlugin(),
+    new webpack.optimize.CommonsChunkPlugin({ name: 'vendor' })
   ],
 
   remarkable: {
