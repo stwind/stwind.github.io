@@ -13,9 +13,11 @@ var Post = React.createClass({
     var post = require('posts/' + id + '.md');
 
     return (
-      <div>
-        <div dangerouslySetInnerHTML={{__html: post.content}} />
-        <ul>{this.props.next.map(this.renderNexts)}</ul>
+      <div className="c-grid">
+        <div className="c-grid__col c-grid__col--1-of-2" dangerouslySetInnerHTML={{__html: post.content}} />
+        <div className="c-grid__col c-grid__col--1-of-12 c-grid__col--push-5-of-12">
+          <ul>{this.props.next.map(this.renderNexts)}</ul>
+        </div>
       </div>
     );
   },
