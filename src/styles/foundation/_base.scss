@@ -4,9 +4,9 @@ html {
 
 body {
     font-size: 1.3em; /* currently ems cause chrome bug misinterpreting rems on body element */
-    line-height: 1.5;
+    line-height: 1.4;
     font-family: "Titillium Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    background-color: hsl(0, 0, 98);
+    background-color: hsl(0, 0, 97);
     color: hsl(0, 0, 10);
 }
 
@@ -20,17 +20,47 @@ a {
     color: hsl(0, 0, 10);
 }
 
-h1 {
-    font-weight: 200;
+h1, h2 {
+    margin-top: 3.6rem;
+    margin-bottom: 1.8rem;
+}
+
+h3, h4, h5, h6 {
+    margin-top: 1.8rem;
+    margin-bottom: 1.8rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 200; 
+}
+
+h1 { font-size: 2.2rem; line-height: 1.63;  }
+h2 { font-size: 1.8rem; line-height: 2; }
+h3 { font-size: 1.5rem; line-height: 1.2;  }
+h4 { font-size: 1.3rem; line-height: 1.38; }
+
+p, ul, ol, pre, table, blockquote {
+    margin-top: 1.8rem;
+    margin-bottom: 1.8rem;
 }
 
 code {
     font-family: "PT Mono", "Menlo", monospace;
     font-size: 1rem;
+    background-color: hsl(0, 0, 10);
+    color: hsl(0, 0, 100);
+    padding-top: 0.05rem;
+    padding-bottom: 0.05rem;
+
+    &:before, &:after {
+        letter-spacing: -0.3rem;
+        content: '\00a0';
+    }
 }
 
 pre > code {
     display: block;
     white-space: pre; 
     background-color: hsl(0, 0, 100);
+    color: hsl(0, 0, 10);
 }

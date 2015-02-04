@@ -1,7 +1,8 @@
 ---
-title: Hello Again
 time: 2014-01-06T12:50:46+08:00
 ---
+# Hello Again
+
 Anyway, this is my new site [Antagonista](http://stwind.github.io/) (did I just said that like I had an old one?). Now here will be the place for me to put my thoughts, memos, photos and experiments. It was a lot of fun to build a static site that is hosted on [Github](http://pages.github.com/) and using all those awesome [node.js](http://nodejs.org/) tools (I'll explain them later).
 
 Another reason I need a site like this is because I have something like an **identity crisis**. I am kind of difficult answering questions like __what do you do__ in this era. I read a lot and think a lot, I see myself in a lot of things, but it seems that I just can not combine them together to be an unity. This is site is my another try, hope it works.

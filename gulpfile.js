@@ -19,8 +19,7 @@ gulp.task('webpack', function () {
 
 gulp.task('serve', function (callback) {
   var compiler = webpack(webpackConfig),
-      host = 'localhost', port = 8080,
-      address = 'http://' + host + ':' + port + '/webpack-dev-server/';
+      host = '0.0.0.0', port = 8080;
 
   new WebpackDevServer(compiler, {
     contentBase: 'src/',
@@ -30,8 +29,8 @@ gulp.task('serve', function (callback) {
   .listen(port, host, function (err){
     if (err) $log('[webpack-dev-server] error', err);
 
-    $log('[webpack-dev-server]', address);
-    require('opn')(address);
+    $log('[webpack-dev-server] started');
+    require('opn')('http://localhost:8080/webpack-dev-server/');
   });
 });
 

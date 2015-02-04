@@ -13,6 +13,12 @@
 @font-face {
   font-family: 'Titillium Web';
   font-style: normal;
+  font-weight: 300;
+  src: local('Titillium WebLight'), local('TitilliumWeb-Light'), url(/fonts/TitilliumWeb-Light) format('truetype');
+}
+@font-face {
+  font-family: 'Titillium Web';
+  font-style: normal;
   font-weight: 400;
   src: local('Titillium Web'), local('TitilliumWeb-Regular'), url(/fonts/TitilliumWeb-Regular.ttf) format('truetype');
 }
@@ -24,13 +30,13 @@
 }
 @font-face {
   font-family: 'Titillium Web';
-  font-style: italic;
-  font-weight: 400;
-  src: local('Titillium WebItalic'), local('TitilliumWeb-Italic'), url(/fonts/TitilliumWeb-Italic.ttf) format('truetype');
+  font-style: normal;
+  font-weight: 700;
+  src: local('Titillium WebBold'), local('TitilliumWeb-Bold'), url(/fonts/TitilliumWeb-Bold) format('truetype');
 }
 @font-face {
   font-family: 'Titillium Web';
   font-style: italic;
-  font-weight: 600;
-  src: local('Titillium WebSemiBold Italic'), local('TitilliumWeb-SemiBoldItalic'), url(/fonts/TitilliumWeb-SemiBoldItalic.ttf) format('truetype');
+  font-weight: 400;
+  src: local('Titillium WebItalic'), local('TitilliumWeb-Italic'), url(/fonts/TitilliumWeb-Italic.ttf) format('truetype');
 }

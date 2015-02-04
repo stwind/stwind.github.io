@@ -1,7 +1,7 @@
 ---
-title: Porting things from Python to Erlang
 time: 2014-01-21T10:06:32+08:00
 ---
+# Porting things from Python to Erlang
 
 Few days earlier I wanted to write a Erlang cli tool for the project I am working on. I wrote [one](https://github.com/stwind/ecli) few months ago. It just works, but I want to to be a truely universal lib that I can reuse with ease in future projects. Then I found [docopt](http://docopt.org/) and got so excited about it that I immediately decide to write an Erlang port for it. 
 

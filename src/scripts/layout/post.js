@@ -13,10 +13,11 @@ var Post = React.createClass({
     var post = require('posts/' + id + '.md');
 
     return (
-      <div className="c-grid p-post">
-        <div className="c-grid__col c-grid__col--1-of-2" dangerouslySetInnerHTML={{__html: post.content}} />
-        <div className="c-grid__col c-grid__col--1-of-12 c-grid__col--push-5-of-12">
-          <ul>{this.props.next.map(this.renderNexts)}</ul>
+      <div className="p-post">
+        <div className="c-article" 
+             dangerouslySetInnerHTML={{__html: post.content}} />
+        <div className="p-post__nexts">
+          <ul className="c-nexts">{this.props.next.map(this.renderNexts)}</ul>
         </div>
       </div>
     );
@@ -24,8 +25,8 @@ var Post = React.createClass({
 
   renderNexts: function(next) {
     return (
-      <li className="p-next" key={next}>
-        <a className="p-next__link" href={"#" + next} />
+      <li className="c-next" key={next}>
+        <a className="c-next__link" href={"#" + next} />
       </li>
     );
   }
