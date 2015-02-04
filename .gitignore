@@ -5,3 +5,4 @@ dist
 src/bower_components
 doc/*.ai
 src_old
+.DS_Store

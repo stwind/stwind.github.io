@@ -1,5 +1,13 @@
+html {
+    font-size: 62.5%; 
+}
+
 body {
-    font-size: 13px;
+    font-size: 1.3em; /* currently ems cause chrome bug misinterpreting rems on body element */
+    line-height: 1.5;
+    font-family: "Titillium Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background-color: hsl(0, 0, 98);
+    color: hsl(0, 0, 10);
 }
 
 ul, ol {
@@ -9,5 +17,20 @@ ul, ol {
 }
 
 a {
-    text-decoration: none;
+    color: hsl(0, 0, 10);
+}
+
+h1 {
+    font-weight: 200;
+}
+
+code {
+    font-family: "PT Mono", "Menlo", monospace;
+    font-size: 1rem;
+}
+
+pre > code {
+    display: block;
+    white-space: pre; 
+    background-color: hsl(0, 0, 100);
 }
