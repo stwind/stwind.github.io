@@ -26,7 +26,6 @@ ol {
 
     > li {
         position: relative; /* Create a positioning context */
-        list-style: none; /* Disable the normal item numbering */
 
         &:before {
             content: counter(li); /* Use the counter as content */
