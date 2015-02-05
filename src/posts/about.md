@@ -1,7 +1,7 @@
 ---
 time: 2014-05-21T12:50:46+08:00
 ---
-# antagonista
+# 0x091de4f1
 
 A quasi-full-stack software developer, automation enthusiast living in digital but fascinated by analog.
 

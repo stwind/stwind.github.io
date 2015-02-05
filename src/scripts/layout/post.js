@@ -13,8 +13,8 @@ var Post = React.createClass({
     var post = require('posts/' + id + '.md');
 
     return (
-      <div className="p-post">
-        <div className="c-article" 
+      <div className={"p-post p-post--" + id}>
+        <div className={"p-article p-article--" + id} 
              dangerouslySetInnerHTML={{__html: post.content}} />
         <div className="p-post__nexts">
           <ul className="c-nexts">{this.props.next.map(this.renderNexts)}</ul>
