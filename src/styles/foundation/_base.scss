@@ -89,3 +89,14 @@ pre {
         }
     }
 } 
+
+
+::-moz-selection {
+    background-color: $color-red;
+    color: hsl(0, 0, 100);
+}
+
+::selection {
+    background-color: $color-red;
+    color: hsl(0, 0, 100);
+}
