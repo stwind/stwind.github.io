@@ -10,19 +10,31 @@ body {
     color: hsl(0, 0, 10);
 }
 
-p, ul, ol, pre, table, blockquote {
+p, pre, table, blockquote {
     margin-top: 1.8rem;
     margin-bottom: 1.8rem;
 }
-
 
 ul, ol {
     list-style: none;
     margin: 0;
     padding: 0;
+}
 
-    ul, ol {
-        margin-left: 1.3rem;
+ol {
+    counter-reset: li;
+
+    > li {
+        position: relative; /* Create a positioning context */
+        list-style: none; /* Disable the normal item numbering */
+
+        &:before {
+            content: counter(li); /* Use the counter as content */
+            counter-increment: li; /* Increment the counter by 1 */
+            margin-right: 0.6rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
     }
 }
 
