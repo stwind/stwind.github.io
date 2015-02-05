@@ -65,9 +65,10 @@ code {
     font-size: 1rem;
     background-color: hsl(0, 0, 25);
     color: hsl(0, 0, 100);
-    padding-top: 0.05rem;
-    padding-bottom: 0.05rem;
+    padding-top: 0;
+    padding-bottom: 0.1rem;
     overflow: auto;
+    vertical-align: 0.1rem;
 
     &:before, &:after {
         letter-spacing: -0.3rem;
@@ -81,7 +82,7 @@ pre {
         background-color: hsl(0, 0, 100);
         display: block;
         white-space: pre; 
-        padding: 0.5rem;
+        padding: 0.4rem 0.5rem;
         color: hsl(0, 0, 10);
 
         &:before, &:after {
