@@ -18,7 +18,7 @@ var Post = React.createClass({
              dangerouslySetInnerHTML={{__html: post.content}} />
         <div className="p-post__nexts">
           <div>{"-------------------------------------"}</div>
-          <span>{"ReferenceError: null is not defined "}</span>
+          <span>{"ReferenceError: next is not defined "}</span>
           <ul className="c-nexts">{this.props.next.map(this.renderNexts)}</ul>
         </div>
       </div>
