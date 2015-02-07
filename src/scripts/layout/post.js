@@ -17,16 +17,23 @@ var Post = React.createClass({
         <div className={"p-article p-article--" + id} 
              dangerouslySetInnerHTML={{__html: post.content}} />
         <div className="p-post__nexts">
+          <div>{"-------------------------------------"}</div>
+          <span>{"ReferenceError: null is not defined "}</span>
           <ul className="c-nexts">{this.props.next.map(this.renderNexts)}</ul>
         </div>
       </div>
     );
   },
 
-  renderNexts: function(next) {
+  renderNexts: function(next, i) {
+    var title = address.get(next)['title'];
+
+    var title1 = title.toLowerCase().replace(' ', '.');
     return (
       <li className="c-next" key={next}>
-        <a className="c-next__link" href={"#" + next} />
+        <span>{' at '}</span>
+        <a className="c-next__link" href={"#" + next} >{title1}</a>
+        <span>{" (" + next + ") "}</span>
       </li>
     );
   }
