@@ -28,7 +28,7 @@ var Post = React.createClass({
   renderNexts: function(next, i) {
     var title = address.get(next)['title'];
 
-    var title1 = title.toLowerCase().replace(' ', '.');
+    var title1 = title.toLowerCase().replace(/ /g, '.');
     return (
       <li className="c-next" key={next}>
         <span>{' at '}</span>
