@@ -3,7 +3,7 @@
 var fs = require('fs');
 
 var gulp = require('gulp');
-var _ = require('lodash');
+var moment = require('moment');
 var runSequence = require('run-sequence');
 var $ = require('gulp-load-plugins')();
 var $log = $.util.log;
@@ -81,6 +81,25 @@ gulp.task('setup', function (done) {
   if (argv.f) sh.rm('-rf', DIST);
 
   if (!fs.existsSync(DIST + '/.git')) setup();
+});
+
+gulp.task('deploy', function (done) {
+    var pwd = process.cwd();
+
+    var time = moment().local().format(),
+        msg = '"Site updated at ' + time + '"';
+
+    sh.cd(DIST);
+    sh.exec('git pull');
+    sh.exec('git add -A');
+    $log('Committing: ' + msg);
+    sh.exec('git commit -m ' + msg);
+    $log(' OK');
+    $log('Pushing: ' + msg);
+    sh.exec('git push origin master');
+    $log(' OK');
+    $log('Github Page deploy completed.');
+    sh.cd(pwd);
 });
 
 gulp.task('default', function () {
