@@ -2,7 +2,7 @@
 
 var addresses = {
   '0x091de4f1': { 
-    layout: 'post', id: 'about', title: 'about',
+    layout: 'post', id: 'about', title: 'п╬п╥я',
     next: ['0xa568c2d9','0x5dbd7439','0x6842e34b','0xe924d894','0x945613ad']
   },
   '0xa568c2d9': { 
