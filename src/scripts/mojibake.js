@@ -40,6 +40,16 @@ var Mojibake = React.createClass({
         <span>{text}</span>
         <span>{text}</span>
         <span>{text}</span>
+        <span>{text}</span>
+        <span>{text}</span>
+        <span>{text}</span>
+        <span>{text}</span>
+        <span>{text}</span>
+        <span>{text}</span>
+        <span>{text}</span>
+        <span>{text}</span>
+        <span>{text}</span>
+        <span>{text}</span>
       </div>
     );
   }
