@@ -1,0 +1,35 @@
+.p-about {
+    display: table;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    line-height: 100%;
+    text-align: center;
+}
+
+.p-about__content {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.p-about__title {
+    font-family: "PT Mono", "Menlo", monospace;
+    font-size: 1rem;
+    display: inline-block;
+    color: hsl(0,0,100);
+    background-color: hsl(0,0,10);
+    text-decoration: none;
+
+    &:before, &:after {
+        letter-spacing: -0.3rem;
+        content: '\00a0';
+    }
+
+    &:hover {
+        color: hsl(0,0,100);
+        background-color: $color-red;
+    }
+}
+
+.p-about__desc {
+}

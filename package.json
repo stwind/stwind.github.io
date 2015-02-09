@@ -36,6 +36,7 @@
     "highlight.js": "^8.4.0",
     "jshint-stylish": "^1.0.0",
     "jsx-loader": "^0.12.2",
+    "koi8-r": "^0.1.2",
     "lodash": "~2.4.1",
     "moment": "~2.8.3",
     "normalize.css": "^3.0.2",

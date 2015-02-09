@@ -5,6 +5,8 @@ var Router = require('react-router');
 
 var address = require('../address');
 
+var Mojibake = require('../mojibake');
+
 var Post = React.createClass({
   mixins: [Router.State],
 
@@ -13,13 +15,15 @@ var Post = React.createClass({
     var post = require('posts/' + id + '.md');
 
     return (
-      <div className={"p-post p-post--" + id}>
-        <div className={"p-article p-article--" + id} 
-             dangerouslySetInnerHTML={{__html: post.content}} />
-        <div className="p-post__nexts">
-          <div>{"-------------------------------------"}</div>
-          <span>{"ReferenceError: next is not defined "}</span>
-          <ul className="c-nexts">{this.props.next.map(this.renderNexts)}</ul>
+      <div>
+        <div className={"p-post p-post--" + id}>
+          <div className={"p-article p-article--" + id} 
+               dangerouslySetInnerHTML={{__html: post.content}} />
+          <div className="p-post__nexts">
+            <div>{"-------------------------------------"}</div>
+            <span>{"ReferenceError: next is not defined "}</span>
+            <ul className="c-nexts">{this.props.next.map(this.renderNexts)}</ul>
+          </div>
         </div>
       </div>
     );
