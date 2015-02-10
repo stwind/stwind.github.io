@@ -1,23 +1,20 @@
 .p-about {
-    display: table;
     position: absolute;
     height: 100%;
     width: 100%;
-    line-height: 100%;
     text-align: center;
 }
 
 .p-about__content {
-    display: table-cell;
-    vertical-align: middle;
+    position: relative;
+    top: 50%;
 }
 
 .p-about__title {
     font-family: "PT Mono", "Menlo", monospace;
     font-size: 1rem;
-    display: inline-block;
     color: hsl(0,0,100);
-    background-color: hsl(0,0,50);
+    background-color: hsl(0,0,30);
     text-decoration: none;
 
     &:before, &:after {
@@ -26,7 +23,7 @@
     }
 
     &:hover {
-        color: hsl(0,0,40);
+        color: hsl(0,0,30);
         background-color: hsl(0,0,100);
     }
 }
