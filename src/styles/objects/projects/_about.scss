@@ -1,13 +1,15 @@
 .p-about {
+    display: table;
     position: absolute;
     height: 100%;
     width: 100%;
+    line-height: 100%;
     text-align: center;
 }
 
 .p-about__content {
-    position: relative;
-    top: 50%;
+    display: table-cell;
+    vertical-align: middle;
 }
 
 .p-about__title {
