@@ -23,8 +23,8 @@
     }
 
     &:hover {
-        color: hsl(0,0,30);
-        background-color: hsl(0,0,100);
+        color: hsl(0,0,100);
+        background-color: $color-red;
     }
 }
 
