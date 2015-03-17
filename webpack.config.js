@@ -2,6 +2,7 @@
 
 var webpack = require('webpack');
 var path = require('path');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
 
@@ -26,6 +27,7 @@ module.exports = {
 
   cache: true,
   debug: true,
+  devtool: 'source-map',
 
   stats: {
     colors: true,
@@ -43,15 +45,29 @@ module.exports = {
       loaders: ['react-hot','jsx?harmony']
     }, {
       test: /\.scss/,
-      loader: "style!css!sass?outputStyle=expanded&" +
-          "includePaths[]=" +
-            (path.resolve(__dirname, "./node_modules"))
+      loader: 'style!css!autoprefixer?browsers=last 2 version!' + 
+        'sass?&sourceMap=true&outputStyle=expanded&includePaths[]=' + 
+        path.resolve(__dirname, './node_modules')
+
+      // loader: ExtractTextPlugin.extract('style',
+      //   'css!autoprefixer?browsers=last 2 version!' + 
+      //   'sass?&sourceMap=true&outputStyle=expanded&includePaths[]=' + 
+      //   path.resolve(__dirname, './node_modules'))
     }, {
       test: /\.css$/,
-      loader: 'style-loader!css-loader'
+      loader: 'style!css!autoprefixer?browsers=last 2 version'
+
+      // loader: ExtractTextPlugin.extract('style', 
+      //                                   'css!autoprefixer?browsers=last 2 version')
     }, {
       test: /\.(png|jpg)$/,
-      loader: 'url-loader?limit=8192'
+      loader: 'url?limit=8192'
+    }, {
+      test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, 
+      loader: "url?limit=10000&minetype=application/font-woff" 
+    }, {
+      test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, 
+      loader: "file" 
     }, {
       test: /\.md/,
       loader: './post'
@@ -61,7 +77,8 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
-    new webpack.optimize.CommonsChunkPlugin({ name: 'vendor' })
+    new webpack.optimize.CommonsChunkPlugin({ name: 'vendor' }),
+    new ExtractTextPlugin('styles.css')
   ],
 
   remarkable: {

@@ -25,7 +25,7 @@ var Address = React.createClass({
 var routes = (
   <Route path="/" handler={App}>
     <Route name="address" path=":addr" handler={Address}/>
-    <DefaultRoute handler={About}/>
+    <Redirect from="/" to="address" params={{addr: '0x091de4f1'}} />
   </Route>
 );
 

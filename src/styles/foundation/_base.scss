@@ -28,7 +28,7 @@ ol {
         position: relative; /* Create a positioning context */
 
         &:before {
-            content: counter(li); /* Use the counter as content */
+            content: counter(li) '.'; /* Use the counter as content */
             counter-increment: li; /* Increment the counter by 1 */
             margin-right: 0.6rem;
             font-size: 1.2rem;
