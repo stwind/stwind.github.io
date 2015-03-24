@@ -1,7 +1,6 @@
 'use strict';
 
 var fs = require('fs');
-
 var gulp = require('gulp');
 var moment = require('moment');
 var runSequence = require('run-sequence');
@@ -9,7 +8,6 @@ var $ = require('gulp-load-plugins')();
 var $log = $.util.log;
 var sh = require('shelljs');
 var argv = require('yargs').argv;
-
 var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
 var webpackConfig = require('./webpack.config.js');

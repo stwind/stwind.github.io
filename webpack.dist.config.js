@@ -43,12 +43,14 @@ module.exports = {
       loaders: ['react-hot','jsx?harmony']
     }, {
       test: /\.scss/,
-      loader: 'style!css!autoprefixer?browsers=last 2 version!' + 
-        'sass?outputStyle=expanded&includePaths[]=' + 
-        path.resolve(__dirname, './node_modules')
+      loader: ExtractTextPlugin.extract('style',
+        'css!autoprefixer?browsers=last 2 version!' + 
+        'sass?&sourceMap=true&outputStyle=expanded&includePaths[]=' + 
+        path.resolve(__dirname, './node_modules'))
     }, {
       test: /\.css$/,
-      loader: 'style!css!autoprefixer?browsers=last 2 version'
+      loader: ExtractTextPlugin.extract('style', 
+                                        'css!autoprefixer?browsers=last 2 version')
     }, {
       test: /\.(png|jpg)$/,
       loader: 'url?limit=8192'
