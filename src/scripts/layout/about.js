@@ -3,9 +3,7 @@
 var React = require('react');
 var Router = require('react-router');
 
-var address = require('../address');
-
-var Mojibake = require('../mojibake');
+// var address = require('../address');
 
 var Post = React.createClass({
   mixins: [Router.State],

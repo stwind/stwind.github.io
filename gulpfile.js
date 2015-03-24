@@ -21,7 +21,7 @@ gulp.task('clean', require('del').bind(null, [
 ]));
 
 gulp.task('assets', function() {
-  var src = ['src/index.html','src/fonts/*'];
+  var src = ['src/index.html'];
   return gulp.src(src)
     .pipe($.copy(DIST, { prefix: 1 }))
     .pipe($.size({title: 'assets'}));

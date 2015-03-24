@@ -7,7 +7,7 @@ var { Route, DefaultRoute, Redirect, Link } = Router;
 var App = require('./app');
 var address = require('./address');
 
-var About = require('./layout/about');
+// var About = require('./layout/about');
 
 var Address = React.createClass({
   mixins: [Router.State],

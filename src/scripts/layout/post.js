@@ -5,8 +5,6 @@ var Router = require('react-router');
 
 var address = require('../address');
 
-var Mojibake = require('../mojibake');
-
 var Post = React.createClass({
   mixins: [Router.State],
 
@@ -27,7 +25,7 @@ var Post = React.createClass({
     );
   },
 
-  renderNexts: function(next, i) {
+  renderNexts: function(next) {
     var title = address.get(next)['title'];
 
     var title1 = title.toLowerCase().replace(/ /g, '.');
