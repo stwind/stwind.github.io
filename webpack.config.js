@@ -13,7 +13,7 @@ module.exports = {
 
   entry: {
     main: ['webpack/hot/only-dev-server', './src/scripts/main.js'],
-    vendor: ['react','react-router']
+    vendor: ['react','react-router','d3']
   },
 
   resolve: {

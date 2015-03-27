@@ -52,7 +52,7 @@ gulp.task('serve', function (done) {
     if (err) $log('[webpack-dev-server] error', err);
 
     $log('[webpack-dev-server] started');
-    require('opn')('http://localhost:8080/webpack-dev-server/');
+    require('opn')('http://localhost:8080/');
   });
 });
 

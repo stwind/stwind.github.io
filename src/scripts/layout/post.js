@@ -6,7 +6,6 @@ var Router = require('react-router');
 var address = require('../address');
 
 var Post = React.createClass({
-  mixins: [Router.State],
 
   render: function () {
     var id = this.props.id;
@@ -32,7 +31,7 @@ var Post = React.createClass({
     return (
       <li className="c-next" key={next}>
         <span>{' at '}</span>
-        <a className="c-next__link" href={"#" + next} >{title1}</a>
+        <a className="c-next__link" href={"#" + next}>{title1}</a>
         <span>{" (" + next + ") "}</span>
       </li>
     );
