@@ -7,7 +7,7 @@ import Router from 'react-router';
 
 debug.enable('app:*');
 
-import routes from './routes';
+import routes from './Routes.jsx';
 
 React.initializeTouchEvents(true);
 
