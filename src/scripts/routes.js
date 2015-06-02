@@ -1,11 +1,9 @@
-'use strict';
+const React = require('react');
+const Router = require('react-router');
+const { Route, DefaultRoute, Redirect, Link } = Router;
 
-var React = require('react');
-var Router = require('react-router');
-var { Route, DefaultRoute, Redirect, Link } = Router;
-
-var App = require('./app');
-var address = require('./address');
+const App = require('./app');
+const address = require('./address');
 
 var Address = React.createClass({
   contextTypes: {

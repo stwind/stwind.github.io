@@ -34,14 +34,15 @@ module.exports = {
   },
 
   module: {
-    preLoaders: [{
-      test: '\\.js$',
-      exclude: 'node_modules',
-      loader: 'jshint'
-    }],
+    // preLoaders: [{
+    //   test: '\\.js$',
+    //   exclude: 'node_modules',
+    //   loader: 'jshint'
+    // }],
     loaders: [{
-      test: /\.js$/,
-      loaders: ['react-hot','jsx?harmony']
+      test: /\.jsx?$/,
+      exclude: /node_modules/,
+      loaders: ['react-hot','babel?optional[]=runtime&stage=0']
     }, {
       test: /\.scss/,
       loader: 'style!css!autoprefixer?browsers=last 2 version!' + 

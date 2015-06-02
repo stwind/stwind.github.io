@@ -1,19 +1,13 @@
-'use strict';
-
 require('normalize.css/normalize.css');
 require('styles/app.scss');
 
-var debug = require('debug');
-var React = require('react');
-var Router = require('react-router');
+const debug = require('debug');
+const React = require('react');
+const Router = require('react-router');
 
 debug.enable('app:*');
 
-document.body.addEventListener('touchmove',function(event){
-  event.preventDefault();
-});
-
-var routes = require('./routes');
+const routes = require('./routes');
 
 React.initializeTouchEvents(true);
 
