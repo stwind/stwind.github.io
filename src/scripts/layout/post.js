@@ -1,13 +1,10 @@
-'use strict';
+import React from 'react';
 
-var React = require('react');
-var Router = require('react-router');
-
-var address = require('../address');
+import address from '../address';
 
 var Post = React.createClass({
 
-  render: function () {
+  render() {
     var id = this.props.id;
     var post = require('posts/' + id + '.md');
 
@@ -24,8 +21,8 @@ var Post = React.createClass({
     );
   },
 
-  renderNexts: function(next) {
-    var title = address.get(next)['title'];
+  renderNexts(next) {
+    var title = address(next)['title'];
 
     var title1 = title.toLowerCase().replace(/ /g, '.');
     return (
@@ -38,4 +35,4 @@ var Post = React.createClass({
   }
 });
 
-module.exports = Post;
+export default Post;

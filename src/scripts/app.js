@@ -1,15 +1,12 @@
-'use strict';
-
-var React = require('react');
-var Router = require('react-router');
-var { RouteHandler } = Router;
+import React from 'react';
+import { RouteHandler } from 'react-router';
 
 var App = React.createClass({
-  render: function () {
+  render() {
     return (
       <RouteHandler/>
     );
   }
 });
 
-module.exports = App;
+export default App;

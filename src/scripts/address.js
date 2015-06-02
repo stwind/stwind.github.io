@@ -1,5 +1,3 @@
-'use strict';
-
 var addresses = {
   '0x091de4f1': { 
     layout: 'post', id: 'about', title: 'п╬п╥я',
@@ -32,8 +30,6 @@ var addresses = {
   }
 };
 
-module.exports = {
-  get: function (id) {
-    return addresses[id];
-  }
+export default function get(id) {
+  return addresses[id];
 };

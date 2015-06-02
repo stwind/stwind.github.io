@@ -1,17 +1,19 @@
-const React = require('react');
-const Router = require('react-router');
-const { Route, DefaultRoute, Redirect, Link } = Router;
+import dbg from 'debug';
+import React from 'react';
+import { Route, DefaultRoute, Redirect, Link } from 'react-router';
 
-const App = require('./app');
-const address = require('./address');
+import App from './app';
+import address from './address';
+
+let debug = dbg('app:routes');
 
 var Address = React.createClass({
   contextTypes: {
     router: React.PropTypes.func
   },
 
-  render: function () {
-    var addr = address.get(this.context.router.getCurrentParams().addr);
+  render() {
+    var addr = address(this.context.router.getCurrentParams().addr);
     var Layout = require('./layout/' + addr.layout);
 
     return (
@@ -27,4 +29,4 @@ var routes = (
   </Route>
 );
 
-module.exports = routes;
+export default routes;

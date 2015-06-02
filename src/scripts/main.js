@@ -1,16 +1,16 @@
 require('normalize.css/normalize.css');
 require('styles/app.scss');
 
-const debug = require('debug');
-const React = require('react');
-const Router = require('react-router');
+import debug from 'debug';
+import React from 'react';
+import Router from 'react-router';
 
 debug.enable('app:*');
 
-const routes = require('./routes');
+import routes from './routes';
 
 React.initializeTouchEvents(true);
 
-Router.run(routes, function (Handler) {
+Router.run(routes,  Handler => {
   React.render(<Handler/>, document.getElementById('main'));
 });
