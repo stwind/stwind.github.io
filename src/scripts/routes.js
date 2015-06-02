@@ -1,6 +1,6 @@
 import dbg from 'debug';
 import React from 'react';
-import { Route, DefaultRoute, Redirect, Link } from 'react-router';
+import { Route, Redirect, State } from 'react-router';
 
 import App from './app';
 import address from './address';
@@ -8,12 +8,10 @@ import address from './address';
 let debug = dbg('app:routes');
 
 var Address = React.createClass({
-  contextTypes: {
-    router: React.PropTypes.func
-  },
+  mixins: [State],
 
   render() {
-    var addr = address(this.context.router.getCurrentParams().addr);
+    var addr = address(this.getParams().addr);
     var Layout = require('./layout/' + addr.layout);
 
     return (
