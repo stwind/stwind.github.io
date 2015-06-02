@@ -3,7 +3,8 @@
 var addresses = {
   '0x091de4f1': { 
     layout: 'post', id: 'about', title: 'п╬п╥я',
-    next: ['0xa568c2d9','0x5dbd7439','0x6842e34b','0xe924d894','0x945613ad']
+    // next: ['0xa568c2d9','0x5dbd7439','0x6842e34b','0xe924d894','0x945613ad']
+    next: ['0xec63a4b9']
   },
   '0xa568c2d9': { 
     layout: 'post', id: 'angularity', title: 'The Angularity Is Here',
@@ -23,6 +24,10 @@ var addresses = {
   },
   '0x945613ad': { 
     layout: 'post', id: 'py2erl', title: 'Porting things from Python to Erlang',   
+    next: ['0xa568c2d9','0x5dbd7439','0x6842e34b','0xe924d894','0x091de4f1']
+  },
+  '0xec63a4b9': { 
+    layout: 'post', id: 'ansible-pl', title: 'A Practical Ansible Project Layout',   
     next: ['0xa568c2d9','0x5dbd7439','0x6842e34b','0xe924d894','0x091de4f1']
   }
 };
