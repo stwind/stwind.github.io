@@ -7,8 +7,11 @@ let debug = dbg('app:components:treemap');
 export default class Treemap extends React.Component {
   constructor() {
     super();
+    var treemap = d3.layout.treemap()
+                           .round(true).ratio(1).sticky(true)
+                           .sort((a, b) => a.value - b.value);
     this.state = {
-      treemap: d3.layout.treemap().round(true).sticky(true),
+      treemap: treemap,
       root: { children: [] }
     };
   }
@@ -39,35 +42,37 @@ export default class Treemap extends React.Component {
 
     var data = treemap.nodes(root).filter(d => !d.children );
 
-    var container = React.findDOMNode(this);
-    var nodes = d3.select(container)
-                  .selectAll('.node')
+    var self = this;
+
+    var svg = React.findDOMNode(this.refs.svg);
+    var nodes = d3.select(svg)
+                  .selectAll('rect')
                   .data(data, d => d.id)
+
+    function position(selection) {
+      selection.attr('width', d => d.dx)
+               .attr('height', d => d.dy)
+               .attr('x', d => d.x)
+               .attr('y', d => d.y)
+               .attr('fill', 'none')
+               .attr('stroke', '#d9d9d9');
+    }
 
     nodes.transition()
          .duration(800)
-         .style('width', d => d.dx - 1 + 'px')
-         .style('height', d => d.dy - 1 + 'px')
-         .style('left', d => d.x + 'px')
-         .style('top', d => d.y + 'px')
-         .select('div')
-         .text(d => d.id + ',' + d.value);
+         .call(position);
 
     nodes.enter()
-         .append('div')
-         .attr('class', 'node')
-         .style('width', d => d.dx - 1 + 'px')
-         .style('height', d => d.dy - 1 + 'px')
-         .style('left', d => d.x + 'px')
-         .style('top', d => d.y + 'px')
-         .append('div')
-         .text(d => d.id + ',' + d.value);
+         .append('rect')
+         .call(position);
   }
 
   render() {
     var nodes = this.state.nodes;
+    var props = this.props;
     return (
       <div className="c-treemap">
+        <svg ref="svg" width={props.width} height={props.height} />
       </div>
     );
   }

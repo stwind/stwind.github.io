@@ -4,43 +4,40 @@ import { State, Navitation } from 'react-router';
 import { OnResize } from 'react-window-mixins';
 import TimerMixin from 'react-timer-mixin';
 import _ from 'lodash';
+import d3 from 'd3';
 
 import Treemap from './Treemap.jsx';
 
 let debug = dbg('app:components:pd');
 
-var nodes = [
-  { id: '1', value: 100 },
-  { id: '2', value: 200 },
-  { id: '3', value: 300 },
-  { id: '4', value: 300 },
-  { id: '5', value: 300 },
-  { id: '6', value: 300 },
-  { id: '7', value: 300 },
-  { id: '8', value: 300 },
-  { id: '9', value: 300 },
-  { id: '10', value: 300 },
-  { id: '12', value: 300 },
-  { id: '13', value: 300 },
-  { id: '14', value: 300 }
-];
-
 var PD = React.createClass({
   mixins: [State, Navitation, OnResize, TimerMixin],
 
   getInitialState() {
-    return { nodes: nodes };
+    return { nodes: [] };
+  },
+
+  componentWillMount() {
+    d3.csv('data/pd-2015-02-01.csv', (err, data) => {
+      var nodes = data.map(x => {
+        x.value = +x.value;
+        return x;
+      });
+      this.setState({ nodes: nodes.slice(100) });
+    });
   },
 
   componentDidUpdate() {
-    if (this._tid)  this.clearTimeout(this._tid);
+    var old = this.state.nodes;
+
+    if (this._tid) this.clearTimeout(this._tid);
 
     this._tid = this.setTimeout(() => {
-      var nodes1 = this.state.nodes.map((x => {
-        x.value = _.random(100,1000);
+      var nodes = old.map(x => {
+        x.value = Math.max(0, _.random(x.value + 100, x.value - 100));
         return x;
-      }));
-      this.setState({ nodes: nodes1 });
+      });
+      this.setState({ nodes: nodes });
     }, 1000);
   },
 
@@ -48,6 +45,7 @@ var PD = React.createClass({
     return (
       <div id="pd">
         {this.renderTreemap()}
+        {this.renderInfo()}
       </div>
     );
   },
@@ -55,13 +53,37 @@ var PD = React.createClass({
   renderTreemap() {
     var win = this.state.window;
     if (win.width == 0) return null;
+    if (this.state.nodes.length == 0) return null;
 
     return (
-      <Treemap 
-        width={win.width} 
-        height={win.height}
-        nodes={this.state.nodes}
-        />
+      <div className="p-pd__treemap">
+        <Treemap 
+          width={win.width} 
+          height={win.height}
+          nodes={this.state.nodes}/>
+      </div>
+    );
+  },
+
+  renderInfo() {
+    return (
+      <div className="p-pd__info">
+        <div className="p-info">
+          <span className="c-line">0x091de4f1</span><br/>
+          <span className="c-line">A programmer tells stories by data.</span><br/><br/>
+          <span className="c-line">In my toolbox:</span><br/>
+          <ul>
+            <li>Erlang Scala Javascript Python R</li>
+            <li>MySQL Elasticsearch Riak HDFS</li>
+            <li>Spark</li>
+            <li>React D3</li>
+            <li>RabbitMQ</li>
+            <li>Kibana Sensu</li>
+            <li>Ansible</li>
+            <li>Vim</li>
+          </ul>
+        </div>
+      </div>
     );
   }
 });
