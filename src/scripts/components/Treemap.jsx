@@ -11,18 +11,9 @@ export default class Treemap extends React.Component {
                            .round(true).ratio(1).sticky(true)
                            .sort((a, b) => a.value - b.value);
     this.state = {
-      treemap: treemap,
-      root: { children: [] }
+      treemap: treemap
     };
   }
-
-  // componentWillMount() {
-  //   this._updateNodes(this.props.nodes);
-  // }
-
-  // componentWillReceiveProps(nextProps) {
-  //   this._updateNodes(nextProps.nodes);
-  // }
 
   componentDidMount() {
     this._updateNodes(this.props.nodes);
@@ -34,15 +25,11 @@ export default class Treemap extends React.Component {
 
   _updateNodes(nodes) {
     var props = this.props;
-    var root = this.state.root;
     var treemap = this.state.treemap;
 
-    root.children = nodes;
-    treemap.size([props.width, props.height]);
-
-    var data = treemap.nodes(root).filter(d => !d.children );
-
-    var self = this;
+    var data = treemap.size([props.width, props.height])
+                      .nodes({ children: nodes })
+                      .filter(d => !d.children );
 
     var svg = React.findDOMNode(this.refs.svg);
     var nodes = d3.select(svg)
@@ -53,9 +40,7 @@ export default class Treemap extends React.Component {
       selection.attr('width', d => d.dx)
                .attr('height', d => d.dy)
                .attr('x', d => d.x)
-               .attr('y', d => d.y)
-               .attr('fill', 'none')
-               .attr('stroke', '#d9d9d9');
+               .attr('y', d => d.y);
     }
 
     nodes.transition()
@@ -64,6 +49,8 @@ export default class Treemap extends React.Component {
 
     nodes.enter()
          .append('rect')
+         .attr('fill', 'none')
+         .attr('stroke', d3.hsl(0,0,.9).toString())
          .call(position);
   }
 
@@ -76,12 +63,6 @@ export default class Treemap extends React.Component {
       </div>
     );
   }
-
-  // renderNode = (node) => {
-  //   return (
-  //     <div key={node.id}>{node.id},{node.value}</div>
-  //   );
-  // }
 }
 
 Treemap.propTypes = {

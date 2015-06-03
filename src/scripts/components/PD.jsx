@@ -28,15 +28,23 @@ var PD = React.createClass({
   },
 
   componentDidUpdate() {
-    var old = this.state.nodes;
+    var nodes = this.state.nodes;
 
     if (this._tid) this.clearTimeout(this._tid);
 
     this._tid = this.setTimeout(() => {
-      var nodes = old.map(x => {
-        x.value = Math.max(0, _.random(x.value + 100, x.value - 100));
-        return x;
+      var picks = _(Object.keys(nodes)).shuffle().take(20).value();
+      var toZero = picks.slice(0,10);
+      var toAdd = picks.slice(10,20);
+      var toSwitch = _.zip(toZero, toAdd);
+
+      toSwitch.forEach(([a,b]) => {
+        var valA = nodes[a].value;
+        var valB = nodes[b].value;
+        nodes[a].value = valB;
+        nodes[b].value = valA;
       });
+
       this.setState({ nodes: nodes });
     }, 1000);
   },
