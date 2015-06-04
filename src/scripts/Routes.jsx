@@ -3,7 +3,6 @@ import React from 'react';
 import { Route, Redirect, State } from 'react-router';
 
 import App from './app';
-import address from './address';
 import PD from './components/PD.jsx';
 
 let debug = dbg('app:routes');
