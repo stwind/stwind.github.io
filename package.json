@@ -50,6 +50,7 @@
     "react-hot-loader": "^1.2.7",
     "react-router": "^0.13.3",
     "react-timer-mixin": "^0.13.1",
+    "react-tween-state": "0.0.5",
     "react-window-mixins": "0.0.6",
     "remarkable": "^1.6.0",
     "remarkable-meta": "^1.0.1",

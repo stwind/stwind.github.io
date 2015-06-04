@@ -18,7 +18,7 @@ var PD = React.createClass({
   },
 
   componentWillMount() {
-    d3.csv('data/pd-2015-02-01.csv', (err, data) => {
+    d3.csv('data/pd-2015-04-01.csv', (err, data) => {
       var nodes = data.map(x => {
         x.value = +x.value;
         return x;
@@ -28,11 +28,10 @@ var PD = React.createClass({
   },
 
   componentDidUpdate() {
-    var nodes = this.state.nodes;
-
     if (this._tid) this.clearTimeout(this._tid);
 
     this._tid = this.setTimeout(() => {
+      var nodes = this.state.nodes;
       var picks = _(Object.keys(nodes)).shuffle().take(20).value();
       var toZero = picks.slice(0,10);
       var toAdd = picks.slice(10,20);
@@ -40,13 +39,12 @@ var PD = React.createClass({
 
       toSwitch.forEach(([a,b]) => {
         var valA = nodes[a].value;
-        var valB = nodes[b].value;
-        nodes[a].value = valB;
+        nodes[a].value = nodes[b].value;
         nodes[b].value = valA;
       });
 
       this.setState({ nodes: nodes });
-    }, 1000);
+    }, 2000);
   },
 
   render() {
