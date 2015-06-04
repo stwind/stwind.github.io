@@ -3,13 +3,13 @@ import React from 'react';
 import { Route, Redirect, DefaultRoute } from 'react-router';
 
 import App from './app';
-import PD from './components/PD.jsx';
+import Home from './components/Home.jsx';
 
 let debug = dbg('app:routes');
 
 var routes = (
   <Route path="/" handler={App}>
-    <DefaultRoute handler={PD} />
+    <DefaultRoute handler={Home} />
   </Route>
 );
 
