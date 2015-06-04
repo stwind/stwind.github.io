@@ -13,14 +13,14 @@ module.exports = {
 
   entry: {
     main: './src/scripts/main.js',
-    vendor: ['react','react-router','d3']
+    vendor: ['react','react-router','d3','lodash',
+      'debug','react-window-mixins','react-timer-mixin']
   },
 
   resolve: {
     extensions: ['', '.js'],
     alias: {
-      styles: path.resolve(__dirname, "src/styles"),
-      posts: path.resolve(__dirname, "src/posts")
+      styles: path.resolve(__dirname, "src/styles")
     }
   },
 
@@ -33,14 +33,15 @@ module.exports = {
   },
 
   module: {
-    preLoaders: [{
-      test: '\\.js$',
-      exclude: 'node_modules',
-      loader: 'jshint'
-    }],
+    // preLoaders: [{
+    //   test: '\\.js$',
+    //   exclude: 'node_modules',
+    //   loader: 'jshint'
+    // }],
     loaders: [{
-      test: /\.js$/,
-      loaders: ['react-hot','jsx?harmony']
+      test: /\.jsx?$/,
+      exclude: /node_modules/,
+      loader: 'babel?optional[]=runtime&stage=0'
     }, {
       test: /\.scss/,
       loader: ExtractTextPlugin.extract('style',

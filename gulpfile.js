@@ -13,29 +13,31 @@ var WebpackDevServer = require('webpack-dev-server');
 var webpackConfig = require('./webpack.config.js');
 var webpackDistConfig = require('./webpack.dist.config.js');
 
-var DIST = 'dist';
+gulp.task('clean', require('del').bind(null, ['dist/*','!dist/.git*']));
 
-gulp.task('clean', require('del').bind(null, [
-  DIST + '/*', 
-  '!' + DIST + '/.git*'
-]));
+// gulp.task('assets', function() {
+//   var src = ['src/index.html'];
+//   return gulp.src(src)
+//     .pipe($.copy('dist', { prefix: 1 }))
+//     .pipe($.size({title: 'assets'}));
+// });
 
-gulp.task('assets', function() {
-  var src = ['src/index.html'];
-  return gulp.src(src)
-    .pipe($.copy(DIST, { prefix: 1 }))
-    .pipe($.size({title: 'assets'}));
+gulp.task('html', function() {
+  return gulp.src('src/index.html')
+    .pipe($.useref())
+    .pipe(gulp.dest('dist'))
+    .pipe($.size({title: 'html'}));
 });
 
 gulp.task('webpack', function () {
   return gulp.src('src/scripts/main.js')
   .pipe($.webpack(webpackDistConfig))
-  .pipe(gulp.dest(DIST + '/assets'))
+  .pipe(gulp.dest('dist/assets'))
   .pipe($.size({ title: 'webpack' }));
 });
 
 gulp.task('build', ['clean'], function(cb) {
-  runSequence(['webpack', 'assets'], cb);
+  runSequence(['webpack', 'html'], cb);
 });
 
 gulp.task('serve', function (done) {
@@ -67,8 +69,8 @@ gulp.task('setup', function (done) {
   function setup() {
     var remote = getRemoteUrl();
 
-    sh.mkdir(DIST);
-    sh.cd(DIST);
+    sh.mkdir('dist');
+    sh.cd('dist');
     sh.exec('git init');
     sh.exec('git remote add origin ' + remote);
     sh.exec('git pull origin master');
@@ -77,9 +79,9 @@ gulp.task('setup', function (done) {
     done();
   }
 
-  if (argv.f) sh.rm('-rf', DIST);
+  if (argv.f) sh.rm('-rf', 'dist');
 
-  if (!fs.existsSync(DIST + '/.git')) setup();
+  if (!fs.existsSync('dist/.git')) setup();
 });
 
 gulp.task('deploy', function (done) {
@@ -88,7 +90,7 @@ gulp.task('deploy', function (done) {
     var time = moment().local().format(),
         msg = '"Site updated at ' + time + '"';
 
-    sh.cd(DIST);
+    sh.cd('dist');
     sh.exec('git pull');
     sh.exec('git add -A');
     $log('Committing: ' + msg);

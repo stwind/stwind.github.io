@@ -1,6 +1,6 @@
 {
   "name": "antagonista",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/stwind/stwind.github.io.git"
@@ -21,29 +21,16 @@
     "file-loader": "^0.8.4",
     "flummox": "^3.5.2",
     "gulp": "^3.9.0",
-    "gulp-autoprefixer": "^2.3.0",
-    "gulp-cache": "^0.2.9",
-    "gulp-changed": "^1.2.1",
     "gulp-copy": "0.0.2",
-    "gulp-csso": "^1.0.0",
     "gulp-filesize": "0.0.6",
-    "gulp-filter": "^2.0.2",
-    "gulp-flatten": "^0.0.4",
-    "gulp-if": "^1.2.5",
-    "gulp-imagemin": "^2.2.1",
-    "gulp-jshint": "^1.11.0",
     "gulp-load-plugins": "^0.10.0",
-    "gulp-minify-html": "^1.0.3",
     "gulp-size": "^1.2.1",
-    "gulp-uglify": "^1.2.0",
     "gulp-useref": "^1.2.0",
     "gulp-util": "^3.0.5",
     "gulp-webpack": "^1.4.0",
     "highlight.js": "^8.6.0",
-    "jshint-stylish": "^2.0.0",
     "lodash": "^3.9.3",
     "moment": "~2.10.3",
-    "moment-range": "^1.2.0",
     "normalize.css": "^3.0.3",
     "opn": "^1.0.2",
     "react": "^0.13.3",
@@ -60,10 +47,9 @@
     "style-loader": "^0.12.3",
     "webpack": "^1.9.10",
     "webpack-dev-server": "^1.9.0",
-    "wiredep": "^2.2.2",
     "yargs": "^3.10.0"
   },
   "engines": {
-    "node": ">=0.10.26"
+    "node": ">=0.12.0"
   }
 }

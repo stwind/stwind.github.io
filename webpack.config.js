@@ -13,14 +13,14 @@ module.exports = {
 
   entry: {
     main: ['webpack/hot/only-dev-server', './src/scripts/main.js'],
-    vendor: ['react','react-router','d3']
+    vendor: ['react','react-router','d3','lodash',
+      'debug','react-window-mixins','react-timer-mixin']
   },
 
   resolve: {
     extensions: ['', '.js'],
     alias: {
-      styles: path.resolve(__dirname, "src/styles"),
-      posts: path.resolve(__dirname, "src/posts")
+      styles: path.resolve(__dirname, "src/styles")
     }
   },
 

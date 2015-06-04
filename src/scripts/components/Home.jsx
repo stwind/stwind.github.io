@@ -4,9 +4,8 @@ import { State, Navitation } from 'react-router';
 import { OnResize } from 'react-window-mixins';
 import TimerMixin from 'react-timer-mixin';
 import _ from 'lodash';
-import d3 from 'd3';
 
-import DATA from '../bgdata';
+import NODES from '../nodeData';
 import Treemap from './Treemap.jsx';
 
 let debug = dbg('app:components:pd');
@@ -23,28 +22,32 @@ var PD = React.createClass({
   },
 
   componentWillMount() {
-    this.setState({ nodes: DATA });
+    this.setState({ nodes: NODES });
   },
 
   componentDidUpdate() {
-    var shuffle = this.props.shuffle;
     if (this._tid) this.clearTimeout(this._tid);
 
     this._tid = this.setTimeout(() => {
-      var nodes = this.state.nodes;
-      var picks = _(Object.keys(nodes)).shuffle().take(shuffle).value();
-      var toZero = picks.slice(0,shuffle / 2);
-      var toAdd = picks.slice(shuffle / 2,shuffle);
-      var toSwitch = _.zip(toZero, toAdd);
-
-      toSwitch.forEach(([a,b]) => {
-        var valA = nodes[a].value;
-        nodes[a].value = nodes[b].value;
-        nodes[b].value = valA;
-      });
-
+      var nodes = this._shuffleData(this.state.nodes);
       this.setState({ nodes: nodes });
     }, _.random(13,14) * 100);
+  },
+
+  _shuffleData(nodes) {
+    var shuffle = this.props.shuffle;
+    var picks = _(Object.keys(nodes)).shuffle().take(shuffle).value();
+    var toZero = picks.slice(0,shuffle / 2);
+    var toAdd = picks.slice(shuffle / 2,shuffle);
+    var toSwitch = _.zip(toZero, toAdd);
+
+    toSwitch.forEach(([a,b]) => {
+      var valA = nodes[a].value;
+      nodes[a].value = nodes[b].value;
+      nodes[b].value = valA;
+    });
+
+    return nodes;
   },
 
   render() {
