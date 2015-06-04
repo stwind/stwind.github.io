@@ -45,7 +45,7 @@ var Treemap = React.createClass({
     var nodeStates = this._getNodeStates(nextProps.nodes, this.state.nodeStates);
     var data = this._updateNodes(nextProps.nodes);
     this.setState({ nodeStates: nodeStates }, () => {
-      this._tweenNodes(data, 800);
+      this._tweenNodes(data, _.random(7, 9) * 100);
     });
   },
 

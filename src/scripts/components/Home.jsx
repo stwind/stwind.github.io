@@ -6,6 +6,7 @@ import TimerMixin from 'react-timer-mixin';
 import _ from 'lodash';
 import d3 from 'd3';
 
+import DATA from '../bgdata';
 import Treemap from './Treemap.jsx';
 
 let debug = dbg('app:components:pd');
@@ -22,13 +23,7 @@ var PD = React.createClass({
   },
 
   componentWillMount() {
-    d3.csv('data/pd-2015-04-01.csv', (err, data) => {
-      var nodes = data.map(x => {
-        x.value = +x.value;
-        return x;
-      });
-      this.setState({ nodes: nodes.slice(100,170) });
-    });
+    this.setState({ nodes: DATA });
   },
 
   componentDidUpdate() {
@@ -49,7 +44,7 @@ var PD = React.createClass({
       });
 
       this.setState({ nodes: nodes });
-    }, 1400);
+    }, _.random(13,14) * 100);
   },
 
   render() {
