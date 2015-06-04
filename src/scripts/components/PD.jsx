@@ -17,24 +17,29 @@ var PD = React.createClass({
     return { nodes: [] };
   },
 
+  getDefaultProps() {
+    return { shuffle: 10 };
+  },
+
   componentWillMount() {
     d3.csv('data/pd-2015-04-01.csv', (err, data) => {
       var nodes = data.map(x => {
         x.value = +x.value;
         return x;
       });
-      this.setState({ nodes: nodes.slice(100) });
+      this.setState({ nodes: nodes.slice(100,170) });
     });
   },
 
   componentDidUpdate() {
+    var shuffle = this.props.shuffle;
     if (this._tid) this.clearTimeout(this._tid);
 
     this._tid = this.setTimeout(() => {
       var nodes = this.state.nodes;
-      var picks = _(Object.keys(nodes)).shuffle().take(20).value();
-      var toZero = picks.slice(0,10);
-      var toAdd = picks.slice(10,20);
+      var picks = _(Object.keys(nodes)).shuffle().take(shuffle).value();
+      var toZero = picks.slice(0,shuffle / 2);
+      var toAdd = picks.slice(shuffle / 2,shuffle);
       var toSwitch = _.zip(toZero, toAdd);
 
       toSwitch.forEach(([a,b]) => {
@@ -44,7 +49,7 @@ var PD = React.createClass({
       });
 
       this.setState({ nodes: nodes });
-    }, 2000);
+    }, 1400);
   },
 
   render() {
@@ -59,7 +64,6 @@ var PD = React.createClass({
   renderTreemap() {
     var win = this.state.window;
     if (win.width == 0) return null;
-    if (this.state.nodes.length == 0) return null;
 
     return (
       <div className="p-pd__treemap">
