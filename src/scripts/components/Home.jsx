@@ -21,21 +21,33 @@ var PD = React.createClass({
     return { shuffle: 10 };
   },
 
-  componentWillMount() {
-    this.setState({ nodes: NODES });
+  componentDidMount() {
+    this.setTimeout(() => {
+      var start = 0, end = 70;
+      if (this.state.window.width < 800) {
+        start = 40;
+        end = 70;
+      }
+      this.setState({ nodes: NODES.slice(start, end) });
+    }, 0);
   },
 
   componentDidUpdate() {
     if (this._tid) this.clearTimeout(this._tid);
 
-    this._tid = this.setTimeout(() => {
-      var nodes = this._shuffleData(this.state.nodes);
-      this.setState({ nodes: nodes });
-    }, _.random(13,14) * 100);
+    if (this.state.window.width != 0 ) {
+      this._tid = this.setTimeout(() => {
+        var nodes = this._shuffleData(this.state.nodes);
+        this.setState({ nodes: nodes });
+      }, 14 * 100);
+    }
   },
 
   _shuffleData(nodes) {
     var shuffle = this.props.shuffle;
+    if (this.state.window.width < 800) {
+      shuffle = 4;
+    }
     var picks = _(Object.keys(nodes)).shuffle().take(shuffle).value();
     var toZero = picks.slice(0,shuffle / 2);
     var toAdd = picks.slice(shuffle / 2,shuffle);
@@ -62,6 +74,7 @@ var PD = React.createClass({
   renderTreemap() {
     var win = this.state.window;
     if (win.width == 0) return null;
+    if (this.state.nodes.length == 0) return null;
 
     return (
       <div className="p-pd__treemap">
@@ -78,7 +91,7 @@ var PD = React.createClass({
       <div className="p-pd__info">
         <div className="p-info">
           <span className="c-line">0x091de4f1</span><br/>
-          <span className="c-line">A programmer tells stories by data.</span><br/><br/>
+          <span className="c-line">A programmer deals with data.</span><br/>
           <span className="c-line">In my toolbox:</span><br/>
           <ul>
             <li>Erlang Scala Javascript Python R</li>

@@ -5,7 +5,7 @@ import d3 from 'd3';
 import _ from 'lodash';
 
 let debug = dbg('app:components:treemap');
-const STROKE_COLOE = d3.hsl(0,0,.85).toString(); 
+const STROKE_COLOE = d3.hsl(0,0,.9).toString(); 
 
 function valueOf(val) {
   return Math.max(0, val);
@@ -77,7 +77,7 @@ var Treemap = React.createClass({
   },
 
   _tweenNodes(targets, duration) {
-    var config = { duration: duration, easing: tweenState.easeInExpo };
+    var config = { duration: duration, easing: tweenState.linear };
 
     targets.forEach((d) => {
       var getter = (state) => state.nodeStates[d.id];
