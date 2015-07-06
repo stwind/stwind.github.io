@@ -26,6 +26,7 @@
     "gulp-useref": "^1.2.0",
     "gulp-util": "^3.0.6",
     "immutable": "^3.7.4",
+    "jsx-webpack-loader": "^0.1.2",
     "moment": "~2.10.3",
     "node-libs-browser": "^0.5.2",
     "normalize.css": "^3.0.3",

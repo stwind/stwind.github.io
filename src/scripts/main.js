@@ -6,6 +6,7 @@ import Model from './model';
 import { initial as initialModel } from './model';
 import View from './view';
 import Intent from './intent';
+import Background from './components/backgrond';
 
 require('normalize.css/normalize.css');
 // require('styles/app.css');
@@ -23,5 +24,7 @@ var computer = function (interactions) {
 };
 
 Cycle.run(computer, {
-  dom: makeDOMDriver('#app')
+  dom: makeDOMDriver('#app', {
+    'background': Background
+  })
 });
