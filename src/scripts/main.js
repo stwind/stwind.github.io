@@ -1,16 +1,27 @@
+import dbg from 'debug';
+import Cycle from '@cycle/core';
+import { makeDOMDriver } from '@cycle/web';
+
+import Model from './model';
+import { initial as initialModel } from './model';
+import View from './view';
+import Intent from './intent';
+
 require('normalize.css/normalize.css');
-require('styles/app.scss');
+// require('styles/app.css');
 
-import debug from 'debug';
-import React from 'react';
-import Router from 'react-router';
+dbg.enable('app:*');
 
-debug.enable('app:*');
+var debug = dbg('app:main');
 
-import routes from './Routes.jsx';
+var computer = function (interactions) {
+  const userIntent = Intent(interactions);
+  const model = Model(userIntent, initialModel());
+  const vtree$ = View(model);
 
-React.initializeTouchEvents(true);
+  return { dom: vtree$ };
+};
 
-Router.run(routes,  Handler => {
-  React.render(<Handler/>, document.getElementById('main'));
+Cycle.run(computer, {
+  dom: makeDOMDriver('#app')
 });
