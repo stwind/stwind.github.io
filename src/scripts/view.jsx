@@ -6,8 +6,8 @@ var debug = dbg('app:view');
 function render(space) {
   return (
     <div className="main">
-      <background key="1" name="shit" />
-      <div>hehe</div>
+      <background key="background"/>
+      <home key="home"/>
     </div>
   );
 }
