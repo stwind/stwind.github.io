@@ -9,6 +9,7 @@ var $log = $.util.log;
 var sh = require('shelljs');
 var argv = require('yargs').argv;
 var webpack = require('webpack');
+var webpackStream = require('webpack-stream');
 var WebpackDevServer = require('webpack-dev-server');
 var webpackConfig = require('./webpack.config.js');
 var webpackDistConfig = require('./webpack.dist.config.js');
@@ -31,7 +32,7 @@ gulp.task('html', function() {
 
 gulp.task('webpack', function () {
   return gulp.src('src/scripts/main.js')
-  .pipe($.webpack(webpackDistConfig))
+  .pipe(webpackStream(webpackDistConfig))
   .pipe(gulp.dest('dist/assets'))
   .pipe($.size({ title: 'webpack' }));
 });
