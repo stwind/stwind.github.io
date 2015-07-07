@@ -9,6 +9,7 @@ var $log = $.util.log;
 var sh = require('shelljs');
 var argv = require('yargs').argv;
 var webpack = require('webpack');
+var webpackStream = require('webpack-stream');
 var WebpackDevServer = require('webpack-dev-server');
 var webpackConfig = require('./webpack.config.js');
 var webpackDistConfig = require('./webpack.dist.config.js');
@@ -31,7 +32,7 @@ gulp.task('html', function() {
 
 gulp.task('webpack', function () {
   return gulp.src('src/scripts/main.js')
-  .pipe($.webpack(webpackDistConfig))
+  .pipe(webpackStream(webpackDistConfig))
   .pipe(gulp.dest('dist/assets'))
   .pipe($.size({ title: 'webpack' }));
 });
@@ -47,14 +48,14 @@ gulp.task('serve', function (done) {
   new WebpackDevServer(compiler, {
     contentBase: 'src/',
     hot: true, port: port,
-    publicPath: '/assets/',
+    publicPath: webpackConfig.output.publicPath,
     noInfo: true
   })
   .listen(port, host, function (err){
     if (err) $log('[webpack-dev-server] error', err);
 
     $log('[webpack-dev-server] started');
-    require('opn')('http://localhost:8080/');
+    // require('opn')('http://localhost:8080/');
   });
 });
 

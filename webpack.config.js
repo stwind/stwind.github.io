@@ -12,13 +12,12 @@ module.exports = {
   },
 
   entry: {
-    main: ['webpack/hot/only-dev-server', './src/scripts/main.js'],
-    vendor: ['react','react-router','d3','lodash',
-      'debug','react-window-mixins','react-timer-mixin']
+    main: ['webpack/hot/only-dev-server','./src/scripts/main'],
+    vendor: ['debug','immutable','@cycle/core','@cycle/web']
   },
 
   resolve: {
-    extensions: ['', '.js'],
+    extensions: ['', '.js','.jsx'],
     alias: {
       styles: path.resolve(__dirname, "src/styles")
     }
@@ -34,15 +33,10 @@ module.exports = {
   },
 
   module: {
-    // preLoaders: [{
-    //   test: '\\.js$',
-    //   exclude: 'node_modules',
-    //   loader: 'jshint'
-    // }],
     loaders: [{
       test: /\.jsx?$/,
       exclude: /node_modules/,
-      loaders: ['react-hot','babel?optional[]=runtime&stage=0']
+      loaders: ['babel?optional[]=runtime&stage=0','virtual-dom']
     }, {
       test: /\.scss/,
       loader: 'style!css!autoprefixer?browsers=last 2 version!' + 
@@ -50,7 +44,7 @@ module.exports = {
         path.resolve(__dirname, './node_modules')
     }, {
       test: /\.css$/,
-      loader: 'style!css!autoprefixer?browsers=last 2 version'
+      loaders: ['style', 'css', 'autoprefixer?browsers=last 2 version']
     }, {
       test: /\.(png|jpg)$/,
       loader: 'url?limit=8192'
