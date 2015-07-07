@@ -35,6 +35,19 @@ export default function background (responses) {
   };
 }
 
+class Cell {
+  constructor(x, y, radius) {
+    this.x = x;
+    this.y = y;
+    this.radius = radius;
+  }
+
+  update(vx, vy) {
+    this.x += vx;
+    this.y += vy;
+  }
+}
+
 function makeSkecth(props) {
   return function sketch (p) {
     var cellNumber = 350;
@@ -45,62 +58,52 @@ function makeSkecth(props) {
     var minRad = 10;
     var maxRad = 90;
 
-    var _cellArr = [];
+    var counter = 0;
+
+    var cells = [];
 
     p.setup = function setup(){
       p.createCanvas(props.width, props.height);
       p.background(255);
       p.smooth();
       generateCells();
+      cells.forEach(drawCell);
     }
 
     p.draw = function draw(){
       p.background(255);
-      for(var i=0; i < _cellArr.length; i++){
-        var cell = _cellArr[i];
-        cell.update();
-      }
+      var speed = getSpeed();
+      cells.forEach(cell => updateCell(cell, speed));
+      updateCounter();
+    }
+
+    function drawCell (cell) {
+      p.noStroke();
+      p.fill(203,51,51,120);
+      p.ellipse(cell.x, cell.y, cell.radius * 2, cell.radius * 2);
+    }
+
+    function updateCell (cell, speed) {
+      cell.update(p.random(-speed, speed), p.random(-speed, speed));
+      drawCell(cell);
+    }
+
+    function getSpeed () {
+      return counter < frameFast ? 1: 10;
+    }
+
+    function updateCounter() {
+      counter++;
+      if (counter >= frameMax) counter = 0;
     }
 
     function generateCells(){
-      for(var i=0; i < cellNumber; i++){
-        var cell = new BloodCell();
-        cell.genarate();
-        _cellArr.push(cell);
-      }
-    }
+      for(var i = 0; i < cellNumber; i++){
+        var x = p.random(p.width);
+        var y = p.random(p.height);
+        var rad = p.random(minRad, maxRad);
 
-    function BloodCell() {
-      var x,y,vx,vy,rad;
-      this.counter = 0;
-      x = p.random(p.width);
-      y = p.random(p.height);
-      rad = p.random(minRad,maxRad);
-      vx = p.random(-speed,speed);
-      vy = p.random(-speed,speed);
-
-      this.genarate = function(){
-        p.noStroke();
-        p.fill(203,51,51,120);
-        p.ellipse(x,y,rad*2,rad*2);
-      }
-
-      this.update = function()
-      {
-        if(this.counter < frameFast){
-          vx = p.random(-speed,speed);
-          vy = p.random(-speed,speed);
-        }else{
-          vx = p.random(-speedFast,speedFast);
-          vy = p.random(-speedFast,speedFast);
-        }
-        this.counter++;
-        if(this.counter == frameMax)this.counter = 0;
-
-        x += vx;
-        y += vy;
-
-        this.genarate();
+        cells.push(new Cell(x, y, rad));
       }
     }
   };
