@@ -50,17 +50,7 @@ class Cell {
 
 function makeSkecth(props) {
   return function sketch (p) {
-    var cellNumber = 350;
-    var speed = 1;
-    var speedFast = 10;
-    var frameMax = 45;
-    var frameFast = 40;
-    var minRad = 10;
-    var maxRad = 90;
-
-    var counter = 0;
-
-    var cells = [];
+    var counter = 0, cells = [];
 
     p.setup = function setup(){
       p.createCanvas(props.width, props.height);
@@ -89,19 +79,19 @@ function makeSkecth(props) {
     }
 
     function getSpeed () {
-      return counter < frameFast ? 1: 10;
+      return counter < props.frameFast ? props.speedSlow: props.speedFast;
     }
 
     function updateCounter() {
       counter++;
-      if (counter >= frameMax) counter = 0;
+      if (counter >= props.frameMax) counter = 0;
     }
 
     function generateCells(){
-      for(var i = 0; i < cellNumber; i++){
+      for(var i = 0; i < props.numCell; i++){
         var x = p.random(p.width);
         var y = p.random(p.height);
-        var rad = p.random(minRad, maxRad);
+        var rad = p.random(props.minRad, props.maxRad);
 
         cells.push(new Cell(x, y, rad));
       }
@@ -115,7 +105,11 @@ function Hook() {}
 Hook.prototype.hook = function hook(node) {
   var props = {
     width: node.clientWidth,
-    height: node.clientHeight
+    height: node.clientHeight,
+    speedSlow: 1, speedFast: 10,
+    frameMax: 45, frameFast: 40,
+    minRad: 10, maxRad: 90,
+    numCell: 350
   };
 
   var p = this._p = new p5(makeSkecth(props), node);
