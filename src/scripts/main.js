@@ -9,7 +9,8 @@ import Intent from './intent';
 import Background from './components/backgrond';
 
 require('normalize.css/normalize.css');
-// require('styles/app.css');
+require('styles/app.css');
+require('script!p5');
 
 dbg.enable('app:*');
 

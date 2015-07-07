@@ -33,6 +33,7 @@
     "opn": "^3.0.2",
     "p5": "^0.4.6",
     "run-sequence": "^1.1.1",
+    "script-loader": "^0.6.1",
     "shelljs": "~0.5.1",
     "style-loader": "^0.12.3",
     "virtual-dom-loader": "^0.1.0",

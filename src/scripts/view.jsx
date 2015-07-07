@@ -7,6 +7,7 @@ function render(space) {
   return (
     <div className="main">
       <background key="1" name="shit" />
+      <div>hehe</div>
     </div>
   );
 }

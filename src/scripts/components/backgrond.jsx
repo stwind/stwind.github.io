@@ -20,7 +20,8 @@ function view (model$) {
 
 function render ({ props, state }) {
   return (
-    <div>{props.name}</div>
+    <div className="background" hook={new Hook()}>
+    </div>
   );
 }
 
@@ -33,3 +34,37 @@ export default function background (responses) {
     }
   };
 }
+
+function makeSkecth(props) {
+  return function sketch (p) {
+
+    var gray = 0;
+    var h = 10; 
+
+    p.setup = function() {
+      var cnv = p.createCanvas(props.width, props.height);
+      p.rectMode(p.CENTER);
+    };
+
+    p.draw = function() {
+      p.background(gray);
+      p.rect(p.width/2, p.height/2, h, h);
+    };
+  };
+}
+
+
+function Hook() {}
+
+Hook.prototype.hook = function hook(node) {
+  var props = {
+    width: node.clientWidth,
+    height: node.clientHeight
+  };
+
+  var p = this._p = new p5(makeSkecth(props), node);
+};
+
+Hook.prototype.unhook = function unhook(node) {
+  debug('unhooked');
+};
