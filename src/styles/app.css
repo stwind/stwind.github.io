@@ -26,7 +26,7 @@ ul, ol {
 .p-home {
     padding-top: 50px;
     padding-left: 50px;
-    color: #e5e5e5;
+    color: #ffffff;
 }
 
 .c-section {
@@ -42,4 +42,8 @@ ul, ol {
 .c-title:before, .c-title:after {
     letter-spacing: -0.5rem;
     content: '\00a0';
+}
+
+a {
+    color: #ffffff;
 }

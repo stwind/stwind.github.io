@@ -23,19 +23,23 @@ function render ({ props, state }) {
     <div className="p-home">
       <div className="c-section">
         <span className="c-title">stwind</span><br/>
-        <span>A programmer.</span>
+        <span>programmer</span>
       </div>
       <div className="c-section">
-        <span className="c-title">In my toolbox:</span><br/>
+        <span className="c-title">toolbox</span><br/>
         <ul className="p-skills">
           <li>Erlang Scala Javascript Python R</li>
-          <li>MySQL Elasticsearch Riak HDFS</li>
-          <li>Spark</li>
+          <li>MySQL Elasticsearch Riak</li>
+          <li>Hadoop Spark</li>
           <li>React D3</li>
-          <li>RabbitMQ</li>
-          <li>Kibana Sensu</li>
           <li>Ansible</li>
           <li>Vim</li>
+        </ul>
+      </div>
+      <div className="c-section">
+        <span className="c-title">works</span><br/>
+        <ul className="p-works">
+          <li><a href="http://stwind.github.io/labyrinth-and-dead-sea/">迷路と死海</a></li>
         </ul>
       </div>
     </div>

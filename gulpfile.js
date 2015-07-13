@@ -24,7 +24,7 @@ gulp.task('clean', require('del').bind(null, ['dist/*','!dist/.git*']));
 // });
 
 gulp.task('html', function() {
-  return gulp.src('src/index.html')
+  return gulp.src('public/index.html')
     .pipe($.useref())
     .pipe(gulp.dest('dist'))
     .pipe($.size({title: 'html'}));
