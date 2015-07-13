@@ -37,7 +37,7 @@ function render ({ props, state }) {
         </ul>
       </div>
       <div className="c-section">
-        <span className="c-title">works</span><br/>
+        <span className="c-title">experiments</span><br/>
         <ul className="p-works">
           <li><a href="http://stwind.github.io/labyrinth-and-dead-sea/">迷路と死海</a></li>
         </ul>
