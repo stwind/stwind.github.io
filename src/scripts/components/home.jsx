@@ -30,7 +30,7 @@ function render ({ props, state }) {
         <ul className="p-skills">
           <li>Erlang Scala Javascript Python R</li>
           <li>MySQL Elasticsearch Riak</li>
-          <li>Hadoop Spark</li>
+          <li>Spark</li>
           <li>React D3</li>
           <li>Ansible</li>
           <li>Vim</li>
