@@ -10,8 +10,7 @@ import Background from './components/background';
 import Home from './components/home';
 
 require('normalize.css/normalize.css');
-require('styles/app.css');
-require('script!p5');
+// require('styles/app.css');
 
 dbg.enable('app:*');
 

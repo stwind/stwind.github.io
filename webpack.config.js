@@ -1,19 +1,21 @@
-'use strict';
-
-var webpack = require('webpack');
 var path = require('path');
+var webpack = require('webpack');
+var merge = require('webpack-merge');
+var HtmlwebpackPlugin = require('html-webpack-plugin');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var Clean = require('clean-webpack-plugin');
 
-module.exports = {
+var pkg = require('./package.json');
+var TARGET = process.env.TARGET;
+var ROOT_PATH = path.resolve(__dirname);
+
+var common = {
+
+  entry: path.resolve(ROOT_PATH, 'app/main'),
 
   output: {
-    path: '/assets/',
-    publicPath: '/assets/',
-    filename: "[name].js"
-  },
-
-  entry: {
-    main: ['webpack/hot/only-dev-server','./src/scripts/main'],
-    vendor: ['debug','immutable','@cycle/core','@cycle/web']
+    path: path.resolve(ROOT_PATH, 'build'),
+    filename: 'bundle.js'
   },
 
   resolve: {
@@ -23,10 +25,6 @@ module.exports = {
     }
   },
 
-  cache: true,
-  debug: true,
-  devtool: 'source-map',
-
   stats: {
     colors: true,
     reasons: true
@@ -35,16 +33,12 @@ module.exports = {
   module: {
     loaders: [{
       test: /\.jsx?$/,
-      exclude: /node_modules/,
-      loaders: ['babel?optional[]=runtime&stage=0','virtual-dom']
-    }, {
-      test: /\.scss/,
-      loader: 'style!css!autoprefixer?browsers=last 2 version!' + 
-        'sass?&sourceMap=true&outputStyle=expanded&includePaths[]=' + 
-        path.resolve(__dirname, './node_modules')
+      loaders: ['react-hot','babel?optional[]=runtime&stage=0'],
+      include: path.resolve(ROOT_PATH, 'app')
     }, {
       test: /\.css$/,
-      loaders: ['style', 'css', 'autoprefixer?browsers=last 2 version']
+      loaders: ['style', 'css', 'autoprefixer?browsers=last 2 version'],
+      include: path.resolve(ROOT_PATH, 'app')
     }, {
       test: /\.(png|jpg)$/,
       loader: 'url?limit=8192'
@@ -54,22 +48,63 @@ module.exports = {
     }, {
       test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, 
       loader: "file" 
-    }, {
-      test: /\.md/,
-      loader: './post'
     }]
   },
 
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
-    new webpack.optimize.CommonsChunkPlugin({ name: 'vendor' })
-  ],
-
-  remarkable: {
-    preset: 'full',
-    linkify: true,
-    typographer: true
-  }
+    new HtmlwebpackPlugin({
+      title: 'antagonista'
+    })
+  ]
 
 };
+
+if(TARGET === 'dev') {
+  module.exports = merge(common, {
+    devtool: 'eval',
+    cache: true,
+    debug: true
+  });
+}
+
+if(TARGET === 'build') {
+  module.exports = merge(common, {
+    devtool: 'source-map',
+    entry: {
+      app: path.resolve(ROOT_PATH, 'app/main'),
+      vendor: Object.keys(pkg.dependencies)
+    },
+    output: {
+      path: path.resolve(ROOT_PATH, 'build'),
+      filename: 'app.[chunkhash].js'
+    },
+    module: {
+      loaders: [
+        {
+          test: /\.css$/,
+          loader: ExtractTextPlugin.extract('style', 'css'),
+          include: path.resolve(ROOT_PATH, 'app')
+        }
+      ]
+    },
+    plugins: [
+      new webpack.optimize.UglifyJsPlugin({
+        compress: {
+          warnings: false
+        }
+      }),
+      new webpack.DefinePlugin({
+        'process.env': {
+          // This affects react lib size
+          'NODE_ENV': JSON.stringify('production')
+        }
+      }),
+      new webpack.optimize.CommonsChunkPlugin(
+        'vendor',
+        'vendor.[chunkhash].js'
+      ),
+      new ExtractTextPlugin('styles.css'),
+      new Clean(['build'])
+    ]
+  });
+}
