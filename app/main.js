@@ -1,8 +1,7 @@
 import 'normalize.css';
 
 import React from 'react';
-import Router from 'react-router';
-import { Route, DefaultRoute } from 'react-router';
+import Router, { Route, DefaultRoute } from 'react-router';
 
 import App from './components/App';
 import Home from './components/Home';

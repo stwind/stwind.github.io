@@ -21,6 +21,7 @@ var common = {
   resolve: {
     extensions: ['', '.js','.jsx'],
     alias: {
+      styles: path.resolve(ROOT_PATH, 'app/styles')
     }
   },
 
@@ -66,7 +67,7 @@ if(TARGET === 'dev') {
         },
         {
           test: /\.css$/,
-          loaders: ['style', 'css', 'autoprefixer?browsers=last 2 version'],
+          loaders: ['style', 'css?modules&localIdentName=[path][name]--[local]--[hash:base64:5]', 'autoprefixer?browsers=last 2 version'],
         }
       ]
     }
@@ -75,7 +76,7 @@ if(TARGET === 'dev') {
 
 if(TARGET === 'build') {
   module.exports = merge(common, {
-    devtool: 'source-map',
+    devtool: false,
     entry: {
       app: path.resolve(ROOT_PATH, 'app/main'),
       vendor: Object.keys(pkg.dependencies)
@@ -93,7 +94,7 @@ if(TARGET === 'build') {
         },
         {
           test: /\.css$/,
-          loader: ExtractTextPlugin.extract('style', 'css')
+          loader: ExtractTextPlugin.extract('style', 'css?modules')
         }
       ]
     },

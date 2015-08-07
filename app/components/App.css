@@ -1,0 +1,21 @@
+html {
+    font-size: 62.5%; 
+}
+
+body {
+    font-size: 1.2em; /* currently ems cause chrome bug misinterpreting rems on body element */
+    line-height: 1.6rem;
+    font-family: monospace, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background-color: #f7f7f7;
+    color: #191919;
+}
+
+ul, ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    color: #ffffff;
+}
