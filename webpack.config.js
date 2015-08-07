@@ -32,10 +32,6 @@ var common = {
 
   module: {
     loaders: [{
-      test: /\.jsx?$/,
-      loaders: ['react-hot','babel?optional[]=runtime&stage=0'],
-      include: path.resolve(ROOT_PATH, 'app')
-    }, {
       test: /\.(png|jpg)$/,
       loader: 'url?limit=8192'
     }, {
@@ -63,9 +59,13 @@ if(TARGET === 'dev') {
     module: {
       loaders: [
         {
+          test: /\.jsx?$/,
+          loaders: ['react-hot','babel?optional[]=runtime&stage=0'],
+          include: path.resolve(ROOT_PATH, 'app')
+        },
+        {
           test: /\.css$/,
           loaders: ['style', 'css', 'autoprefixer?browsers=last 2 version'],
-          include: path.resolve(ROOT_PATH, 'app')
         }
       ]
     }
@@ -85,6 +85,11 @@ if(TARGET === 'build') {
     },
     module: {
       loaders: [
+        {
+          test: /\.jsx?$/,
+          loaders: ['babel?optional[]=runtime&stage=0'],
+          include: path.resolve(ROOT_PATH, 'app')
+        },
         {
           test: /\.css$/,
           loader: ExtractTextPlugin.extract('style', 'css')
