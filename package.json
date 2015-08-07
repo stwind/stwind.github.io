@@ -8,7 +8,9 @@
   "dependencies": {
     "classnames": "^2.1.3",
     "react": "^0.13.3",
-    "react-router": "^0.13.3"
+    "react-router": "^0.13.3",
+    "react-three": "^0.6.1",
+    "three": "^0.70.1"
   },
   "devDependencies": {
     "autoprefixer-loader": "^2.0.0",
@@ -20,23 +22,16 @@
     "debug": "^2.2.0",
     "extract-text-webpack-plugin": "^0.8.2",
     "file-loader": "^0.8.4",
-    "gulp": "^3.9.0",
-    "gulp-load-plugins": "^1.0.0-rc",
-    "gulp-util": "^3.0.6",
     "html-webpack-plugin": "^1.6.1",
     "immutable": "^3.7.4",
-    "jsx-webpack-loader": "^0.1.2",
     "moment": "~2.10.6",
     "node-libs-browser": "^0.5.2",
     "normalize.css": "^3.0.3",
     "react-hot-loader": "^1.2.8",
-    "shelljs": "~0.5.1",
     "style-loader": "^0.12.3",
     "webpack": "^1.11.0",
     "webpack-dev-server": "^1.10.1",
-    "webpack-merge": "^0.1.2",
-    "webpack-stream": "^2.1.0",
-    "yargs": "^3.18.0"
+    "webpack-merge": "^0.1.2"
   },
   "scripts": {
     "start": "TARGET=dev webpack-dev-server --progress --colors --hot --inline --history-api-fallback",
