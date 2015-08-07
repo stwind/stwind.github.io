@@ -36,10 +36,6 @@ var common = {
       loaders: ['react-hot','babel?optional[]=runtime&stage=0'],
       include: path.resolve(ROOT_PATH, 'app')
     }, {
-      test: /\.css$/,
-      loaders: ['style', 'css', 'autoprefixer?browsers=last 2 version'],
-      include: path.resolve(ROOT_PATH, 'app')
-    }, {
       test: /\.(png|jpg)$/,
       loader: 'url?limit=8192'
     }, {
@@ -63,7 +59,16 @@ if(TARGET === 'dev') {
   module.exports = merge(common, {
     devtool: 'eval',
     cache: true,
-    debug: true
+    debug: true,
+    module: {
+      loaders: [
+        {
+          test: /\.css$/,
+          loaders: ['style', 'css', 'autoprefixer?browsers=last 2 version'],
+          include: path.resolve(ROOT_PATH, 'app')
+        }
+      ]
+    }
   });
 }
 
@@ -82,8 +87,7 @@ if(TARGET === 'build') {
       loaders: [
         {
           test: /\.css$/,
-          loader: ExtractTextPlugin.extract('style', 'css'),
-          include: path.resolve(ROOT_PATH, 'app')
+          loader: ExtractTextPlugin.extract('style', 'css')
         }
       ]
     },
