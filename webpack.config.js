@@ -21,7 +21,6 @@ var common = {
   resolve: {
     extensions: ['', '.js','.jsx'],
     alias: {
-      styles: path.resolve(__dirname, "src/styles")
     }
   },
 
@@ -45,7 +44,9 @@ var common = {
 
   plugins: [
     new HtmlwebpackPlugin({
-      title: 'antagonista'
+      title: 'antagonista',
+      template: path.resolve(ROOT_PATH, 'app/index.html'),
+      inject: 'body'
     })
   ]
 
