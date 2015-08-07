@@ -1,14 +1,22 @@
 import 'normalize.css';
 
 import React from 'react';
-import App from './components/App';
+import Router from 'react-router';
+import { Route, DefaultRoute } from 'react-router';
 
-main();
+import App from './components/App';
+import Home from './components/Home';
 
 function main() {
-  const app = document.createElement('div');
+  var routes = (
+    <Route name="app" path="/" handler={App}>
+      <DefaultRoute handler={Home}/>
+    </Route>
+  );
 
-  document.body.appendChild(app);
-
-  React.render(<App />, app);
+  Router.run(routes, function (Handler) {
+    React.render(<Handler/>, document.body);
+  });
 }
+
+main();
