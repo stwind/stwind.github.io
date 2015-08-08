@@ -7,10 +7,12 @@
   },
   "dependencies": {
     "classnames": "^2.1.3",
+    "raf": "^3.1.0",
     "react": "^0.13.3",
     "react-router": "^0.13.3",
-    "react-three": "^0.6.1",
-    "three": "^0.70.1"
+    "react-stats": "0.0.5",
+    "three": "^0.71.0",
+    "tween.js": "^15.0.0"
   },
   "devDependencies": {
     "autoprefixer-loader": "^2.0.0",
@@ -34,7 +36,7 @@
     "webpack-merge": "^0.1.2"
   },
   "scripts": {
-    "start": "TARGET=dev webpack-dev-server --progress --colors --hot --inline --history-api-fallback",
+    "start": "TARGET=dev webpack-dev-server --host 0.0.0.0 --progress --colors --hot --inline --history-api-fallback",
     "build": "TARGET=build webpack"
   },
   "engines": {

@@ -21,7 +21,7 @@ var common = {
   resolve: {
     extensions: ['', '.js','.jsx'],
     alias: {
-      styles: path.resolve(ROOT_PATH, 'app/styles')
+      images: path.resolve(ROOT_PATH, 'app/images')
     }
   },
 
@@ -33,7 +33,7 @@ var common = {
   module: {
     loaders: [{
       test: /\.(png|jpg)$/,
-      loader: 'url?limit=8192'
+      loader: 'file'
     }, {
       test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, 
       loader: "url?limit=10000&minetype=application/font-woff" 
