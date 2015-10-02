@@ -40,6 +40,9 @@ var common = {
     }, {
       test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, 
       loader: "file" 
+    }, {
+      test: /\.(glsl|vsh|fsh)$/, 
+      loaders: ['shader']
     }]
   },
 
