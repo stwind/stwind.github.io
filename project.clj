@@ -9,10 +9,15 @@
                  [secretary "1.2.3"]]
                  
   :plugins [[lein-cljsbuild "1.1.0"]
-            [lein-garden "0.2.6"]]
+            [lein-garden "0.2.6"]
+            [lein-npm "0.6.1"]]
 
   :clean-targets ^{:protect false} ["resources/public/js/compiled" "target"
                                     "resources/public/css/compiled"]
+
+  :source-paths ["src/clj" "src/cljs"]
+
+  ;; :npm {:dependencies [[react-motion "0.3.0"]]}
 
   :garden {:builds [{:id "screen"
                      :source-paths ["src/clj"]
@@ -24,7 +29,7 @@
                                   [com.cemerick/piggieback "0.2.1"]
                                   [org.clojure/tools.nrepl "0.2.10"]
                                   [weasel "0.7.0"]]
-                   :source-paths ["src/cljs"]
+                   :source-paths ["env/dev/cljs"]
                    :repl-options 
                    {:nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]
                     :init (do
@@ -39,7 +44,7 @@
                                 [{:id "dev"
                                   :source-paths ["src/cljs"]
                                   :figwheel { :on-jsload "swnd.core/render" }
-                                  :compiler {:main 'swnd.core
+                                  :compiler {:main 'swnd.dev
                                              :asset-path "js/compiled/out"
                                              :output-to "resources/public/js/compiled/main.js"
                                              :output-dir "resources/public/js/compiled/out"
@@ -53,7 +58,7 @@
 
   :cljsbuild {:builds [{:id "min"
                         :source-paths ["src/cljs"]
-                        :compiler {:output-to "resources/public/js/compiled/swnd.js"
-                                   :main hello.core
+                        :compiler {:output-to "resources/public/js/compiled/main.js"
+                                   :main swnd.core
                                    :optimizations :advanced
                                    :pretty-print false}}]})
