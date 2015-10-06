@@ -8,3 +8,17 @@ src_old
 .DS_Store
 draft
 build
+/resources/public/js/compiled/**
+/resources/public/css/compiled/**
+figwheel_server.log
+pom.xml
+*jar
+/lib/
+/classes/
+/out/
+/target/
+.lein-deps-sum
+.lein-repl-history
+.lein-plugins/
+.repl
+.nrepl-port
