@@ -12,8 +12,8 @@
             [lein-garden "0.2.6"]
             [lein-npm "0.6.1"]]
 
-  :clean-targets ^{:protect false} ["resources/public/js/compiled" "target"
-                                    "resources/public/css/compiled"]
+  :clean-targets ^{:protect false} ["resources/public/js" "target"
+                                    "resources/public/css"]
 
   :source-paths ["src/clj" "src/cljs"]
 
@@ -22,8 +22,15 @@
   :garden {:builds [{:id "screen"
                      :source-paths ["src/clj"]
                      :stylesheet swnd.css/screen
-                     :compiler {:output-to "resources/public/css/compiled/screen.css"
+                     :compiler {:output-to "resources/public/css/screen.css"
                                 :pretty-print? true}}]}
+
+  :cljsbuild {:builds {:app {:source-paths ["src/cljs"]
+                             :compiler {:output-to "resources/public/js/main.js"
+                                        :output-dir "resources/public/js/out"
+                                        :asset-path "js/out"
+                                        :optimizations :none
+                                        :pretty-print  true}}}}
 
   :profiles {:dev {:dependencies [[figwheel-sidecar "0.4.0"]
                                   [com.cemerick/piggieback "0.2.1"]
@@ -44,21 +51,22 @@
                                 [{:id "dev"
                                   :source-paths ["src/cljs"]
                                   :figwheel { :on-jsload "swnd.core/render" }
-                                  :compiler {:main 'swnd.dev
-                                             :asset-path "js/compiled/out"
-                                             :output-to "resources/public/js/compiled/main.js"
-                                             :output-dir "resources/public/js/compiled/out"
-                                             :cache-analysis true
-                                             :source-map true
-                                             :source-map-timestamp true
-                                             :optimizations :none }}]})
+                                  :compiler 
+                                  {:main 'swnd.dev
+                                   :asset-path "js/out"
+                                   :output-to "resources/public/js/main.js"
+                                   :output-dir "resources/public/js/out"
+                                   :cache-analysis true
+                                   :source-map true
+                                   :source-map-timestamp true
+                                   :optimizations :none }}]})
                               (ra/start-autobuild)
                               (cemerick.piggieback/cljs-repl
-                               (weasel/repl-env :ip "0.0.0.0" :port 9001))))}}}
+                               (weasel/repl-env :ip "0.0.0.0" :port 9001))))}}
 
-  :cljsbuild {:builds [{:id "min"
-                        :source-paths ["src/cljs"]
-                        :compiler {:output-to "resources/public/js/compiled/main.js"
-                                   :main swnd.core
-                                   :optimizations :advanced
-                                   :pretty-print false}}]})
+             :production {:cljsbuild {:builds {:app {:source-paths ["env/prod/cljs"]
+                                                     :compiler 
+                                                     {:main swnd.prod
+                                                      :output-dir nil
+                                                      :optimizations :advanced
+                                                      :pretty-print false}}}}}})
