@@ -2,4 +2,16 @@
   (:require [garden.def :refer [defstyles]]))
 
 (defstyles screen
-  [:body {:color "blue"}])
+  [:html {:font-size "62.5%"}]
+
+  [:body {:font-size "1.2em"
+          :line-height 1.5
+          :font-family "monospace, \"Helvetica Neue\", Helvetica, Arial, sans-serif"
+          :background-color "#f7f7f7"
+          :color "#191919"}]
+
+  [:ul :ol {:list-style "none"
+            :margin 0
+            :padding 0}]
+            
+  [:a {:color "#ffffff"}])
