@@ -67,6 +67,5 @@
              :production {:cljsbuild {:builds {:app {:source-paths ["env/prod/cljs"]
                                                      :compiler 
                                                      {:main swnd.prod
-                                                      :output-dir nil
                                                       :optimizations :advanced
                                                       :pretty-print false}}}}}})
