@@ -8,8 +8,8 @@ src_old
 .DS_Store
 draft
 build
-/resources/public/js/compiled/**
-/resources/public/css/compiled/**
+/resources/public/js/
+/resources/public/css/
 figwheel_server.log
 pom.xml
 *jar
