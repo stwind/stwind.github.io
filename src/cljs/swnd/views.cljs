@@ -5,4 +5,4 @@
   []
   (let [name (re-frame/subscribe [:name])]
     (fn []
-      [:div "hello"])))
+      [:div.main @name])))

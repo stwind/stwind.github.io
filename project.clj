@@ -12,23 +12,24 @@
             [lein-garden "0.2.6"]
             [lein-npm "0.6.1"]]
 
-  :clean-targets ^{:protect false} ["resources/public/js" "target"
-                                    "resources/public/css"]
+  :clean-targets ^{:protect false} ["resources/public/js/compiled" "target"
+                                    "resources/public/css/compiled"]
 
   :source-paths ["src/clj" "src/cljs"]
 
-  ;; :npm {:dependencies [[react-motion "0.3.0"]]}
+  :npm {:dependencies [[normalize.css "3.0.3"]]}
 
   :garden {:builds [{:id "screen"
                      :source-paths ["src/clj"]
                      :stylesheet swnd.css/screen
-                     :compiler {:output-to "resources/public/css/screen.css"
-                                :pretty-print? true}}]}
+                     :compiler {:output-to "resources/public/css/compiled/screen.css"
+                                :pretty-print? true
+                                :vendors ["webkit"]}}]}
 
   :cljsbuild {:builds {:app {:source-paths ["src/cljs"]
-                             :compiler {:output-to "resources/public/js/main.js"
-                                        :output-dir "resources/public/js/out"
-                                        :asset-path "js/out"
+                             :compiler {:output-to "resources/public/js/compiled/main.js"
+                                        :output-dir "resources/public/js/compiled/out"
+                                        :asset-path "js/compiled/out"
                                         :optimizations :none
                                         :pretty-print  true}}}}
 
@@ -53,9 +54,9 @@
                                   :figwheel { :on-jsload "swnd.core/render" }
                                   :compiler 
                                   {:main 'swnd.dev
-                                   :asset-path "js/out"
-                                   :output-to "resources/public/js/main.js"
-                                   :output-dir "resources/public/js/out"
+                                   :asset-path "js/compiled/out"
+                                   :output-to "resources/public/js/compiled/main.js"
+                                   :output-dir "resources/public/js/compiled/out"
                                    :cache-analysis true
                                    :source-map true
                                    :source-map-timestamp true
@@ -68,4 +69,7 @@
                                                      :compiler 
                                                      {:main swnd.prod
                                                       :optimizations :advanced
-                                                      :pretty-print false}}}}}})
+                                                      :pretty-print false}}}}}}
+
+  :aliases {"build" ["with-profiles" "production" 
+                     "do" "clean" ["garden" "once"] ["cljsbuild" "once"]]})

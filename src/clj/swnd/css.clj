@@ -1,17 +1,33 @@
 (ns swnd.css
-  (:require [garden.def :refer [defstyles]]))
+  (:require [garden.def :refer [defstyles defrule]]))
+
+(defrule body :body)
+(defrule lists :ul :ol)
+(defrule links :a)
 
 (defstyles screen
-  [:html {:font-size "62.5%"}]
+  [:html :body {:height "100%"}]
 
-  [:body {:font-size "1.2em"
-          :line-height 1.5
-          :font-family "monospace, \"Helvetica Neue\", Helvetica, Arial, sans-serif"
-          :background-color "#f7f7f7"
-          :color "#191919"}]
+  [:html {:font-size "62.5%"}]  
 
-  [:ul :ol {:list-style "none"
-            :margin 0
-            :padding 0}]
-            
-  [:a {:color "#ffffff"}])
+  (body
+   {:font-size "1.2em"
+    :line-height 1.5
+    :font-family "monospace, \"Helvetica Neue\", Helvetica, Arial, sans-serif"
+    :background-color "#f7f7f7"
+    :color "#191919"})
+
+  (lists
+   {:list-style "none"
+    :margin 0
+    :padding 0})
+
+  (links {:color "#ffffff"})
+  
+  [:#pre :#app {:transform-style "preserve-3d"
+                :height "100%"}]
+
+  [:#msg :.main {:position "relative"
+                 :top "50%"
+                 :transform "translateY(-50%)"
+                 :text-align "center"}])

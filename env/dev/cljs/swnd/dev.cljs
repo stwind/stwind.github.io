@@ -5,4 +5,7 @@
 (when-not (repl/alive?)
   (repl/connect "ws://localhost:9001"))
 
-(core/init)
+(enable-console-print!)
+
+(let [pre (.-pre js/window)]
+  (.stop pre core/init))

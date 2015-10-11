@@ -1,4 +1,5 @@
 (ns swnd.prod
   (:require [swnd.core :as core]))
 
-(core/init)
+(let [pre (.-pre js/window)]
+  (.stop pre core/init))

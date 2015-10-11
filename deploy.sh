@@ -11,10 +11,14 @@ function setup {
    git branch --set-upstream-to=origin/master master
 }
 
-mkdir -p .tmp
+mkdir -p .tmp/css/compiled .tmp/js/compiled
 [ -d $DIR/.tmp/.git ] || setup
 find .tmp -type f ! -path '*.git*' | xargs rm
-cp -R resources/public/ .tmp/
+cp resources/public/js/compiled/*.js .tmp/js/compiled/
+cp resources/public/js/*.js .tmp/js/
+cp resources/public/css/compiled/*.css .tmp/css/compiled/
+cp resources/public/css/*.css .tmp/css/
+cp resources/public/index.html .tmp/
 cd .tmp/
 git add -A
 git commit -m "Site updated at $(date +%Y-%m-%dT%H:%M:%S)"
