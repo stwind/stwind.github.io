@@ -24,8 +24,13 @@
     $msg.textContent = text;
   }
 
-  function finalText () {
-    var text = '　　再　　　　　　　　　見　　　　';
+  function finalText1 () {
+    var text = '　　再　　　　　　　　　見　　　。';
+    $msg.textContent = text;
+  }
+
+  function finalText2 () {
+    var text = '　　　　　　　　　　　　　　　　。';
     $msg.textContent = text;
   }
 
@@ -44,25 +49,16 @@
   pre.stop = function stop (done) {
     setTimeout(function () {
       started = false;
+      setTimeout(function () { updateText(); }, 200);
+      setTimeout(function () { updateText(); }, 500);
+      setTimeout(function () { updateText(); }, 900);
+      setTimeout(function () { updateText(); }, 1400);
+      setTimeout(function () { finalText1(); }, 2000);
+      setTimeout(function () { finalText2(); }, 2800);
       setTimeout(function () {
-        updateText();
-        setTimeout(function () {
-          updateText();
-          setTimeout(function () {
-            updateText();
-            setTimeout(function () {
-              updateText();
-              setTimeout(function () {
-                finalText();
-                setTimeout(function () {
-                  $pre.parentNode.removeChild($pre);
-                  done();
-                }, 800);
-              }, 600);
-            }, 500);
-          }, 400);
-        }, 300);
-      }, 200);
+        $pre.parentNode.removeChild($pre);
+        done();
+       }, 3800);
     }, 1000);
   };
 
