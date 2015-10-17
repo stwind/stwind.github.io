@@ -6,7 +6,8 @@
                  [org.clojure/core.async "0.1.346.0-17112a-alpha"]
                  [reagent "0.5.1"]
                  [re-frame "0.4.1"]
-                 [secretary "1.2.3"]]
+                 [secretary "1.2.3"]
+                 [bardo "0.1.2-SNAPSHOT"]]
                  
   :plugins [[lein-cljsbuild "1.1.0"]
             [lein-garden "0.2.6"]

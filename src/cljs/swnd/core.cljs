@@ -8,8 +8,8 @@
 
 (defn render []
   (re-frame/dispatch [:initialize-db])
-  (reagent/render-component [views/main]
-                            (.getElementById js/document "app")))
+  (reagent/render [views/main]
+                  (.getElementById js/document "app")))
 
 (defn ^:export init
   []

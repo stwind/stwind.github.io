@@ -1,8 +1,9 @@
 (ns swnd.subs
   (:require-macros [reagent.ratom :refer [reaction]])
-  (:require [re-frame.core :as re-frame]))
+  (:require [re-frame.core :as rf]
+            [swnd.db :as db]))
 
-(re-frame/register-sub
- :name
+(rf/register-sub
+ :locus-radius
  (fn [db]
-   (reaction (:name @db))))
+   (reaction (db/locus-radius @db))))
