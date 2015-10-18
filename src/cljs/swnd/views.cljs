@@ -1,20 +1,40 @@
 (ns swnd.views
-  (:require [re-frame.core :as rf]))
+  (:require [reagent.core :as r]
+            [re-frame.core :as rf]
+            [bardo.ease :refer [wrap ease shift clamp]]
+            [bardo.interpolate :refer 
+             [interpolate into-lazy-seq mix blend chain pipeline]]
+            [bardo.transition :refer [transition]]
+            [goog.string :as gstr]
+            [goog.string.format]))
 
 (defn trigger
-  [cx cy r]
-  [:circle {:cx cx :cy cy :r r
-            :on-mouse-enter #(rf/dispatch [:try-move-on])
-            :on-mouse-leave #(rf/dispatch [:try-move-on-cancel])}])
+  []
+  (let [step (rf/subscribe [:trigger-step])]
+    (fn []
+      (let [r ((interpolate 10 50) @step)]
+        [:circle {:cx 100 :cy 100 :r r
+                  :on-mouse-enter #(rf/dispatch [:try-move-on])
+                  :on-mouse-leave #(rf/dispatch [:try-move-on-cancel])}]))))
 
 (defn handle
   []
-  (let [radius (rf/subscribe [:trigger-radius])]
-    (fn []
-      [:svg
-       [trigger 100 100 @radius]])))
+  [:svg
+   [trigger]])
 
 (defn main
   []
-  [:div.main
-   [handle]])
+  (r/create-class
+   {:component-did-mount
+    (fn [comp]
+      (let [node (r/dom-node comp)
+            width (.-clientWidth node)
+            height (.-clientHeight node)]
+        (rf/dispatch [:app-mounted width height])))
+    
+    :display-name "main"
+    
+    :reagent-render
+    (fn []
+      [:div.main
+       [handle]])}))

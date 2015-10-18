@@ -1,14 +1,21 @@
 (ns swnd.db
   (:require [bardo.ease :refer [wrap ease shift clamp]]
-            [bardo.interpolate :refer [interpolate into-lazy-seq mix blend chain pipeline]]
+            [bardo.interpolate :refer 
+             [interpolate into-lazy-seq mix blend chain pipeline]]
             [bardo.transition :refer [transition]]))
 
 (def default-db
   {:state :idle
-   :handle {:trigger {:radius {:min 10 :max 50}
-                      :step 0
+   :env {:height 0 :width 0}
+   :handle {:trigger {:step 0
                       :duration 1000}
             :timer nil}})
+
+(defn set-dimension
+  [db width height]
+  (-> db
+      (assoc-in [:env :height] height)
+      (assoc-in [:env :width] width)))
 
 (defn state
   ([db] 
@@ -27,13 +34,6 @@
    (get-in db [:handle :trigger :step]))
   ([db v]
    (assoc-in db [:handle :trigger :step] v)))
-
-(defn trigger-radius
-  [db]
-  (let [radius (get-in db [:handle :trigger :radius])
-        step (trigger-step db)
-        interp (interpolate (:min radius) (:max radius))]
-    (interp step)))
 
 (defn trigger-time
   [db forward?]

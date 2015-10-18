@@ -1,4 +1,4 @@
-(ns swnd.dev
+(ns ^:figwheel-no-load swnd.dev
   (:require [weasel.repl :as repl]
             [swnd.core :as core]))
 

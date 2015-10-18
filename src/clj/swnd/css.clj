@@ -30,4 +30,7 @@
   [:#msg :.main {:position "relative"
                  :top "50%"
                  :transform "translateY(-50%)"
-                 :text-align "center"}])
+                 :text-align "center"}]
+  
+  [:#app :.main {:width "100%"
+                 :height "100%"}])
