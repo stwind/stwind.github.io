@@ -14,36 +14,45 @@
   ([start end duration easing]
    (transition start end {:duration duration :easing easing})))
 
+(defn progress
+  [chan]
+  (go-loop []
+    (when-let [t (<! chan)]
+      (rf/dispatch [:maybe-progress t])
+      (recur))))
+
 (rf/register-handler
  :initialize-db
  (fn [_ _]
    db/default-db))
 
 (rf/register-handler
- :move-on-maybe
+ :try-move-on
  (fn [db _]
-   (when-let [timer (db/locus-timer db)]
-     (close! timer))
-   (let [chan (tween (db/locus-step db) 1 (db/locus-forward-time db))]
-     (go-loop []
-       (when-let [t (<! chan)]
-         (rf/dispatch [:move-on-waiting t])
-         (recur)))
-     (db/locus-timer db chan))))
+   (case (db/state db)
+     :idle
+     (do
+       (when-let [timer (db/trigger-timer db)]
+         (close! timer))
+       (let [chan (tween (db/trigger-step db) 1 (db/trigger-time db true))]
+         (progress chan)
+         (db/trigger-timer db chan)))
+     db)))
 
 (rf/register-handler
- :move-on-waiting
+ :try-move-on-cancel
+ (fn [db _]
+   (case (db/state db)
+     :idle
+     (do
+       (when-let [timer (db/trigger-timer db)]
+         (close! timer))
+       (let [chan (tween (db/trigger-step db) 0 (db/trigger-time db false))]
+         (progress chan)
+         (db/trigger-timer db chan)))
+     db)))
+
+(rf/register-handler
+ :maybe-progress
  (fn [db [_ t]]
-   (db/set-locus-step db t)))
-
-(rf/register-handler
- :move-on-cancel
- (fn [db _]
-   (when-let [timer (db/locus-timer db)]
-     (close! timer))
-   (let [chan (tween (db/locus-step db) 0 (db/locus-backword-time db))]
-     (go-loop []
-       (when-let [t (<! chan)]
-         (rf/dispatch [:move-on-waiting t])
-         (recur)))
-     (db/locus-timer db chan))))
+   (db/trigger-step db t)))

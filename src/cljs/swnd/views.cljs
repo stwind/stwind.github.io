@@ -1,16 +1,20 @@
 (ns swnd.views
   (:require [re-frame.core :as rf]))
 
-(defn locus
+(defn trigger
+  [cx cy r]
+  [:circle {:cx cx :cy cy :r r
+            :on-mouse-enter #(rf/dispatch [:try-move-on])
+            :on-mouse-leave #(rf/dispatch [:try-move-on-cancel])}])
+
+(defn handle
   []
-  (let [radius (rf/subscribe [:locus-radius])]
+  (let [radius (rf/subscribe [:trigger-radius])]
     (fn []
       [:svg
-       [:circle {:cx 100 :cy 100 :r @radius
-                 :on-mouse-enter #(rf/dispatch [:move-on-maybe])
-                 :on-mouse-leave #(rf/dispatch [:move-on-cancel])}]])))
+       [trigger 100 100 @radius]])))
 
 (defn main
   []
   [:div.main
-   [locus]])
+   [handle]])

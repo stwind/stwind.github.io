@@ -4,6 +4,6 @@
             [swnd.db :as db]))
 
 (rf/register-sub
- :locus-radius
+ :trigger-radius
  (fn [db]
-   (reaction (db/locus-radius @db))))
+   (reaction (db/trigger-radius @db))))
