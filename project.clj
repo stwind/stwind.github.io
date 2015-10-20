@@ -5,6 +5,7 @@
                  [org.clojure/clojurescript "1.7.122"]
                  [org.clojure/core.async "0.1.346.0-17112a-alpha"]
                  [reagent "0.5.1"]
+                 [reagent-utils "0.1.5"]
                  [re-frame "0.4.1"]
                  [secretary "1.2.3"]
                  [bardo "0.1.2-SNAPSHOT"]]
