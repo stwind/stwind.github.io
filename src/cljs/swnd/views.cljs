@@ -4,22 +4,23 @@
             [bardo.ease :refer [wrap ease shift clamp]]
             [bardo.interpolate :refer 
              [interpolate into-lazy-seq mix blend chain pipeline]]
-            [bardo.transition :refer [transition]]
             [goog.string :as gstr]
             [goog.string.format]))
 
 (defn trigger
   []
-  (let [step (rf/subscribe [:trigger-step])]
+  (let [entropy (rf/subscribe [:entropy])]
     (fn []
-      (let [r ((interpolate 10 50) @step)]
+      (let [r ((interpolate 10 50) @entropy)]
         [:circle {:cx 100 :cy 100 :r r
-                  :on-mouse-enter #(rf/dispatch [:try-move-on])
-                  :on-mouse-leave #(rf/dispatch [:try-move-on-cancel])}]))))
+                  :on-mouse-enter #(rf/dispatch [:try-go-up])
+                  :on-mouse-leave #(rf/dispatch [:try-go-down])}]))))
 
 (defn handle
   []
   [:svg
+   {:width 640
+    :height 480}
    [trigger]])
 
 (defn main

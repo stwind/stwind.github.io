@@ -4,6 +4,7 @@
             [swnd.db :as db]))
 
 (rf/register-sub
- :trigger-step
+ :entropy
  (fn [db]
-   (reaction (db/trigger-step @db))))
+   (reaction (db/entropy @db))))
+
