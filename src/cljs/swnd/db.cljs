@@ -10,7 +10,10 @@
    :entropy 0
    :trans-duration 1000
    :trans-timer nil
-   :size {:height 0 :width 0}})
+
+   :viewport {:height 0 :width 0}
+
+   :trail ()})
 
 (defn tween
   ([duration] (tween 0 1 duration))
@@ -18,9 +21,11 @@
   ([start end duration easing]
    (transition start end {:duration duration :easing easing})))
 
-(defn set-size
-  [db width height]
-  (assoc db :size {:height height :width width}))
+(defn viewport
+  ([db]
+   (:viewport db))
+  ([db [width height]]
+   (assoc db :viewport {:height height :width width})))
 
 (defn state
   ([db] 
@@ -78,6 +83,14 @@
       (create-trans-timer :down)
       (state :down)))
 
-(defn next-point
+(defn rand-point
   [db]
-  [(rand-int 640) (rand-int 480)])
+  (let [viewport (viewport db)]
+    [(rand-int (:width viewport))
+     (rand-int (:height viewport))]))
+
+(defn trail-next
+  [db]
+  (let [point (rand-point db)
+        trail (conj (:trail db) point)]
+    (assoc db :trail trail)))

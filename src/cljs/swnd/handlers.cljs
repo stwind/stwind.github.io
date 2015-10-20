@@ -14,7 +14,9 @@
 (rf/register-handler
  :app-mounted
  (fn [db [_ width height]]
-   (db/set-size db width height)))
+   (-> db
+       (db/viewport [width height])
+       (db/trail-next))))
 
 (defn update-entropy-on-trans
   [db]
@@ -57,6 +59,4 @@
 (rf/register-handler
  :go-next
  (fn [db _]
-   (let [[x y] (db/next-point db)]
-     (println [x y])
-     db)))
+   (db/trail-next db)))

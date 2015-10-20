@@ -1,28 +1,39 @@
 (ns swnd.views
   (:require [reagent.core :as r]
             [re-frame.core :as rf]
-            [bardo.ease :refer [wrap ease shift clamp]]
-            [bardo.interpolate :refer 
-             [interpolate into-lazy-seq mix blend chain pipeline]]
             [swnd.utils :as u]))
 
-(defn trigger
+(defn exit
   []
-  (let [entropy (rf/subscribe [:entropy])]
+  (let [exit-point (rf/subscribe [:exit-point])
+        radius (rf/subscribe [:exit-radius])
+        exit-color (rf/subscribe [:exit-color])]
     (fn []
-      (let [r ((interpolate 10 50) @entropy)
-            l ((interpolate 40 60) @entropy)
-            s ((interpolate 80 100) @entropy)]
-        [:circle {:cx 100 :cy 100 :r r :fill (u/hsl 0 s l)
+      (let [[cx cy] @exit-point]
+        [:circle {:cx cx :cy cy 
+                  :r @radius :fill @exit-color
                   :on-mouse-enter #(rf/dispatch [:try-go-up])
                   :on-mouse-leave #(rf/dispatch [:try-go-down])}]))))
 
-(defn handle
+(defn trail
   []
-  [:svg
-   {:width 640
-    :height 480}
-   [trigger]])
+  (let [trail (rf/subscribe [:trail])]
+    (fn []
+      [:g
+       (for [[x y] @trail]
+         ^{:key (str x ":" y)}
+         [:circle {:cx x :cy y :r 10}])])))
+
+(defn svg
+  []
+  (let [viewport (rf/subscribe [:viewport])]
+    (fn []
+      (if (= (:width viewport) 0)
+        nil
+        [:svg {:width (:width @viewport)
+               :height (:height @viewport)}
+         [trail]
+         [exit]]))))
 
 (defn main
   []
@@ -39,4 +50,4 @@
     :reagent-render
     (fn []
       [:div.main
-       [handle]])}))
+       [svg]])}))
