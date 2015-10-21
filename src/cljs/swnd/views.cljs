@@ -9,20 +9,20 @@
         radius (rf/subscribe [:exit-radius])
         exit-color (rf/subscribe [:exit-color])]
     (fn []
-      (let [[cx cy] @exit-point]
-        [:circle {:cx cx :cy cy 
-                  :r @radius :fill @exit-color
-                  :on-mouse-enter #(rf/dispatch [:try-go-up])
-                  :on-mouse-leave #(rf/dispatch [:try-go-down])}]))))
+      [:circle {:cx (:x @exit-point) :cy (:y @exit-point)
+                :r @radius :fill @exit-color
+                :on-mouse-enter #(rf/dispatch [:try-go-up])
+                :on-mouse-leave #(rf/dispatch [:try-go-down])}]
+      )))
 
 (defn trail
   []
   (let [trail (rf/subscribe [:trail])]
     (fn []
       [:g
-       (for [[x y] @trail]
+       (for [{:keys [x y char]} @trail]
          ^{:key (str x ":" y)}
-         [:circle {:cx x :cy y :r 10}])])))
+         [:text {:x x :y y :font-size 10} char])])))
 
 (defn svg
   []
@@ -30,10 +30,29 @@
     (fn []
       (if (= (:width viewport) 0)
         nil
-        [:svg {:width (:width @viewport)
-               :height (:height @viewport)}
+        [:svg.panel {:width (:width @viewport)
+                     :height (:height @viewport)}
          [trail]
          [exit]]))))
+
+(defn diary-date
+  []
+  (let [m (+ 1 (rand-int 11))
+        d (+ 1 (rand-int 30))]
+    [:div.diary-date (str "2015年" m "月" d "日")]))
+
+(defn diary-text
+  [text]
+  [:div.diary-text text])
+
+(defn diary
+  []
+  (let [current-diary (rf/subscribe [:current-diary])]
+    (fn []
+      [:div.diary
+       [:div.diary-inner
+        [diary-date]
+        [diary-text (:text @current-diary)]]])))
 
 (defn main
   []
@@ -45,9 +64,8 @@
             height (.-clientHeight node)]
         (rf/dispatch [:app-mounted width height])))
     
-    :display-name "main"
-    
     :reagent-render
     (fn []
       [:div.main
+       [diary]
        [svg]])}))

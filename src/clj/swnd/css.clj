@@ -27,10 +27,21 @@
   [:#pre :#app {:transform-style "preserve-3d"
                 :height "100%"}]
 
-  [:#msg :.main {:position "relative"
-                 :top "50%"
-                 :transform "translateY(-50%)"
-                 :text-align "center"}]
+  [:#msg {:position "relative"
+          :top "50%"
+          :transform "translateY(-50%)"
+          :text-align "center"}]
   
-  [:#app :.main {:width "100%"
-                 :height "100%"}])
+  [:#app 
+   [:.main {:width "100%"
+            :height "100%"
+            :position "relative"}]
+   [:.panel {:position "absolute"
+             :top 0
+             :left 0}]
+   [:.diary {:position "relative"
+             :top "40%"
+             :transform "translateY(-50%)"}
+    [:.diary-inner {:width "300px"
+                    :margin "0 auto"}]
+    [:.diary-date {:margin-bottom "1em"}]]])

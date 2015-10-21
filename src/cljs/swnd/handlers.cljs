@@ -59,4 +59,6 @@
 (rf/register-handler
  :go-next
  (fn [db _]
-   (db/trail-next db)))
+   (-> db
+       db/trail-next
+       db/diary-next)))

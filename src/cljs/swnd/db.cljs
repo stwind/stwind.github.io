@@ -3,7 +3,8 @@
             [bardo.ease :refer [wrap ease shift clamp]]
             [bardo.interpolate :refer 
              [interpolate into-lazy-seq mix blend chain pipeline]]
-            [bardo.transition :refer [transition]]))
+            [bardo.transition :refer [transition]]
+            [swnd.diaries :as diaries]))
 
 (def default-db
   {:state :stable
@@ -13,7 +14,11 @@
 
    :viewport {:height 0 :width 0}
 
-   :trail ()})
+   :chars (shuffle (vec "ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴヵヶＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ０１２３４５６７８９"))
+   :trail ()
+   
+   :diaries {:current 0
+             :all (shuffle diaries/all)}})
 
 (defn tween
   ([duration] (tween 0 1 duration))
@@ -83,14 +88,35 @@
       (create-trans-timer :down)
       (state :down)))
 
-(defn rand-point
+(defn gen-point
   [db]
-  (let [viewport (viewport db)]
-    [(rand-int (:width viewport))
-     (rand-int (:height viewport))]))
+  (let [viewport (viewport db)
+        x (rand-int (:width viewport))
+        y (rand-int (:height viewport))
+        char (str (rand-nth (:chars db)))]
+    {:x x :y y
+     :char char}))
 
 (defn trail-next
   [db]
-  (let [point (rand-point db)
+  (let [point (gen-point db)
         trail (conj (:trail db) point)]
     (assoc db :trail trail)))
+
+(defn diary-next
+  [db]
+  (let [current (get-in db [:diaries :current])
+        next (+ current 1)
+        all (get-in db [:diaries :all])
+        count (count all)]
+    (if (= next count)
+      (-> db
+          (assoc-in [:diaries :all] (shuffle all))
+          (assoc-in [:diaries :current] 0))
+      (assoc-in db [:diaries :current] next))))
+
+(defn current-diary
+  [db]
+  (let [current (get-in db [:diaries :current])
+        all (get-in db [:diaries :all])]
+    (nth all current)))
