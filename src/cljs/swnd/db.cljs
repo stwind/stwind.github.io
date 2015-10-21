@@ -8,16 +8,21 @@
 
 (def sub-chars (shuffle (vec "ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴヵヶＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ０１２３４５６７８９")))
 
+(defn rand-date
+  []
+  [(inc (rand-int 11)) (inc (rand-int 30))])
+
 (def default-db
   {:state :stable
-   :entropy 0
+   :entropy 1
    :trans-duration 1000
    :trans-timer nil
 
    :viewport {:height 0 :width 0}
 
    :trail ()
-   
+
+   :date nil
    :diaries {:current 0
              :all (shuffle (diaries/get-all sub-chars 3))}})
 
@@ -103,17 +108,26 @@
         trail (conj (:trail db) point)]
     (assoc db :trail trail)))
 
+(defn date-next
+  [db]
+  (let [diary (current-diary db)
+        date (diaries/compile-date diary (rand-date) sub-chars)]
+    (assoc db :date date)))
+
 (defn diary-next
   [db]
   (let [current (get-in db [:diaries :current])
-        next (+ current 1)
+        next (inc current)
         all (get-in db [:diaries :all])
         count (count all)]
     (if (= next count)
       (-> db
           (assoc-in [:diaries :all] (shuffle all))
-          (assoc-in [:diaries :current] 0))
-      (assoc-in db [:diaries :current] next))))
+          (assoc-in [:diaries :current] 0)
+          date-next)
+      (-> db
+          (assoc-in [:diaries :current] next)
+          date-next))))
 
 (defn current-diary
   [db]

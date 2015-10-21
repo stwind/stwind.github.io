@@ -10,10 +10,10 @@
         exit-color (rf/subscribe [:exit-color])]
     (fn []
       [:circle {:cx (:x @exit-point) :cy (:y @exit-point)
-                :r @radius :fill @exit-color
+                :r @radius :stroke @exit-color
+                :fill @exit-color :fill-opacity 0
                 :on-mouse-enter #(rf/dispatch [:try-go-up])
-                :on-mouse-leave #(rf/dispatch [:try-go-down])}]
-      )))
+                :on-mouse-leave #(rf/dispatch [:try-go-down])}])))
 
 (defn trail
   []
@@ -36,10 +36,8 @@
          [exit]]))))
 
 (defn diary-date
-  []
-  (let [m (+ 1 (rand-int 11))
-        d (+ 1 (rand-int 30))]
-    [:div.diary-date (str "２０１５年８月１２日")]))
+  [date]
+  [:div.diary-date date])
 
 (defn diary-text
   [text]
@@ -47,12 +45,12 @@
 
 (defn diary
   []
-  (let [current-diary (rf/subscribe [:current-diary])]
+  (let [diary (rf/subscribe [:diary])]
     (fn []
       [:div.diary
        [:div.diary-inner
-        [diary-date]
-        [diary-text (:text @current-diary)]]])))
+        [diary-date (:date @diary)]
+        [diary-text (:text @diary)]]])))
 
 (defn main
   []

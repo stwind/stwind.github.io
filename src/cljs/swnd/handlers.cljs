@@ -8,24 +8,27 @@
             [bardo.transition :refer [transition]]))
 
 (rf/register-handler 
- :initialize-db 
+ :initialize-db
  (constantly db/default-db))
+
+(defn update-entropy-on-trans
+  [db]
+  (let [chan (db/trans-timer db)]
+    (go-loop []
+      (when-let [t (<! chan)]
+        (rf/dispatch [:update-entropy t])
+        (recur)))
+    db))
 
 (rf/register-handler
  :app-mounted
  (fn [db [_ width height]]
    (-> db
        (db/viewport [width height])
-       (db/trail-next))))
-
-(defn update-entropy-on-trans
-  [db]
-  (let [chan (db/trans-timer db)]
-   (go-loop []
-     (when-let [t (<! chan)]
-       (rf/dispatch [:update-entropy t])
-       (recur)))
-   db))
+       db/trail-next
+       db/diary-next
+       db/go-down
+       update-entropy-on-trans)))
 
 (rf/register-handler
  :try-go-up
@@ -53,7 +56,9 @@
    (condp = t
      1 (do
          (rf/dispatch [:go-next])
-         (db/entropy db 0))
+         (-> db
+             db/go-down
+             update-entropy-on-trans))
      (db/entropy db t))))
 
 (rf/register-handler

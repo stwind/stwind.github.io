@@ -1,6 +1,7 @@
 (ns swnd.subs
   (:require-macros [reagent.ratom :refer [reaction]])
   (:require [re-frame.core :as rf]
+            [reagent.format :refer [format]]
             [bardo.ease :refer [wrap ease shift clamp]]
             [bardo.interpolate :refer 
              [interpolate into-lazy-seq mix blend chain pipeline]]
@@ -26,7 +27,7 @@
  :exit-radius
  (fn [db]
    (let [entropy (reaction (db/entropy @db))
-         interp (interpolate 10 50)]
+         interp (pipeline [10 40 50] [0 0.9 1])]
      (reaction (interp @entropy)))))
 
 (rf/register-sub
@@ -35,7 +36,7 @@
    (let [entropy (reaction (db/entropy @db))
          interp-l (interpolate 50 60)
          interp-s (interpolate 80 100)]
-     (reaction (u/hsl 0 (interp-s @entropy) (interp-l @entropy))))))
+     (reaction (u/hsl 0 80 50)))))
 
 (rf/register-sub
  :trail
@@ -50,16 +51,21 @@
 
 (defn gen-diary-text
   [diary step]
-  (let [chars (:chars diary)
-        chars2 (mapv #(gen-char-text % step) chars)]
-    (apply str chars2)))
+  (let [chars (mapv #(gen-char-text % step) (:chars diary))]
+    (apply str chars)))
+
+(defn gen-date-text
+  [date step]
+  (let [chars (mapv #(gen-char-text % step) date)]
+    (apply str chars)))
 
 (rf/register-sub
- :current-diary
+ :diary
  (fn [db]
    (let [entropy (reaction (db/entropy @db))
          diary (reaction (db/current-diary @db))
-         step (reaction (Math/floor (* @entropy (:steps @diary))))]
+         step (reaction (Math/floor (* @entropy (:steps @diary))))
+         date (reaction (:date @db))]
      (reaction 
-      (let [text (gen-diary-text @diary @step)]
-        {:text text})))))
+      {:text (gen-diary-text @diary @step)
+       :date (gen-date-text @date @step)}))))
