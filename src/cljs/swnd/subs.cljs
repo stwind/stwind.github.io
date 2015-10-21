@@ -42,21 +42,24 @@
  (fn [db]
    (reaction (rest (:trail @db)))))
 
-(defn shuffle-text
-  [text idxs]
-  (let [chars (vec text)]
-    (apply str (reduce #(assoc %1 %2 (rand-nth chars)) chars idxs))))
+(defn gen-char-text
+  [ch step]
+  (reduce
+   (fn [d [s c]]
+     (if (> step s) d c)) (char 12288) (reverse ch)))
+
+(defn gen-diary-text
+  [diary step]
+  (let [chars (:chars diary)
+        chars2 (mapv #(gen-char-text % step) chars)]
+    (apply str chars2)))
 
 (rf/register-sub
  :current-diary
  (fn [db]
    (let [entropy (reaction (db/entropy @db))
          diary (reaction (db/current-diary @db))
-         chars (reaction (:chars2 @db))]
+         step (reaction (Math/floor (* @entropy (:steps @diary))))]
      (reaction 
-      (let [text (:text @diary)
-            len (count text)
-            n (.round js/Math (* len @entropy))
-            idxs (take n (shuffle (range len)))
-            text2 (shuffle-text text idxs)]
-        (assoc @diary :text text2))))))
+      (let [text (gen-diary-text @diary @step)]
+        {:text text})))))

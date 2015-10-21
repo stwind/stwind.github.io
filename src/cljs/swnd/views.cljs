@@ -39,7 +39,7 @@
   []
   (let [m (+ 1 (rand-int 11))
         d (+ 1 (rand-int 30))]
-    [:div.diary-date (str "2015年" m "月" d "日")]))
+    [:div.diary-date (str "２０１５年８月１２日")]))
 
 (defn diary-text
   [text]

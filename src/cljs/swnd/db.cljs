@@ -6,6 +6,8 @@
             [bardo.transition :refer [transition]]
             [swnd.diaries :as diaries]))
 
+(def sub-chars (shuffle (vec "ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴヵヶＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ０１２３４５６７８９")))
+
 (def default-db
   {:state :stable
    :entropy 0
@@ -14,11 +16,10 @@
 
    :viewport {:height 0 :width 0}
 
-   :chars (shuffle (vec "ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴヵヶＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ０１２３４５６７８９"))
    :trail ()
    
    :diaries {:current 0
-             :all (shuffle diaries/all)}})
+             :all (shuffle (diaries/get-all sub-chars 3))}})
 
 (defn tween
   ([duration] (tween 0 1 duration))
@@ -93,9 +94,8 @@
   (let [viewport (viewport db)
         x (rand-int (:width viewport))
         y (rand-int (:height viewport))
-        char (str (rand-nth (:chars db)))]
-    {:x x :y y
-     :char char}))
+        char (rand-nth sub-chars)]
+    {:x x :y y :char char}))
 
 (defn trail-next
   [db]
