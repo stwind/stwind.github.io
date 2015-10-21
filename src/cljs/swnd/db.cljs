@@ -14,7 +14,7 @@
 
 (def default-db
   {:state :stable
-   :entropy 1
+   :entropy 0.99
    :trans-duration 1000
    :trans-timer nil
 
@@ -108,6 +108,12 @@
         trail (conj (:trail db) point)]
     (assoc db :trail trail)))
 
+(defn current-diary
+  [db]
+  (let [current (get-in db [:diaries :current])
+        all (get-in db [:diaries :all])]
+    (nth all current)))
+
 (defn date-next
   [db]
   (let [diary (current-diary db)
@@ -128,9 +134,3 @@
       (-> db
           (assoc-in [:diaries :current] next)
           date-next))))
-
-(defn current-diary
-  [db]
-  (let [current (get-in db [:diaries :current])
-        all (get-in db [:diaries :all])]
-    (nth all current)))

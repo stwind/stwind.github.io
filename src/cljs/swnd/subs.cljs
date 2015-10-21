@@ -33,9 +33,7 @@
 (rf/register-sub
  :exit-color
  (fn [db]
-   (let [entropy (reaction (db/entropy @db))
-         interp-l (interpolate 50 60)
-         interp-s (interpolate 80 100)]
+   (let [entropy (reaction (db/entropy @db))]
      (reaction (u/hsl 0 80 50)))))
 
 (rf/register-sub

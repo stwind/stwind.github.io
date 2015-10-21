@@ -9,11 +9,15 @@
         radius (rf/subscribe [:exit-radius])
         exit-color (rf/subscribe [:exit-color])]
     (fn []
-      [:circle {:cx (:x @exit-point) :cy (:y @exit-point)
-                :r @radius :stroke @exit-color
-                :fill @exit-color :fill-opacity 0
-                :on-mouse-enter #(rf/dispatch [:try-go-up])
-                :on-mouse-leave #(rf/dispatch [:try-go-down])}])))
+      (let [x (:x @exit-point)
+            y (:y @exit-point)]
+        [:g
+         [:text {:x x :y y :font-size 10} (:char @exit-point)]
+         [:circle {:cx (+ x 5) :cy (- y 4) ;; FIX
+                   :r @radius :stroke @exit-color
+                   :fill @exit-color :fill-opacity 0
+                   :on-mouse-enter #(rf/dispatch [:try-go-up])
+                   :on-mouse-leave #(rf/dispatch [:try-go-down])}]]))))
 
 (defn trail
   []
