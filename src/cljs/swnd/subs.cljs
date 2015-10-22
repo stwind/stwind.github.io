@@ -47,23 +47,17 @@
    (fn [d [s c]]
      (if (> step s) d c)) (char 12288) (reverse ch)))
 
-(defn gen-diary-text
-  [diary step]
-  (let [chars (mapv #(gen-char-text % step) (:chars diary))]
-    (apply str chars)))
-
-(defn gen-date-text
-  [date step]
-  (let [chars (mapv #(gen-char-text % step) date)]
-    (apply str chars)))
+(defn gen-text
+  [chars step]
+  (let [text (mapv #(gen-char-text % step) chars)]
+    (apply str text)))
 
 (rf/register-sub
  :diary
  (fn [db]
    (let [entropy (reaction (db/entropy @db))
          diary (reaction (db/current-diary @db))
-         step (reaction (Math/floor (* @entropy (:steps @diary))))
-         date (reaction (:date @db))]
+         step (reaction (Math/floor (* @entropy (:steps @diary))))]
      (reaction 
-      {:text (gen-diary-text @diary @step)
-       :date (gen-date-text @date @step)}))))
+      {:text (gen-text (:text @diary) @step)
+       :date (gen-text (:date @diary) @step)}))))

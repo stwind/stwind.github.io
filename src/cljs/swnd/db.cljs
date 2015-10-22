@@ -22,9 +22,8 @@
 
    :trail ()
 
-   :date nil
    :diaries {:current 0
-             :all (shuffle (diaries/get-all sub-chars 8))}})
+             :all (diaries/get-all sub-chars 8)}})
 
 (defn tween
   ([duration] (tween 0 1 duration))
@@ -114,23 +113,9 @@
         all (get-in db [:diaries :all])]
     (nth all current)))
 
-(defn date-next
-  [db]
-  (let [diary (current-diary db)
-        date (diaries/compile-date diary (rand-date) sub-chars)]
-    (assoc db :date date)))
-
 (defn diary-next
   [db]
   (let [current (get-in db [:diaries :current])
-        next (inc current)
-        all (get-in db [:diaries :all])
-        count (count all)]
-    (if (= next count)
-      (-> db
-          (assoc-in [:diaries :all] (shuffle all))
-          (assoc-in [:diaries :current] 0)
-          date-next)
-      (-> db
-          (assoc-in [:diaries :current] next)
-          date-next))))
+        count (count (get-in db [:diaries :all]))
+        next (mod (inc current) count)]
+    (assoc-in db [:diaries :current] next)))
