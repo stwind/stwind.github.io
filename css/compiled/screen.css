@@ -8,14 +8,15 @@ html {
 
 body {
   line-height: 1.5;
+  font-family: monospace, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  -moz-user-select: none;
+  -webkit-touch-callout: none;
+  user-select: none;
+  -webkit-user-select: none;
+  font-size: 1.2em;
+  background-color: #f7f7f7;
   color: #191919;
   -ms-user-select: none;
-  font-size: 1.2em;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  background-color: #f7f7f7;
-  user-select: none;
-  font-family: monospace, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 ul, ol {
