@@ -26,7 +26,8 @@
                      :stylesheet swnd.css/screen
                      :compiler {:output-to "resources/public/css/compiled/screen.css"
                                 :pretty-print? true
-                                :vendors ["webkit"]}}]}
+                                :vendors ["webkit"]
+                                :auto-prefix #{:user-select :touch-callout}}}]}
 
   :cljsbuild {:builds {:app {:source-paths ["src/cljs"]
                              :compiler {:output-to "resources/public/js/compiled/main.js"

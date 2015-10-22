@@ -15,7 +15,12 @@
     :line-height 1.5
     :font-family "monospace, \"Helvetica Neue\", Helvetica, Arial, sans-serif"
     :background-color "#f7f7f7"
-    :color "#191919"})
+    :color "#191919"
+    :-webkit-user-select "none"
+    :-moz-user-select "none"
+    :-ms-user-select "none"
+    :user-select "none"
+    :-webkit-touch-callout "none"})
 
   (lists
    {:list-style "none"
@@ -40,7 +45,8 @@
              :top 0
              :left 0}]
    [:.diary {:position "relative"
-             :top "40%"
+             :max-height "300px"
+             :top "50%"
              :transform "translateY(-50%)"}
     [:.diary-inner {:width "300px"
                     :margin "0 auto"}]

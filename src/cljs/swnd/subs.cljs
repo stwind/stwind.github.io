@@ -27,7 +27,7 @@
  :exit-radius
  (fn [db]
    (let [entropy (reaction (db/entropy @db))
-         interp (pipeline [10 40 50] [0 0.9 1])]
+         interp (pipeline [15 40 50] [0 0.9 1])]
      (reaction (interp @entropy)))))
 
 (rf/register-sub

@@ -22,7 +22,6 @@
   }
 
   function genText () {
-    console.log(seq);
     var text = '';
     for (var i = 0; i < seq.length; i++) {
       text += chars[i][seq[i]];
@@ -53,6 +52,7 @@
   };
 
   pre.stop = function stop (done) {
+    started = false;
     setTimeout(function () {
       $pre.parentNode.removeChild($pre);
       setTimeout(function () {

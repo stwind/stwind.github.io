@@ -16,8 +16,19 @@
          [:circle {:cx (+ x 5) :cy (- y 4) ;; FIX
                    :r @radius :stroke @exit-color
                    :fill @exit-color :fill-opacity 0
-                   :on-mouse-enter #(rf/dispatch [:try-go-up])
-                   :on-mouse-leave #(rf/dispatch [:try-go-down])}]]))))
+                   :on-mouse-enter (fn [e]
+                                     (.preventDefault e)
+                                     (rf/dispatch [:try-go-up]))
+                   :on-mouse-leave (fn [e]
+                                     (.preventDefault e)
+                                     (rf/dispatch [:try-go-down]))
+                   :on-touch-start (fn [e]
+                                     (.preventDefault e)
+                                     (rf/dispatch [:try-go-up]))
+                   :on-touch-end (fn [e]
+                                   (.preventDefault e)
+                                   (rf/dispatch [:try-go-down]))
+                   }]]))))
 
 (defn trail
   []

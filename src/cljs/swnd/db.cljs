@@ -24,7 +24,7 @@
 
    :date nil
    :diaries {:current 0
-             :all (shuffle (diaries/get-all sub-chars 3))}})
+             :all (shuffle (diaries/get-all sub-chars 8))}})
 
 (defn tween
   ([duration] (tween 0 1 duration))
