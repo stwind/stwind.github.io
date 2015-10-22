@@ -12,6 +12,8 @@ body {
   font-family: monospace, "Helvetica Neue", Helvetica, Arial, sans-serif;
   background-color: #f7f7f7;
   color: #191919;
+  touch-callout: none;
+  user-select: none;
 }
 
 ul, ol {
@@ -22,6 +24,13 @@ ul, ol {
 
 a {
   color: #ffffff;
+}
+
+svg text {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 #pre, #app {
