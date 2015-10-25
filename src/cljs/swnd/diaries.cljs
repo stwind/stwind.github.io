@@ -1,10 +1,18 @@
 (ns swnd.diaries)
 
 (def all 
-  [{:date [10 21]
-    :text "花几天时间做了这个网页，作为 clojurescript 的练习，也用来处置一些随时产生的无处可安放的遗忘了又可惜的想法。"}
+  [{:date [10 25]
+    :text "hate this street"}
+   {:date [10 25]
+    :text "床是用来放人的地方"}
+   {:date [10 23]
+    :text "在一个地方住久了会和附近的人有个脸熟，遇到楼下看更或者小店老板娘，会打声招呼说上两句。因为没熟到需要道别的程度，离开时只好不辞而别"}
+   {:date [10 21]
+    :text "遗忘是一种怎样的过程，也许就是这样"}
+   {:date [10 21]
+    :text "花几天时间做了这个网页，作为 clojurescript 的练习，也用来处置一些随时产生的无处可安放的遗忘了又可惜的想法"}
    {:date [10 20]
-    :text "maybe that is how everyone becomes everyone."}])
+    :text "maybe that is how everyone becomes everyone"}])
 
 (def num-chars
   ["０１" "０２" "０３" "０４" "０５" "０６" "０７" "０８" "０９" "１０"

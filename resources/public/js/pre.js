@@ -1,49 +1,40 @@
 (function (window) {
   var pre = {},
       chars = [
-        ["l ", "L ", "ﾚ "],
+        ["l ", "L ", "ﾚ ", "ʟ ","Ꮮ ", "Ⅼ ","ⅼ "],
         ["o ", "O ", "0 ", "再"],
-        ["a ", "A ", "α ","σ ", "Λ "],
-        ["d ","ｄ", "D ", "∂ "],
-        ["i ","ｉ","I ","Ｉ", "見"],
+        ["a ", "A ", "α ","σ ", "Λ ", "Α "],
+        ["d ","ｄ", "D ", "ժ ", "ď "],
+        ["i ","ｉ","I ","Ꭵ ", "ⅰ ", "見"],
         ["n ", "N "],
-        ["g ", "G "]
+        ["g ", "G ", "ɡ ", "ɢ "]
       ],
       seq = [0, 0, 0, 0, 0, 0, 0],
-      fpsInterval = 1000/5, 
-      then = Date.now(), now = then, elapsed,
       $pre = document.getElementById('pre'),
       $msg = document.getElementById('msg'),
       started = false;
 
-  function randChar (chars) {
-    var i = Math.floor(Math.random() * chars.length);
-    return chars[i];
+  function genText () {
+    return seq.reduce(function (acc, c, i) {
+      return acc + chars[i][c];
+    }, '');
   }
 
-  function genText () {
-    var text = '';
-    for (var i = 0; i < seq.length; i++) {
-      text += chars[i][seq[i]];
-    }
-    return text;
+  function randInt (v) {
+    return Math.floor(Math.random() * v);
   }
 
   function updateText () {
-    var i = Math.floor(Math.random() * seq.length);
-    seq[i] = Math.floor(Math.random() * chars[i].length);
+    var i = randInt(seq.length);
+    seq[i] = randInt(chars[i].length);
     $msg.textContent = genText();
   }
   
   function animate () {
-    if (started) window.requestAnimationFrame(animate);
-
-    now = Date.now();
-    elapsed = now - then;
-
-    if (elapsed > fpsInterval)
-      then = now - (elapsed % fpsInterval);
-      updateText();
+    if (started) 
+      window.requestAnimationFrame(animate);
+    
+    updateText();
   }
       
   pre.start = function start () {
@@ -52,8 +43,8 @@
   };
 
   pre.stop = function stop (done) {
-    started = false;
     setTimeout(function () {
+      started = false;
       $pre.parentNode.removeChild($pre);
       setTimeout(function () {
         done();

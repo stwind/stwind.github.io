@@ -26,7 +26,6 @@
    (-> db
        (db/viewport [width height])
        db/trail-next
-       db/diary-next
        db/go-down
        update-entropy-on-trans)))
 
