@@ -1,7 +1,9 @@
 (ns swnd.diaries)
 
 (def all 
-  [{:date [10 25]
+  [{:date [10 28]
+    :text "把重大目标定在了某月某日，在那之后的事变得像世界末日之后，不存在的未来"}
+   {:date [10 25]
     :text "hate this street"}
    {:date [10 25]
     :text "床是用来放人的地方"}
