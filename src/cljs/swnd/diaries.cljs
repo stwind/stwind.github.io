@@ -1,7 +1,13 @@
 (ns swnd.diaries)
 
 (def all 
-  [{:date [10 28]
+  [{:date [11 02]
+    :text "在候诊室的阳光下看书"}
+   {:date [10 29]
+    :text "自从离开那里之后，就没再见过夜晚"}
+   {:date [10 28]
+    :text "tofubeats 的声音有种被抽走了情感的冷漠，喜欢"}
+   {:date [10 28]
     :text "把重大目标定在了某月某日，在那之后的事变得像世界末日之后，不存在的未来"}
    {:date [10 25]
     :text "hate this street"}
