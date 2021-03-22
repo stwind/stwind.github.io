@@ -1,4 +1,4 @@
-import type { Fn, Path } from "@thi.ng/api";
+import type { Fn, Path, IID, IObjectOf } from "@thi.ng/api";
 import type { IAtom, IView } from "@thi.ng/atom";
 import type { EventBus } from "@thi.ng/interceptors";
 import type { RouteMatch } from "@thi.ng/router";
@@ -9,18 +9,24 @@ export interface Tag {
   name: string;
 }
 
-export interface Item {
+export interface Item extends IID<string> {
   title: string;
   tags: Tag[];
-  description: string;
+  description?: string;
 }
 
 export interface State {
   route: RouteMatch;
+  items: Item[];
+}
+
+export interface UI {
+  class: string;
 }
 
 export interface Context {
   bus: EventBus;
   state: IAtom<State>;
-  views: Record<string, IView<any>>
+  views: IObjectOf<IView<any>>
+  ui: IObjectOf<UI | IObjectOf<UI>>
 }
