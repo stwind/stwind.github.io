@@ -30,6 +30,7 @@
     "@thi.ng/atom": "^4.1.34",
     "@thi.ng/checks": "^2.9.5",
     "@thi.ng/hdom": "^8.2.17",
+    "@thi.ng/hiccup-carbon-icons": "^2.0.17",
     "@thi.ng/interceptors": "^2.2.45",
     "@thi.ng/router": "^2.0.46",
     "@thi.ng/transducers": "^7.6.7"

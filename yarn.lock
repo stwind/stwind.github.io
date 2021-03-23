@@ -205,6 +205,11 @@
   resolved "https://registry.yarnpkg.com/@thi.ng/hex/-/hex-0.2.5.tgz#a2dc257827fcc8cc234574593237154347efe1cc"
   integrity sha512-ziJHsLH7zUBjDlZD+q+HszUVMfx9uFE+spSrRTSnt4/fCmXuUxn6hlMAskGifNGBzpE4LB40OG1nvE+0kSYdDw==
 
+"@thi.ng/hiccup-carbon-icons@^2.0.17":
+  version "2.0.17"
+  resolved "https://registry.yarnpkg.com/@thi.ng/hiccup-carbon-icons/-/hiccup-carbon-icons-2.0.17.tgz#59361385c30e6ff32092019edcf408b1f845d8ea"
+  integrity sha512-JK+5mBWclydnqD3qEMFxIKvybXSjKnPxBeD/37/RstD4Xbs+RsqxsbK6fsow17jDcLWsgw1WAkojsyzZ8csoEw==
+
 "@thi.ng/hiccup@^3.6.7":
   version "3.6.7"
   resolved "https://registry.yarnpkg.com/@thi.ng/hiccup/-/hiccup-3.6.7.tgz#11ebb5869355be3ef74efd6682a0fe09c865626a"

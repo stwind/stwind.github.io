@@ -17,6 +17,7 @@ export interface Item extends IID<string> {
 
 export interface State {
   route: RouteMatch;
+  navOpen: boolean;
   items: Item[];
 }
 

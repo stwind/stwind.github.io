@@ -20,7 +20,7 @@ export const makeViews = (state: IAtom<any>, specs: IObjectOf<ViewSpec>) => {
 export const routeTo = (bus: EventBus, id: PropertyKey, params: any = null) =>
   bus.dispatch([EV.ROUTE_TO, [id, params]]);
 
-export const uniqueBy = <T>(items: T[], mapper: ((T) => string)) => {
+export const uniqueBy = <T>(items: T[], mapper: ((x: T) => string)) => {
   const seen = new Set();
   const res: T[] = [];
   for (const item of items) {

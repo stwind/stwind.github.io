@@ -1,7 +1,8 @@
 import { map, comp, transduce, push, filter } from "@thi.ng/transducers"
+import { CLOSE, MENU } from "@thi.ng/hiccup-carbon-icons";
 
 import type { Context, Item, Tag } from "./api";
-import { ROUTES } from "./config";
+import { ROUTES, EV } from "./config";
 import { routeTo } from "./utils"
 
 export const routeLink = (ctx: Context, routeID: PropertyKey, routeParams: any, attribs: any, body: any) =>
@@ -26,7 +27,8 @@ const itemTags = (_: Context, tags: Tag[]) =>
 const itemThumb = (ctx: Context, item: Item) =>
   ["div", ctx.ui.item.thumb.main,
     [itemThumbTitle, item],
-    [itemTags, item.tags]];
+    [itemTags, item.tags]
+  ];
 
 export const itemList = (ctx: Context, tag?: string) => {
   const items = ctx.views.items.deref();
@@ -49,7 +51,27 @@ export const itemDetail = (ctx: Context) => {
 }
 
 const title = (ctx: Context) =>
-  [routeLink, ROUTES.HOME, null, {}, ["h1", ctx.ui.title, "pngupngu"]];
+  ["div", ctx.ui.title, [routeLink, ROUTES.HOME, null, {}, ["h1", "pngupngu"]]];
 
-export const app = (ctx: Context) =>
-  ["div", ctx.ui.app, title, ctx.views.content];
+const navToggle = (ctx: Context) => {
+  const navOpen = ctx.views.navOpen.deref();
+  const attribs = {
+    ...ctx.ui.nav.button,
+    onclick: () => ctx.bus.dispatch([EV.TOGGLE_NAV])
+  };
+  return ['div', attribs, navOpen ? CLOSE : MENU];
+};
+
+const header = (ctx: Context) => ["div", ctx.ui.header, title, navToggle];
+
+const tagList = (ctx: Context) => {
+  const tags = ctx.views.tags.deref();
+  return ["div", map((x: Tag) => ['div', x.name], tags)];
+};
+
+export const app = (ctx: Context) => {
+  const navOpen = ctx.views.navOpen.deref();
+  return ["div", ctx.ui.app,
+    header,
+    navOpen ? tagList : ctx.views.content];
+};
