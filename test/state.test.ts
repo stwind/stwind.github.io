@@ -1,10 +1,13 @@
 import { expect } from 'chai';
-import { Atom, defViewUnsafe } from "@thi.ng/atom";
 
-import { views, initialState } from "../src/config";
+import { uniqueBy } from "../src/utils";
 
-it('views', () => {
-  const state = new Atom(initialState);
-  const itemsById = defViewUnsafe(state, views.itemsById[0], views.itemsById[1]).deref();
-  initialState.items.forEach(item => expect(itemsById[item.id]).to.equal(item));
+
+it('uniqueBy', () => {
+  const items = [{ name: "one" }, { name: "two" }, { name: "one" }, { name: "three" }];
+  const items2 = uniqueBy(items, x => x.name);
+  const res = ["one", "two", "three"];
+  for (let i in res) {
+    expect(items2[i].name).to.equal(res[i])
+  }
 });

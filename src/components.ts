@@ -30,10 +30,11 @@ const itemThumb = (ctx: Context, item: Item) =>
 
 export const itemList = (ctx: Context, tag?: string) => {
   const items = ctx.views.items.deref();
-  const res = transduce(comp(
-    filter(x => !tag || (x as Item).tags.map(t => t.name).includes(tag)),
-    map(x => [itemThumb, x])
-  ),
+  const res = transduce(
+    comp(
+      filter(x => !tag || (x as Item).tags.map(t => t.name).includes(tag)),
+      map(x => [itemThumb, x])
+    ),
     push(),
     items);
   return ["div", res];
@@ -46,8 +47,6 @@ export const itemDetail = (ctx: Context) => {
   else
     routeTo(ctx.bus, ROUTES.HOME);
 }
-
-export const tags = () => ["div", "tags"];
 
 const title = (ctx: Context) =>
   [routeLink, ROUTES.HOME, null, {}, ["h1", ctx.ui.title, "pngupngu"]];

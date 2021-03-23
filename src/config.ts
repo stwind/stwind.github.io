@@ -2,19 +2,20 @@ import type { IObjectOf } from "@thi.ng/api";
 import { valueSetter, Event } from "@thi.ng/interceptors";
 import { EVENT_ROUTE_CHANGED } from "@thi.ng/router";
 
-import type { ViewSpec } from "./api";
-import { itemList, tags, itemDetail } from "./components";
+import type { Context, ViewSpec, Item } from "./api";
+import { itemList, itemDetail } from "./components";
+import { uniqueBy } from "./utils";
 
 export enum ROUTES {
   HOME = 'home',
   ITEM = 'item',
-  TAGS = 'tags',
+  TAG = 'tag',
 }
 
 export const routes = [
   { id: ROUTES.HOME, title: "Home page", match: ["home"] },
   { id: ROUTES.ITEM, title: "Item", match: ["items", "?id"], },
-  { id: ROUTES.TAGS, title: "Tag", match: ["tags", "?id"], },
+  { id: ROUTES.TAG, title: "Tag", match: ["tags", "?id"], },
 ];
 
 export const ui = {
@@ -44,15 +45,15 @@ export const initialState = {
 };
 
 const components = {
-  [ROUTES.HOME]: itemList,
+  [ROUTES.HOME]: () => [itemList],
   [ROUTES.ITEM]: itemDetail,
-  [ROUTES.TAGS]: tags
+  [ROUTES.TAG]: (ctx: Context) => [itemList, ctx.views.route.deref().params.id]
 };
 
 export const views: IObjectOf<ViewSpec> = {
   items: "items",
-
-  currentItem: ["", ({ items, route }) => items.find(item => item.id == route.params.id)],
+  tags: ["items", items => uniqueBy(items.map((x: Item) => x.tags).flat(1), x => x.name)],
+  currentItem: ["", ({ items, route }) => route.id == ROUTES.ITEM && items.find(item => item.id == route.params.id)],
 
   route: "route",
   content: ["route.id", id => components[id]]
