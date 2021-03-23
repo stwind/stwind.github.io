@@ -13,7 +13,11 @@
     "moduleResolution": "node",
     "strict": true,
     "strictNullChecks": true,
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "lib": [
+      "esnext",
+      "dom"
+    ],
   },
   "exclude": ["./**/node_modules"]
 }

@@ -1,8 +1,10 @@
 import type { Fn, IObjectOf } from "@thi.ng/api";
 import { IAtom, defViewUnsafe } from "@thi.ng/atom";
 import { isArray } from "@thi.ng/checks";
+import type { EventBus } from "@thi.ng/interceptors";
 
 import type { ViewSpec } from "./api";
+import { EV } from "./config";
 
 export const makeViews = (state: IAtom<any>, specs: IObjectOf<ViewSpec>) => {
   const views = {};
@@ -14,3 +16,6 @@ export const makeViews = (state: IAtom<any>, specs: IObjectOf<ViewSpec>) => {
   }
   return views;
 };
+
+export const routeTo = (bus: EventBus, id: PropertyKey, params: any) =>
+  bus.dispatch([EV.ROUTE_TO, [id, params]]);

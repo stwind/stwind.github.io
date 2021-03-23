@@ -5,7 +5,7 @@ import type { RouteMatch } from "@thi.ng/router";
 
 export type ViewSpec = string | Path | [string | Path, Fn<any, any>];
 
-export interface Tag {
+export interface Tag extends IID<string> {
   name: string;
 }
 
@@ -28,5 +28,5 @@ export interface Context {
   bus: EventBus;
   state: IAtom<State>;
   views: IObjectOf<IView<any>>
-  ui: IObjectOf<UI | IObjectOf<UI>>
+  ui: IObjectOf<any>
 }

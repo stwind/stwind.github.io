@@ -4,12 +4,16 @@
 /** @type {import("snowpack").SnowpackUserConfig } */
 module.exports = {
   mount: {
-    public: "/",
+    public: {
+      url: '/',
+      static: true
+    },
     src: "/dist",
+    test: "/test",
   },
   plugins: [
     '@snowpack/plugin-typescript',
-    '@snowpack/plugin-postcss'
+    '@snowpack/plugin-postcss',
   ],
   optimize: {
     bundle: true,

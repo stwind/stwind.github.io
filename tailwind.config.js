@@ -5,15 +5,10 @@ const range = (a, b) => Array.from({
   length: b - a
 }, (_, i) => a + i);
 
-const msFontSizes = (from = -2, to = 7, base = 1, ratio = 1.33, unit = 'rem') => Object.fromEntries(range(from, to).map(x => {
-  const opt = {
-    base,
-    ratio
-  };
-  return [`.fs-${x}`, {
-    fontSize: `${modularScale(x, opt)}${unit}`
-  }];
-}));
+const msFontSizes = (from = -2, to = 7, base = 1, ratio = 1.33, unit = 'rem') =>
+  Object.fromEntries(range(from, to).map(x => [`.fs-${x}`, {
+    fontSize: `${modularScale(x, { base, ratio })}${unit}`
+  }]));
 
 module.exports = {
   purge: [
@@ -28,17 +23,6 @@ module.exports = {
     extend: {},
   },
   plugins: [
-    plugin(function ({
-      addUtilities
-    }) {
-      const newUtilities = {
-        '.shit': {
-          fontSize: '20px',
-        }
-      }
-
-      addUtilities(newUtilities)
-    }),
     plugin(({
       addUtilities
     }) => addUtilities(msFontSizes()))
