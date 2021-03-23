@@ -51,7 +51,8 @@ const components = {
 
 export const views: IObjectOf<ViewSpec> = {
   items: "items",
-  itemsById: ["items", items => Object.fromEntries(items.map(item => [item.id, item]))],
+
+  currentItem: ["", ({ items, route }) => items.find(item => item.id == route.params.id)],
 
   route: "route",
   content: ["route.id", id => components[id]]

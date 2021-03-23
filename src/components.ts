@@ -1,4 +1,4 @@
-import { map } from "@thi.ng/transducers"
+import { map, comp, transduce, push, filter } from "@thi.ng/transducers"
 
 import type { Context, Item, Tag } from "./api";
 import { ROUTES } from "./config";
@@ -17,25 +17,40 @@ const itemThumbTitle = (ctx: Context, item: Item) =>
   ["div", ctx.ui.item.thumb.title,
     [routeLink, ROUTES.ITEM, { id: item.id }, ctx.ui.link, item.title]];
 
-const itemTags = (ctx: Context, tags: Tag[]) =>
-  ["div", map(t => ['span', ctx.ui.tag, t.name], tags)];
+const itemTag = (ctx: Context, tag: Tag) =>
+  [routeLink, ROUTES.TAG, { id: tag.name }, ctx.ui.tag, tag.name];
 
-// const itemThumbBg = (ctx: Context) =>
-//   ["div", ctx.ui.item.thumb];
+const itemTags = (_: Context, tags: Tag[]) =>
+  ["div", map(tag => [itemTag, tag], tags)];
 
 const itemThumb = (ctx: Context, item: Item) =>
   ["div", ctx.ui.item.thumb.main,
     [itemThumbTitle, item],
     [itemTags, item.tags]];
 
-export const itemList = (ctx: Context) =>
-  ["div", map(x => [itemThumb, x], ctx.views.items.deref())];
+export const itemList = (ctx: Context, tag?: string) => {
+  const items = ctx.views.items.deref();
+  const res = transduce(comp(
+    filter(x => !tag || (x as Item).tags.map(t => t.name).includes(tag)),
+    map(x => [itemThumb, x])
+  ),
+    push(),
+    items);
+  return ["div", res];
+}
 
-export const itemDetail = (ctx: Context) =>
-  ["div", "item " + ctx.views.route.deref().params.id];
+export const itemDetail = (ctx: Context) => {
+  const item = ctx.views.currentItem.deref();
+  if (item)
+    return ["div", item.title];
+  else
+    routeTo(ctx.bus, ROUTES.HOME);
+}
 
 export const tags = () => ["div", "tags"];
 
-const title = (ctx: Context) => ["h1", ctx.ui.title, "pngupngu"];
+const title = (ctx: Context) =>
+  [routeLink, ROUTES.HOME, null, {}, ["h1", ctx.ui.title, "pngupngu"]];
+
 export const app = (ctx: Context) =>
   ["div", ctx.ui.app, title, ctx.views.content];
