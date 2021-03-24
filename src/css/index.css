@@ -4,3 +4,11 @@
 body {
   background-color: hsl(0, 0%, 98%);
 }
+
+.text-block {
+  @apply inline-block px-1 align-top;
+}
+
+.z--1 {
+  z-index: -1;
+}

@@ -1,5 +1,5 @@
 import type { IObjectOf } from "@thi.ng/api";
-import { valueSetter, Event, valueUpdater } from "@thi.ng/interceptors";
+import { valueSetter, Event, dispatchNow, EV_SET_VALUE } from "@thi.ng/interceptors";
 import { EVENT_ROUTE_CHANGED } from "@thi.ng/router";
 
 import type { Context, ViewSpec, Item, Tag } from "./api";
@@ -20,8 +20,9 @@ export const routes = [
 
 export const ui = {
   app: { class: "px-4 leading-snug" },
-  header: { class: "py-4 relative" },
-  title: { class: "fs-1" },
+  header: { class: "py-5 relative" },
+  title: { class: "fs-1 leading-4" },
+  profile: { class: "fs--1 text-gray-600" },
 
   nav: {
     button: { class: "absolute right-0 top-6 blue h-4 w-4" }
@@ -29,20 +30,25 @@ export const ui = {
 
   item: {
     thumb: {
-      main: { class: "h-40 bg-gray-300 mb-3 p-1" },
-      title: { class: "inline-block bg-white text-black px-1 fs-0 align-top mb-1" },
+      main: { class: "h-40 w mb-3 p-1 relative" },
+      bg: { class: "absolute inset-0 bg-gray-300 cursor-pointer" },
+      content: { class: "absolute" },
+      title: { class: "text-block bg-white text-black fs-0 mb-1" },
     },
   },
 
-  tag: { class: "inline-block bg-white text-black mr-1 px-1 fs--1 align-top" },
+  tag: {
+    normal: { class: "text-block bg-white text-black fs--1 mr-1" },
+    highlight: { class: "text-block bg-black text-white fs--1 mr-1" },
+  },
 
-  link: { class: "" }
+  link: { class: "cursor-pointer" }
 };
 
 const makeTags = (names: string[]) => names.map(name => ({ name }));
 
 export const initialState = {
-  navOpen: false,
+  nav: { visible: false },
   items: [
     { id: "1", title: "Paintings of Butterflies", tags: makeTags(["one", "two", "three"]) },
     { id: "2", title: "Latent Flower GANden", tags: makeTags(["one", "four", "five"]) },
@@ -57,7 +63,7 @@ const components = {
 };
 
 export const views: IObjectOf<ViewSpec> = {
-  navOpen: "navOpen",
+  nav: "nav",
 
   items: "items",
   tags: ["items", items => uniqueBy(items.map((x: Item) => x.tags).flat(1), (x: Tag) => x.name)],
@@ -69,7 +75,6 @@ export const views: IObjectOf<ViewSpec> = {
 
 export enum EV {
   ROUTE_TO = "route-to",
-  TOGGLE_NAV = "toggle-nav"
 }
 
 export enum FX {
@@ -77,7 +82,9 @@ export enum FX {
 }
 
 export const events = {
-  [EVENT_ROUTE_CHANGED]: valueSetter("route"),
+  [EVENT_ROUTE_CHANGED]: [
+    valueSetter("route"),
+    dispatchNow([EV_SET_VALUE, ['nav.visible', false]]),
+  ],
   [EV.ROUTE_TO]: (_, [__, route]: Event) => ({ [FX.ROUTE_TO]: route }),
-  [EV.TOGGLE_NAV]: valueUpdater("navOpen", x => !x)
 };

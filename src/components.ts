@@ -1,8 +1,9 @@
 import { map, comp, transduce, push, filter } from "@thi.ng/transducers"
+import { EV_TOGGLE_VALUE } from "@thi.ng/interceptors";
 import { CLOSE, MENU } from "@thi.ng/hiccup-carbon-icons";
 
 import type { Context, Item, Tag } from "./api";
-import { ROUTES, EV } from "./config";
+import { ROUTES } from "./config";
 import { routeTo } from "./utils"
 
 export const routeLink = (ctx: Context, routeID: PropertyKey, routeParams: any, attribs: any, body: any) =>
@@ -18,16 +19,28 @@ const itemThumbTitle = (ctx: Context, item: Item) =>
   ["div", ctx.ui.item.thumb.title,
     [routeLink, ROUTES.ITEM, { id: item.id }, ctx.ui.link, item.title]];
 
-const itemTag = (ctx: Context, tag: Tag) =>
-  [routeLink, ROUTES.TAG, { id: tag.name }, ctx.ui.tag, tag.name];
+const itemTag = (ctx: Context, tag: Tag, highlight: boolean = false) =>
+  [routeLink, ROUTES.TAG, { id: tag.name },
+    highlight ? ctx.ui.tag.highlight : ctx.ui.tag.normal,
+    tag.name];
 
-const itemTags = (_: Context, tags: Tag[]) =>
-  ["div", map(tag => [itemTag, tag], tags)];
+const itemTags = (_: Context, tags: Tag[], highlight?: string) =>
+  ["div", map(tag => [itemTag, tag, tag.name == highlight], tags)];
 
-const itemThumb = (ctx: Context, item: Item) =>
+const itemThumbBg = (ctx: Context, item: Item) => ["div", {
+  ...ctx.ui.item.thumb.bg,
+  onclick: (e: Event) => {
+    e.preventDefault();
+    routeTo(ctx.bus, ROUTES.ITEM, { id: item.id });
+  }
+}];
+
+const itemThumb = (ctx: Context, item: Item, tag?: string) =>
   ["div", ctx.ui.item.thumb.main,
-    [itemThumbTitle, item],
-    [itemTags, item.tags]
+    [itemThumbBg, item],
+    ['div', ctx.ui.item.thumb.content,
+      [itemThumbTitle, item],
+      [itemTags, item.tags, tag]]
   ];
 
 export const itemList = (ctx: Context, tag?: string) => {
@@ -35,7 +48,7 @@ export const itemList = (ctx: Context, tag?: string) => {
   const res = transduce(
     comp(
       filter(x => !tag || (x as Item).tags.map(t => t.name).includes(tag)),
-      map(x => [itemThumb, x])
+      map(x => [itemThumb, x, tag])
     ),
     push(),
     items);
@@ -51,18 +64,24 @@ export const itemDetail = (ctx: Context) => {
 }
 
 const title = (ctx: Context) =>
-  ["div", ctx.ui.title, [routeLink, ROUTES.HOME, null, {}, ["h1", "pngupngu"]]];
+  ["div", ctx.ui.title,
+    [routeLink, ROUTES.HOME, null, {}, ["h1", "Zihou Ng"]],
+  ];
 
 const navToggle = (ctx: Context) => {
-  const navOpen = ctx.views.navOpen.deref();
+  const navVisible = ctx.views.nav.deref().visible;
   const attribs = {
     ...ctx.ui.nav.button,
-    onclick: () => ctx.bus.dispatch([EV.TOGGLE_NAV])
+    onclick: () => ctx.bus.dispatch([EV_TOGGLE_VALUE, 'nav.visible'])
   };
-  return ['div', attribs, navOpen ? CLOSE : MENU];
+  return ['div', attribs, navVisible ? CLOSE : MENU];
 };
 
-const header = (ctx: Context) => ["div", ctx.ui.header, title, navToggle];
+const header = (ctx: Context) =>
+  ["div", ctx.ui.header,
+    title,
+    ["span", ctx.ui.profile, "Creative Programmer"],
+    navToggle];
 
 const tagList = (ctx: Context) => {
   const tags = ctx.views.tags.deref();
@@ -70,8 +89,8 @@ const tagList = (ctx: Context) => {
 };
 
 export const app = (ctx: Context) => {
-  const navOpen = ctx.views.navOpen.deref();
+  const navVisible = ctx.views.nav.deref().visible;
   return ["div", ctx.ui.app,
     header,
-    navOpen ? tagList : ctx.views.content];
+    navVisible ? tagList : ctx.views.content];
 };

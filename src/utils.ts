@@ -1,7 +1,7 @@
 import type { Fn, IObjectOf } from "@thi.ng/api";
 import { IAtom, defViewUnsafe } from "@thi.ng/atom";
 import { isArray } from "@thi.ng/checks";
-import type { EventBus } from "@thi.ng/interceptors";
+import { EventBus, EV_SET_VALUE } from "@thi.ng/interceptors";
 
 import type { ViewSpec } from "./api";
 import { EV } from "./config";
@@ -17,8 +17,10 @@ export const makeViews = (state: IAtom<any>, specs: IObjectOf<ViewSpec>) => {
   return views;
 };
 
-export const routeTo = (bus: EventBus, id: PropertyKey, params: any = null) =>
+export const routeTo = (bus: EventBus, id: PropertyKey, params: any = null) => {
+  bus.dispatch([EV_SET_VALUE, ['nav.visible', false]])
   bus.dispatch([EV.ROUTE_TO, [id, params]]);
+}
 
 export const uniqueBy = <T>(items: T[], mapper: ((x: T) => string)) => {
   const seen = new Set();
