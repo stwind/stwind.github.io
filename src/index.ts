@@ -13,13 +13,12 @@ const bus = new EventBus(state, events);
 const router = new HTMLRouter({
   useFragment: true,
   defaultRouteID: 'home',
-  initialRouteID: 'home',
   separator: '/',
   prefix: '/',
   routes,
 });
 
-// router.addListener(EVENT_ROUTE_CHANGED, console.log);
+// router.addListener(EVENT_ROUTE_CHANGED, e => console.log(e.value));
 router.addListener(EVENT_ROUTE_CHANGED, e =>
   bus.dispatch([EVENT_ROUTE_CHANGED, e.value])
 );
@@ -28,9 +27,8 @@ bus.addEffect(FX.ROUTE_TO, ([id, params]) =>
   router.routeTo(router.format(id, params))
 );
 
-const stop = start(({ bus }) => (bus.processQueue() ? app : null), {
-  ctx: { state, bus, ui, views: makeViews(state, views) },
-});
+const ctx = { state, bus, ui, views: makeViews(state, views) };
+const stop = start(({ bus }) => (bus.processQueue() ? app : null), { ctx });
 
 router.start();
 

@@ -39,7 +39,7 @@ export const ui = {
       'leading-snug relative font-light subpixel-antialiased text-gray-700 fs--1',
   },
   header: { class: 'p-4 inset-x-0 fixed z-10 font-thin text-black' },
-  title: { class: 'fs-1' },
+  title: { class: 'fs-1 inline-block' },
   profile: { class: 'fs--1 text-gray-600 fixed left-4 top-11 font-thin' },
   content: { class: 'absolute w-full px-4 mt-20 z-0' },
 
@@ -49,8 +49,8 @@ export const ui = {
 
   item: {
     thumb: {
-      main: { class: 'h-40 mb-4 p-1 relative font-thin' },
-      bg: {
+      main: { class: 'h-48 mb-4 p-1 relative font-thin' },
+      cover: {
         class: 'absolute inset-0 bg-gray-300 cursor-pointer overflow-hidden',
       },
       image: { class: 'object-cover h-full w-full' },
@@ -60,15 +60,15 @@ export const ui = {
     full: {
       main: { class: 'item-full' },
       header: { class: 'mb-4' },
-      title: { class: 'font-normal fs-0' },
+      title: { class: 'font-thin fs-2 leading-tight' },
       content: { class: 'bg-gray-98' },
-      headImage: { class: 'h-40 bg-gray-300' },
+      image: { class: 'bg-gray-300 w-full object-cover' },
     },
   },
 
   tag: {
-    normal: { class: 'text-block bg-white text-black fs--1 mr-1' },
-    highlight: { class: 'text-block bg-black text-white fs--1 mr-1' },
+    normal: { class: 'tag bg-white text-black' },
+    highlight: { class: 'tag bg-black text-white' },
   },
 };
 

@@ -1,9 +1,9 @@
-import { map, comp, transduce, push, filter } from '@thi.ng/transducers';
+import { map, comp, transduce, push, filter, drop } from '@thi.ng/transducers';
 import { EV_TOGGLE_VALUE } from '@thi.ng/interceptors';
 import { link as link_, mergeAttribs } from '@thi.ng/hdom-components';
 import { CLOSE, MENU } from '@thi.ng/hiccup-carbon-icons';
 
-import type { Context, Item, Tag } from './api';
+import type { Context, Item, Tag, Image } from './api';
 import { ROUTES } from './config';
 import { routeTo } from './utils';
 
@@ -11,7 +11,18 @@ export const link = ({ ui }: Context, href: string, body: any) =>
   link_({ href, ...ui.link.default }, body);
 
 export const image = {
-  init(el: HTMLImageElement, __: any, _: any, src: string) {
+  init(
+    el: HTMLImageElement,
+    __: any,
+    _: any,
+    src: string,
+    size?: [number, number]
+  ) {
+    if (size) {
+      const rect = el.getBoundingClientRect();
+      const aspect = size[0] / size[1];
+      el.style.height = `${rect.width / aspect}px`;
+    }
     const img = new Image();
     img.src = src;
     img.onload = () => (el.src = src);
@@ -71,10 +82,12 @@ const itemTagsSimple = (_: Context, tags: Tag[]) => [
   tags.map(x => x.name).join(', '),
 ];
 
-const itemThumbBg = (ctx: Context, item: Item) => [
+const assetUrl = (type: string, name: string) => `/assets/${type}/${name}`;
+
+const itemCover = (ctx: Context, item: Item) => [
   'div',
   {
-    ...ctx.ui.item.thumb.bg,
+    ...ctx.ui.item.thumb.cover,
     onclick: (e: Event) => {
       e.preventDefault();
       routeTo(ctx.bus, ROUTES.ITEM, { id: item.id });
@@ -83,14 +96,14 @@ const itemThumbBg = (ctx: Context, item: Item) => [
   [
     image,
     ctx.ui.item.thumb.image,
-    `/assets/images/${item.id}/${item.images[0].name}`,
+    assetUrl('images', `${item.id}/${item.images[0].name}`),
   ],
 ];
 
 const itemThumb = (ctx: Context, item: Item, tag?: string) => [
   'div',
   ctx.ui.item.thumb.main,
-  [itemThumbBg, item],
+  [itemCover, item],
   [
     'div',
     ctx.ui.item.thumb.content,
@@ -101,39 +114,53 @@ const itemThumb = (ctx: Context, item: Item, tag?: string) => [
 
 export const itemList = (ctx: Context, tag?: string) => {
   const items = ctx.views.items.deref();
-  const res = transduce(
-    comp(
-      filter(x => !tag || (x as Item).tags.map(t => t).includes(tag)),
-      map(x => [itemThumb, x, tag])
+  return [
+    'div',
+    transduce(
+      comp(
+        filter(x => !tag || (x as Item).tags.map(t => t.name).includes(tag)),
+        map(x => [itemThumb, x, tag])
+      ),
+      push(),
+      items
     ),
-    push(),
-    items
-  );
-  return ['div', res];
+  ];
 };
 
-const itemHeadImage = (ctx: Context) => ['p', ctx.ui.item.full.headImage];
+const itemHeader = (ctx: Context, item: Item) => [
+  'div',
+  ctx.ui.item.full.header,
+  ['h1', ctx.ui.item.full.title, item.title],
+  [itemTagsSimple, item.tags],
+];
+
+const itemImage = (ctx: Context, item: Item, img: Image) => [
+  image,
+  ctx.ui.item.full.image,
+  assetUrl('images', `${item.id}/${img.name}`),
+  [img.width, img.height],
+];
 
 export const itemFull = (ctx: Context, item: Item) => {
+  const images = transduce(
+    comp(
+      drop(1),
+      map(img => ['p', [itemImage, item, img]])
+    ),
+    push(),
+    item.images
+  );
   return [
     'div',
     ctx.ui.item.full.main,
-    [
-      'div',
-      ctx.ui.item.full.header,
-      ['h1', ctx.ui.item.full.title, item.title],
-      [itemTagsSimple, item.tags],
-    ],
+    [itemHeader, item],
     [
       'div',
       ctx.ui.item.full.content,
-      [itemHeadImage, item],
+      ['p', [itemImage, item, item.images[0]]],
       ['p', item.description],
       ['p', [link, item.url, '[link]']],
-      [itemHeadImage, item],
-      [itemHeadImage, item],
-      [itemHeadImage, item],
-      [itemHeadImage, item],
+      ...images,
     ],
   ];
 };

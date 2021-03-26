@@ -30,9 +30,13 @@ body {
 }
 
 .item-full p {
-  @apply mb-3;
+  @apply mb-4;
 }
 
 .bg-gray-98 {
   background-color: var(--gray-98);
+}
+
+.tag {
+  @apply text-block fs--1 mr-1;
 }
