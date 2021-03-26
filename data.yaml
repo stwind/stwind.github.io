@@ -1,0 +1,17 @@
+---
+items:
+  - title: Paintings of Butterflies
+    url: https://observablehq.com/@stwind/paintings-of-butterfly
+    tags: ['one','two','three']
+    description: >-
+      Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m
+  - title: Latent Flowers GANden
+    url: https://observablehq.com/@stwind/latent-flowers-ganden
+    tags: ['one','three','five']
+    description: >-
+      Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m
+  - title: Exploring Fashion MNIST
+    url: https://observablehq.com/@stwind/exploring-fashion-mnist
+    tags: ['two','four']
+    description: >-
+      Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m

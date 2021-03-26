@@ -17,7 +17,12 @@ module.exports = {
   ],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        red: 'rgb(202,38,38)',
+        green: 'rgb(36, 94, 7)',
+      },
+    },
   },
   variants: {
     extend: {},

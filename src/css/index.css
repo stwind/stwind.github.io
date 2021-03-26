@@ -1,14 +1,38 @@
 @tailwind base;
 @tailwind utilities;
 
+:root {
+  --gray-98: hsl(0, 0%, 98%);
+  --red: rgba(202, 38, 38);
+  --green: rgb(36, 94, 7);
+}
+
 body {
-  background-color: hsl(0, 0%, 98%);
+  background-color: var(--gray-98);
 }
 
 .text-block {
-  @apply inline-block px-1 align-top;
+  @apply inline-block px-1 align-top leading-tight;
 }
 
 .z--1 {
   z-index: -1;
+}
+
+.svg-icon {
+  fill: hsl(0, 0, 80%);
+  stroke: none;
+  fill-opacity: 0.5;
+}
+
+.debug-grid {
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAFElEQVR4AWPAC97/9x0eCsAEPgwAVLshdpENIxcAAAAASUVORK5CYII=) repeat top left;
+}
+
+.item-full p {
+  @apply mb-3;
+}
+
+.bg-gray-98 {
+  background-color: var(--gray-98);
 }

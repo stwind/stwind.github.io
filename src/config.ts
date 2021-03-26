@@ -1,10 +1,16 @@
-import type { IObjectOf } from "@thi.ng/api";
-import { valueSetter, Event, dispatchNow, EV_SET_VALUE } from "@thi.ng/interceptors";
-import { EVENT_ROUTE_CHANGED } from "@thi.ng/router";
+import type { IObjectOf } from '@thi.ng/api';
+import {
+  valueSetter,
+  Event,
+  dispatchNow,
+  EV_SET_VALUE,
+} from '@thi.ng/interceptors';
+import { EVENT_ROUTE_CHANGED } from '@thi.ng/router';
 
-import type { Context, ViewSpec, Item, Tag } from "./api";
-import { itemList, itemDetail } from "./components";
-import { uniqueBy } from "./utils";
+import type { Context, ViewSpec } from './api';
+import { itemList, itemFull } from './components';
+import { routeTo } from './utils';
+import data from './data.json';
 
 export enum ROUTES {
   HOME = 'home',
@@ -13,77 +19,105 @@ export enum ROUTES {
 }
 
 export const routes = [
-  { id: ROUTES.HOME, title: "Home page", match: ["home"] },
-  { id: ROUTES.ITEM, title: "Item", match: ["items", "?id"], },
-  { id: ROUTES.TAG, title: "Tag", match: ["tags", "?id"], },
+  { id: ROUTES.HOME, title: 'Home page', match: ['home'] },
+  { id: ROUTES.ITEM, title: 'Item', match: ['items', '?id'] },
+  { id: ROUTES.TAG, title: 'Tag', match: ['tags', '?id'] },
 ];
 
 export const ui = {
-  app: { class: "px-4 leading-snug" },
-  header: { class: "py-5 relative" },
-  title: { class: "fs-1 leading-4" },
-  profile: { class: "fs--1 text-gray-600" },
+  link: {
+    default: { class: 'text-red sm:hover:text-white sm:hover:bg-red' },
+    active: { class: 'bg-red text-white' },
+  },
+  image: {
+    default: { class: '' },
+    loading: { class: 'bg-gray-200' },
+  },
+
+  app: {
+    class:
+      'leading-snug relative font-light subpixel-antialiased text-gray-700 fs--1',
+  },
+  header: { class: 'p-4 inset-x-0 fixed z-10 font-thin text-black' },
+  title: { class: 'fs-1' },
+  profile: { class: 'fs--1 text-gray-600 fixed left-4 top-11 font-thin' },
+  content: { class: 'absolute w-full px-4 mt-20 z-0' },
 
   nav: {
-    button: { class: "absolute right-0 top-6 blue h-4 w-4" }
+    button: { class: 'h-5 w-5 svg-icon absolute top-6 right-3.5' },
   },
 
   item: {
     thumb: {
-      main: { class: "h-40 w mb-3 p-1 relative" },
-      bg: { class: "absolute inset-0 bg-gray-300 cursor-pointer" },
-      content: { class: "absolute" },
-      title: { class: "text-block bg-white text-black fs-0 mb-1" },
+      main: { class: 'h-40 mb-4 p-1 relative font-thin' },
+      bg: {
+        class: 'absolute inset-0 bg-gray-300 cursor-pointer overflow-hidden',
+      },
+      image: { class: 'object-cover h-full w-full' },
+      content: { class: 'absolute' },
+      title: { class: 'text-block bg-white text-black fs-0 mb-1' },
+    },
+    full: {
+      main: { class: 'item-full' },
+      header: { class: 'mb-4' },
+      title: { class: 'font-normal fs-0' },
+      content: { class: 'bg-gray-98' },
+      headImage: { class: 'h-40 bg-gray-300' },
     },
   },
 
   tag: {
-    normal: { class: "text-block bg-white text-black fs--1 mr-1" },
-    highlight: { class: "text-block bg-black text-white fs--1 mr-1" },
+    normal: { class: 'text-block bg-white text-black fs--1 mr-1' },
+    highlight: { class: 'text-block bg-black text-white fs--1 mr-1' },
   },
-
-  link: { class: "cursor-pointer" }
 };
 
-const makeTags = (names: string[]) => names.map(name => ({ name }));
+const processData = data => {
+  const tags = Object.fromEntries(data.tags.map(tag => [tag.id, tag]));
+  const items = data.items.map(item => ({
+    ...item,
+    tags: item.tags.map(x => tags[x]),
+  }));
+  return { items, tags };
+};
 
 export const initialState = {
   nav: { visible: false },
-  items: [
-    { id: "1", title: "Paintings of Butterflies", tags: makeTags(["one", "two", "three"]) },
-    { id: "2", title: "Latent Flower GANden", tags: makeTags(["one", "four", "five"]) },
-    { id: "3", title: "Exploring Fashion MNIST", tags: makeTags(["three", "four"]) },
-  ]
+  ...processData(data),
 };
 
 const components = {
   [ROUTES.HOME]: () => [itemList],
-  [ROUTES.ITEM]: itemDetail,
-  [ROUTES.TAG]: (ctx: Context) => [itemList, ctx.views.route.deref().params.id]
+  [ROUTES.ITEM]: ({ views, bus }: Context) => {
+    const route = views.route.deref();
+    const items = views.items.deref();
+    const item = items.find(item => item.id == route.params.id);
+    if (item) return [itemFull, item];
+    else routeTo(bus, ROUTES.HOME);
+  },
+  [ROUTES.TAG]: (ctx: Context) => [itemList, ctx.views.route.deref().params.id],
 };
 
 export const views: IObjectOf<ViewSpec> = {
-  nav: "nav",
+  nav: 'nav',
+  items: 'items',
+  tags: 'tags',
 
-  items: "items",
-  tags: ["items", items => uniqueBy(items.map((x: Item) => x.tags).flat(1), (x: Tag) => x.name)],
-  currentItem: ["", ({ items, route }) => route.id == ROUTES.ITEM && items.find(item => item.id == route.params.id)],
-
-  route: "route",
-  content: ["route.id", id => components[id]]
+  route: 'route',
+  content: ['route.id', id => components[id]],
 };
 
 export enum EV {
-  ROUTE_TO = "route-to",
+  ROUTE_TO = 'route-to',
 }
 
 export enum FX {
-  ROUTE_TO = "route-to",
+  ROUTE_TO = 'route-to',
 }
 
 export const events = {
   [EVENT_ROUTE_CHANGED]: [
-    valueSetter("route"),
+    valueSetter('route'),
     dispatchNow([EV_SET_VALUE, ['nav.visible', false]]),
   ],
   [EV.ROUTE_TO]: (_, [__, route]: Event) => ({ [FX.ROUTE_TO]: route }),
