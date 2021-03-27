@@ -1,28 +1,17 @@
-import { map, comp, transduce, push, filter, drop } from '@thi.ng/transducers';
+import { map, comp, transduce, push, drop, filter } from '@thi.ng/transducers';
 import { EV_TOGGLE_VALUE } from '@thi.ng/interceptors';
 import { link as link_, mergeAttribs } from '@thi.ng/hdom-components';
 import { CLOSE, MENU } from '@thi.ng/hiccup-carbon-icons';
 
 import type { Context, Item, Tag, Image } from './api';
 import { ROUTES } from './config';
-import { routeTo } from './utils';
+import { routeTo, fmtDate } from './utils';
 
-export const link = ({ ui }: Context, href: string, body: any) =>
-  link_({ href, ...ui.link.default }, body);
+export const link = ({ ui }: Context, attribs: any, href: string, body: any) =>
+  link_({ href, ...mergeAttribs(ui.link.default, attribs) }, body);
 
 export const image = {
-  init(
-    el: HTMLImageElement,
-    __: any,
-    _: any,
-    src: string,
-    size?: [number, number]
-  ) {
-    if (size) {
-      const rect = el.getBoundingClientRect();
-      const aspect = size[0] / size[1];
-      el.style.height = `${rect.width / aspect}px`;
-    }
+  init(el: HTMLImageElement, __: any, _: any, src: string) {
     const img = new Image();
     img.src = src;
     img.onload = () => (el.src = src);
@@ -49,7 +38,7 @@ export const routeLink = (
 ) => [
   'a',
   {
-    ...attribs,
+    ...mergeAttribs(ctx.ui.link.default, attribs),
     onclick: (e: Event) => {
       e.preventDefault();
       routeTo(ctx.bus, routeID, routeParams);
@@ -61,28 +50,15 @@ export const routeLink = (
 const itemThumbTitle = (ctx: Context, item: Item) => [
   'div',
   ctx.ui.item.thumb.title,
-  [routeLink, ROUTES.ITEM, { id: item.id }, ctx.ui.link, item.title],
-];
-
-const itemTag = (ctx: Context, tag: Tag, highlight: boolean = false) => [
-  routeLink,
-  ROUTES.TAG,
-  { id: tag.name },
-  highlight ? ctx.ui.tag.highlight : ctx.ui.tag.normal,
-  tag.name,
-];
-
-const itemTags = (_: Context, tags: Tag[], highlight?: string) => [
-  'div',
-  map(tag => [itemTag, tag, tag.name == highlight], tags),
+  [routeLink, ROUTES.ITEM, { id: item.id }, null, item.title],
 ];
 
 const itemTagsSimple = (_: Context, tags: Tag[]) => [
   'div',
-  tags.map(x => x.name).join(', '),
+  tags.map(x => '#' + x.name).join(', '),
 ];
 
-const assetUrl = (type: string, name: string) => `/assets/${type}/${name}`;
+const asset = (type: string, name: string) => `/assets/${type}/${name}`;
 
 const itemCover = (ctx: Context, item: Item) => [
   'div',
@@ -96,40 +72,40 @@ const itemCover = (ctx: Context, item: Item) => [
   [
     image,
     ctx.ui.item.thumb.image,
-    assetUrl('images', `${item.id}/${item.images[0].name}`),
+    asset('images', `${item.id}/${item.images[0].name}`),
   ],
 ];
 
-const itemThumb = (ctx: Context, item: Item, tag?: string) => [
+const itemThumb = (ctx: Context, item: Item) => [
   'div',
   ctx.ui.item.thumb.main,
   [itemCover, item],
   [
     'div',
     ctx.ui.item.thumb.content,
+    ['div', ctx.ui.item.thumb.date, fmtDate(item.date)],
     [itemThumbTitle, item],
-    [itemTags, item.tags, tag],
+    [itemTagsSimple, item.tags],
   ],
 ];
 
-export const itemList = (ctx: Context, tag?: string) => {
-  const items = ctx.views.items.deref();
-  return [
-    'div',
-    transduce(
-      comp(
-        filter(x => !tag || (x as Item).tags.map(t => t.name).includes(tag)),
-        map(x => [itemThumb, x, tag])
-      ),
-      push(),
-      items
+export const itemList = (ctx: Context, items: Item[]) => [
+  'div',
+  ctx.ui.item.list,
+  transduce(
+    comp(
+      filter(x => x.featured),
+      map(x => [itemThumb, x])
     ),
-  ];
-};
+    push(),
+    items
+  ),
+];
 
 const itemHeader = (ctx: Context, item: Item) => [
   'div',
   ctx.ui.item.full.header,
+  ['div', ctx.ui.item.full.date, fmtDate(item.date)],
   ['h1', ctx.ui.item.full.title, item.title],
   [itemTagsSimple, item.tags],
 ];
@@ -137,7 +113,7 @@ const itemHeader = (ctx: Context, item: Item) => [
 const itemImage = (ctx: Context, item: Item, img: Image) => [
   image,
   ctx.ui.item.full.image,
-  assetUrl('images', `${item.id}/${img.name}`),
+  asset('images', `${item.id}/${img.name}`),
   [img.width, img.height],
 ];
 
@@ -159,15 +135,18 @@ export const itemFull = (ctx: Context, item: Item) => {
       ctx.ui.item.full.content,
       ['p', [itemImage, item, item.images[0]]],
       ['p', item.description],
-      ['p', [link, item.url, '[link]']],
+      ['p', [link, ctx.ui.link.external, item.url, '[link]']],
       ...images,
     ],
   ];
 };
 
 const title = (ctx: Context) => [
-  'div',
-  [routeLink, ROUTES.HOME, null, ctx.ui.title, ['h1', 'Zihou Ng']],
+  routeLink,
+  ROUTES.HOME,
+  null,
+  null,
+  ['h1', ctx.ui.title, 'Zihou Ng'],
 ];
 
 const navToggle = (ctx: Context) => {
@@ -193,7 +172,7 @@ export const app = (ctx: Context) => {
     'div',
     ctx.ui.app,
     header,
-    ['span', ctx.ui.profile, 'Creative Programmer'],
+    ['div', ctx.ui.profile, 'Creative Programmer'],
     ['div', ctx.ui.content, navVisible ? tagList : ctx.views.content],
   ];
 };

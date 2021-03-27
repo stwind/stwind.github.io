@@ -1,17 +1,23 @@
 ---
 items:
   - title: Paintings of Butterflies
+    featured: true
+    date: 2021-03
     url: https://observablehq.com/@stwind/paintings-of-butterfly
-    tags: ['one','two','three']
+    tags: ['one', 'two', 'three']
     description: >-
       Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m
   - title: Latent Flowers GANden
+    featured: true
+    date: 2021-02
     url: https://observablehq.com/@stwind/latent-flowers-ganden
-    tags: ['one','three','five']
+    tags: ['one', 'three', 'five']
     description: >-
       Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m
   - title: Exploring Fashion MNIST
+    featured: true
+    date: 2020-09
     url: https://observablehq.com/@stwind/exploring-fashion-mnist
-    tags: ['two','four']
+    tags: ['two', 'four']
     description: >-
       Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m

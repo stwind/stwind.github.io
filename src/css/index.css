@@ -2,20 +2,20 @@
 @tailwind utilities;
 
 :root {
-  --gray-98: hsl(0, 0%, 98%);
+  --gray-96: hsl(0, 0%, 96%);
   --red: rgba(202, 38, 38);
   --green: rgb(36, 94, 7);
 }
 
 body {
-  background-color: var(--gray-98);
+  background-color: var(--gray-96);
 }
 
 .text-block {
   @apply inline-block px-1 align-top leading-tight;
 }
 
-.z--1 {
+.-z-1 {
   z-index: -1;
 }
 
@@ -33,10 +33,19 @@ body {
   @apply mb-4;
 }
 
+.item-full p:last-child {
+  @apply mb-0;
+}
+
 .bg-gray-98 {
-  background-color: var(--gray-98);
+  background-color: var(--gray-96);
 }
 
 .tag {
   @apply text-block fs--1 mr-1;
+}
+
+.item-grid {
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1em;
 }

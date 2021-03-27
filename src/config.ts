@@ -6,6 +6,7 @@ import {
   EV_SET_VALUE,
 } from '@thi.ng/interceptors';
 import { EVENT_ROUTE_CHANGED } from '@thi.ng/router';
+import { dateTime } from '@thi.ng/date';
 
 import type { Context, ViewSpec } from './api';
 import { itemList, itemFull } from './components';
@@ -26,56 +27,69 @@ export const routes = [
 
 export const ui = {
   link: {
-    default: { class: 'text-red sm:hover:text-white sm:hover:bg-red' },
-    active: { class: 'bg-red text-white' },
+    default: { class: 'cursor-pointer' },
+    external: { class: 'text-red' },
   },
   image: {
-    default: { class: '' },
+    default: { class: 'h-auto' },
     loading: { class: 'bg-gray-200' },
   },
 
   app: {
-    class:
-      'leading-snug relative font-light subpixel-antialiased text-gray-700 fs--1',
+    class: `
+    leading-snug
+    relative font-thin subpixel-antialiased text-gray-700 fs--1
+    px-4 max-w-4xl mx-auto`,
   },
-  header: { class: 'p-4 inset-x-0 fixed z-10 font-thin text-black' },
+  header: {
+    class:
+      'inset-x-0 sticky font-thin text-black top-0 py-5 mb-8 sm:mb-12 md:mb-20 z-10',
+  },
   title: { class: 'fs-1 inline-block' },
-  profile: { class: 'fs--1 text-gray-600 fixed left-4 top-11 font-thin' },
-  content: { class: 'absolute w-full px-4 mt-20 z-0' },
+  profile: { class: 'text-gray-600 fixed top-12 -z-1' },
+  content: { class: 'w-full py-4' },
 
   nav: {
-    button: { class: 'h-5 w-5 svg-icon absolute top-6 right-3.5' },
+    button: {
+      class: 'h-5 w-5 svg-icon absolute top-7 -right-0.5 cursor-pointer',
+    },
   },
 
   item: {
+    list: { class: 'grid gap-8 grid-cols-1 sm:grid-cols-2' },
     thumb: {
-      main: { class: 'h-48 mb-4 p-1 relative font-thin' },
+      main: { class: 'relative font-thin' },
       cover: {
-        class: 'absolute inset-0 bg-gray-300 cursor-pointer overflow-hidden',
+        class: 'h-52 md:h-60 bg-gray-300 cursor-pointer overflow-hidden mb-2',
       },
       image: { class: 'object-cover h-full w-full' },
-      content: { class: 'absolute' },
-      title: { class: 'text-block bg-white text-black fs-0 mb-1' },
+      content: { class: '' },
+      title: { class: 'fs-0 text-gray-600' },
+      date: { class: 'fs--2' },
     },
     full: {
       main: { class: 'item-full' },
-      header: { class: 'mb-4' },
-      title: { class: 'font-thin fs-2 leading-tight' },
+      header: { class: 'mb-4 sm:mb-6' },
+      date: { class: 'fs--2' },
+      title: {
+        class: 'font-thin fs-2 sm:fs-3 sm:text-gray-500 leading-tight',
+      },
       content: { class: 'bg-gray-98' },
       image: { class: 'bg-gray-300 w-full object-cover' },
     },
   },
 
   tag: {
-    normal: { class: 'tag bg-white text-black' },
+    normal: { class: '' },
     highlight: { class: 'tag bg-black text-white' },
   },
 };
 
-const processData = data => {
+export const processData = data => {
   const tags = Object.fromEntries(data.tags.map(tag => [tag.id, tag]));
   const items = data.items.map(item => ({
     ...item,
+    date: dateTime(Date.parse(item.date)),
     tags: item.tags.map(x => tags[x]),
   }));
   return { items, tags };
@@ -87,7 +101,7 @@ export const initialState = {
 };
 
 const components = {
-  [ROUTES.HOME]: () => [itemList],
+  [ROUTES.HOME]: (ctx: Context) => [itemList, ctx.views.items.deref()],
   [ROUTES.ITEM]: ({ views, bus }: Context) => {
     const route = views.route.deref();
     const items = views.items.deref();

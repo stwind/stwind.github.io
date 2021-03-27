@@ -6,15 +6,12 @@ module.exports = {
   mount: {
     public: {
       url: '/',
-      static: true
+      static: true,
     },
-    src: "/dist",
-    test: "/test",
+    src: '/dist',
+    test: '/test',
   },
-  plugins: [
-    '@snowpack/plugin-typescript',
-    '@snowpack/plugin-postcss',
-  ],
+  plugins: ['@snowpack/plugin-typescript', '@snowpack/plugin-postcss'],
   optimize: {
     bundle: true,
     minify: true,

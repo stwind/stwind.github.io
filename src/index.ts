@@ -3,7 +3,7 @@ import { Atom } from '@thi.ng/atom';
 import { EventBus } from '@thi.ng/interceptors';
 import { HTMLRouter, EVENT_ROUTE_CHANGED } from '@thi.ng/router';
 
-import { routes, initialState, ui, events, views, FX } from './config';
+import { routes, initialState, ui, events, views, FX, ROUTES } from './config';
 import { app } from './components';
 import { makeViews, routeTo } from './utils';
 
@@ -12,9 +12,7 @@ const bus = new EventBus(state, events);
 
 const router = new HTMLRouter({
   useFragment: true,
-  defaultRouteID: 'home',
-  separator: '/',
-  prefix: '/',
+  defaultRouteID: ROUTES.HOME,
   routes,
 });
 

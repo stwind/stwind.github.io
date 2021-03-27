@@ -3,8 +3,9 @@ const fs = require('fs');
 const yaml = require('js-yaml');
 const sizeOf = require('image-size');
 
+const pathOf = name => path.join(__dirname, '..', name);
 const imagePath = (...names) =>
-  path.join(__dirname, '../public/assets/images', ...names);
+  pathOf(path.join('public/assets/images', ...names));
 
 const name2id = title =>
   title
@@ -34,12 +35,12 @@ const parse = file => {
     });
   }
 
-  const data = JSON.stringify({ items, tags });
-  fs.writeFileSync(path.join(__dirname, '../src/data.json'), data);
+  return { items, tags };
 };
 
 try {
-  parse(path.join(__dirname, '../data.yaml'));
+  const data = parse(pathOf('data.yaml'));
+  fs.writeFileSync(pathOf('src/data.json'), JSON.stringify(data));
 } catch (e) {
   console.error('Failed to build data', e);
   process.exit(1);
