@@ -11,12 +11,23 @@ export const link = ({ ui }: Context, attribs: any, href: string, body: any) =>
   link_({ href, ...mergeAttribs(ui.link.default, attribs) }, body);
 
 export const image = {
-  init(el: HTMLImageElement, __: any, _: any, src: string) {
+  init(
+    el: HTMLImageElement,
+    __: any,
+    _: any,
+    src: string,
+    size: [number, number]
+  ) {
     const img = new Image();
     img.src = src;
     img.onload = () => (el.src = src);
+    if (size) {
+      const rect = el.getBoundingClientRect();
+      const ratio = size[0] / size[1];
+      el.style.height = `${rect.width / ratio}px`;
+    }
   },
-  render({ ui }: Context, attribs: any) {
+  render({ ui }: Context, attribs: any, _src: string) {
     return [
       'img',
       {
