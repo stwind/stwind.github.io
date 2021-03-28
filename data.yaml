@@ -12,7 +12,7 @@ items:
     url: https://observablehq.com/@stwind/paintings-of-butterfly
     tags: ['machine learning', 'computer vision', 'stylegan2', 'pytorch']
     description: >-
-      Hello
+      Hello test
 
   - title: Latent Flowers GANden
     date: 2021-02
