@@ -27,10 +27,11 @@ export const image = {
       el.style.height = `${rect.width / ratio}px`;
     }
   },
-  render({ ui }: Context, attribs: any) {
+  render({ ui }: Context, attribs: any, src: string) {
     return [
       'img',
       {
+        key: src,
         src:
           'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII=',
         ...mergeAttribs(ui.image.main, attribs),
