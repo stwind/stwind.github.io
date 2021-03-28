@@ -189,32 +189,23 @@ const itemList = (ctx: Context) => {
   return ['div', map(item => [itemSlim, item], items)];
 };
 
+const socialLink = (ctx: Context, url: string, name: string) => [
+  link,
+  ctx.ui.link.external,
+  url,
+  name,
+];
+
 const nav = (ctx: Context) => {
   return [
     'div',
     [
       'div',
-      { class: 'mb-16' },
-      [
-        'div',
-        { class: 'mr-2' },
-        [link, ctx.ui.link.external, 'https://github.com/stwind', 'github'],
-      ],
-      [
-        'div',
-        { class: 'mr-2' },
-        [
-          link,
-          ctx.ui.link.external,
-          'https://observablehq.com/@stwind',
-          'observable',
-        ],
-      ],
-      [
-        'div',
-        [link, ctx.ui.link.external, 'https://qiita.com/stwind', 'qiita'],
-      ],
-      ['div', { class: 'text-green' }, 'stwindfy # gmail'],
+      ctx.ui.nav.links,
+      ['div', [socialLink, 'https://github.com/stwind', 'github']],
+      ['div', [socialLink, 'https://observablehq.com/@stwind', 'observable']],
+      ['div', [socialLink, 'https://qiita.com/stwind', 'qiita']],
+      ['div', ctx.ui.email, 'stwindfy # gmail'],
     ],
     [itemList],
   ];

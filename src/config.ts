@@ -33,6 +33,7 @@ export const ui = {
     default: { class: 'h-auto' },
     loading: { class: 'bg-gray-200' },
   },
+  email: { class: 'text-green' },
 
   app: {
     class: `
@@ -52,6 +53,7 @@ export const ui = {
     button: {
       class: 'h-5 w-5 svg-icon absolute top-7 -right-0.5 cursor-pointer',
     },
+    links: { class: 'mb-16' },
   },
 
   item: {
