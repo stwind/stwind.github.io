@@ -20,7 +20,7 @@ jobs:
           pushd build
           
           git init
-          git remote add origin 'https://github.com/stwind/stwind.github.io.git'
+          git remote add origin 'https://stwind:${{ secrets.GITHUB_TOKEN }}@github.com/stwind/stwind.github.io.git'
 
           git add -A
           
