@@ -2,7 +2,6 @@ import type { Fn, IObjectOf } from '@thi.ng/api';
 import { IAtom, defViewUnsafe } from '@thi.ng/atom';
 import { isArray } from '@thi.ng/checks';
 import { EventBus, EV_SET_VALUE } from '@thi.ng/interceptors';
-
 import { defFormat } from '@thi.ng/date';
 
 import type { ViewSpec } from './api';

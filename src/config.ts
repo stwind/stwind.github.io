@@ -166,7 +166,6 @@ export const events: IObjectOf<EventDef> = {
     valueSetter('featured', (x: any) => x.featured),
   ],
   [EVENT_ROUTE_CHANGED]: [
-    trace,
     valueSetter('route'),
     dispatchNow([EV_SET_VALUE, ['nav.visible', false]]),
   ],
