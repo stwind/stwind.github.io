@@ -33,7 +33,8 @@ export const ui = {
     external: { class: 'text-red' },
   },
   image: {
-    main: { class: 'object-cover bg-gray-300' },
+    main: { class: 'bg-gray-200 relative' },
+    content: { class: 'object-cover absolute w-full h-full inset-0' },
   },
   email: { class: 'text-green' },
 
@@ -63,9 +64,9 @@ export const ui = {
     thumb: {
       main: { class: 'relative' },
       cover: {
-        class: 'h-52 md:h-60 bg-gray-300 cursor-pointer overflow-hidden mb-2',
+        class: 'h-52 md:h-60 bg-gray-200 cursor-pointer overflow-hidden mb-2',
       },
-      image: { class: 'h-full w-full' },
+      image: { class: 'h-full w-full object-cover' },
       content: { class: '' },
       title: { class: 'fs-0 text-gray-600' },
       date: { class: 'fs--2' },

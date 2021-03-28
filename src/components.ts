@@ -11,31 +11,22 @@ export const link = ({ ui }: Context, attribs: any, href: string, body: any) =>
   link_({ href, ...mergeAttribs(ui.link.default, attribs) }, body);
 
 export const image = {
-  init(
-    el: HTMLImageElement,
-    __: any,
-    _: any,
-    src: string,
-    size: [number, number]
-  ) {
+  init(el: HTMLImageElement, __: any, _: any, src: string) {
+    const im = el.childNodes[0] as HTMLImageElement;
     const img = new Image();
     img.src = src;
-    img.onload = () => (el.src = src);
-    if (size) {
-      const rect = el.getBoundingClientRect();
-      const ratio = size[0] / size[1];
-      el.style.height = `${rect.width / ratio}px`;
-    }
+    img.onload = () => (im.src = src);
   },
-  render({ ui }: Context, attribs: any, src: string) {
+  render({ ui }: Context, _attribs: any, src: string, size: [number, number]) {
+    const ratio = size[1] / size[0];
     return [
-      'img',
-      {
+      'div',
+      mergeAttribs(ui.image.main, {
         key: src,
-        src:
-          'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII=',
-        ...mergeAttribs(ui.image.main, attribs),
-      },
+        class: 'h-0',
+        style: { 'padding-top': `${(ratio * 100).toFixed(2)}%` },
+      }),
+      ['img', ui.image.content],
     ];
   },
   release() {},
@@ -88,9 +79,11 @@ const itemCover = (ctx: Context, item: Item) => [
     },
   },
   [
-    image,
-    ctx.ui.item.thumb.image,
-    asset('images', `${item.id}/${item.images[0].name}`),
+    'img',
+    {
+      src: asset('images', `${item.id}/${item.images[0].name}`),
+      ...ctx.ui.item.thumb.image,
+    },
   ],
 ];
 
