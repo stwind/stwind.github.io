@@ -41,7 +41,7 @@ export const ui = {
   app: {
     class: `
     leading-snug
-    relative font-thin subpixel-antialiased text-gray-700 fs--1
+    relative font-light subpixel-antialiased text-black fs--1
     px-4 max-w-4xl mx-auto`,
   },
   header: {
@@ -62,7 +62,7 @@ export const ui = {
   item: {
     list: { class: 'grid gap-8 grid-cols-1 sm:grid-cols-2' },
     thumb: {
-      main: { class: 'relative font-thin' },
+      main: { class: 'relative' },
       cover: {
         class: 'h-52 md:h-60 bg-gray-300 cursor-pointer overflow-hidden mb-2',
       },
@@ -90,7 +90,7 @@ export const ui = {
   },
 
   tag: {
-    sign: { class: 'text-gray-400 fs--2' },
+    sign: { class: 'text-gray-500 fs--2' },
     normal: { class: 'text-gray-600' },
     highlight: { class: 'tag bg-black text-white' },
   },
