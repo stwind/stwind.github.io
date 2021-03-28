@@ -9,7 +9,7 @@ import { EVENT_ROUTE_CHANGED } from '@thi.ng/router';
 import { dateTime } from '@thi.ng/date';
 
 import type { Context, ViewSpec } from './api';
-import { itemList, itemFull } from './components';
+import { featuredItemList, itemFull } from './components';
 import { routeTo } from './utils';
 import data from './data.json';
 
@@ -22,12 +22,11 @@ export enum ROUTES {
 export const routes = [
   { id: ROUTES.HOME, title: 'Home page', match: ['home'] },
   { id: ROUTES.ITEM, title: 'Item', match: ['items', '?id'] },
-  { id: ROUTES.TAG, title: 'Tag', match: ['tags', '?id'] },
 ];
 
 export const ui = {
   link: {
-    default: { class: 'cursor-pointer' },
+    default: { class: 'cursor-pointer hover:underline' },
     external: { class: 'text-red' },
   },
   image: {
@@ -72,15 +71,22 @@ export const ui = {
       header: { class: 'mb-4 sm:mb-6' },
       date: { class: 'fs--2' },
       title: {
-        class: 'font-thin fs-2 sm:fs-3 sm:text-gray-500 leading-tight',
+        class: 'font-thin fs-2 sm:fs-3 sm:text-gray-600 leading-tight',
       },
       content: { class: 'bg-gray-98' },
       image: { class: 'bg-gray-300 w-full object-cover' },
     },
+    slim: {
+      main: { class: 'relative mb-4' },
+      date: { class: 'absolute font-mono top-1' },
+      body: { class: 'ml-14' },
+      title: { class: 'fs-0 text-gray-600' },
+    },
   },
 
   tag: {
-    normal: { class: '' },
+    sign: { class: 'text-gray-500 fs--2' },
+    normal: { class: 'text-gray-600' },
     highlight: { class: 'tag bg-black text-white' },
   },
 };
@@ -96,12 +102,12 @@ export const processData = data => {
 };
 
 export const initialState = {
-  nav: { visible: false },
+  nav: { visible: true },
   ...processData(data),
 };
 
 const components = {
-  [ROUTES.HOME]: (ctx: Context) => [itemList, ctx.views.items.deref()],
+  [ROUTES.HOME]: (ctx: Context) => [featuredItemList, ctx.views.items.deref()],
   [ROUTES.ITEM]: ({ views, bus }: Context) => {
     const route = views.route.deref();
     const items = views.items.deref();
@@ -109,7 +115,6 @@ const components = {
     if (item) return [itemFull, item];
     else routeTo(bus, ROUTES.HOME);
   },
-  [ROUTES.TAG]: (ctx: Context) => [itemList, ctx.views.route.deref().params.id],
 };
 
 export const views: IObjectOf<ViewSpec> = {
@@ -132,7 +137,7 @@ export enum FX {
 export const events = {
   [EVENT_ROUTE_CHANGED]: [
     valueSetter('route'),
-    dispatchNow([EV_SET_VALUE, ['nav.visible', false]]),
+    // dispatchNow([EV_SET_VALUE, ['nav.visible', false]]),
   ],
   [EV.ROUTE_TO]: (_, [__, route]: Event) => ({ [FX.ROUTE_TO]: route }),
 };

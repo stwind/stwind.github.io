@@ -53,10 +53,16 @@ const itemThumbTitle = (ctx: Context, item: Item) => [
   [routeLink, ROUTES.ITEM, { id: item.id }, null, item.title],
 ];
 
-const itemTagsSimple = (_: Context, tags: Tag[]) => [
-  'div',
-  tags.map(x => '#' + x.name).join(', '),
-];
+const itemTags = (ctx: Context, tags: Tag[]) => {
+  const elms: any[] = [];
+  for (const tag of tags) {
+    elms.push(['span', ctx.ui.tag.sign, '#']);
+    elms.push(['span', ctx.ui.tag.normal, tag.name]);
+    elms.push(['span', ', ']);
+  }
+  elms.pop();
+  return ['div', elms];
+};
 
 const asset = (type: string, name: string) => `/assets/${type}/${name}`;
 
@@ -85,11 +91,11 @@ const itemThumb = (ctx: Context, item: Item) => [
     ctx.ui.item.thumb.content,
     ['div', ctx.ui.item.thumb.date, fmtDate(item.date)],
     [itemThumbTitle, item],
-    [itemTagsSimple, item.tags],
+    [itemTags, item.tags],
   ],
 ];
 
-export const itemList = (ctx: Context, items: Item[]) => [
+export const featuredItemList = (ctx: Context, items: Item[]) => [
   'div',
   ctx.ui.item.list,
   transduce(
@@ -107,7 +113,7 @@ const itemHeader = (ctx: Context, item: Item) => [
   ctx.ui.item.full.header,
   ['div', ctx.ui.item.full.date, fmtDate(item.date)],
   ['h1', ctx.ui.item.full.title, item.title],
-  [itemTagsSimple, item.tags],
+  [itemTags, item.tags],
 ];
 
 const itemImage = (ctx: Context, item: Item, img: Image) => [
@@ -128,7 +134,7 @@ export const itemFull = (ctx: Context, item: Item) => {
   );
   return [
     'div',
-    ctx.ui.item.full.main,
+    { key: item.id, ...ctx.ui.item.full.main },
     [itemHeader, item],
     [
       'div',
@@ -160,10 +166,58 @@ const navToggle = (ctx: Context) => {
 
 const header = (ctx: Context) => ['div', ctx.ui.header, title, navToggle];
 
-const tagList = (_: Context) => {
-  return ['div', 'fuck'];
-  // const tags = ctx.views.tags.deref();
-  // return ["div", map((x: Tag) => ['div', x.name], tags)];
+const itemSlim = (ctx: Context, item: Item) => [
+  'div',
+  ctx.ui.item.slim.main,
+  ['div', ctx.ui.item.slim.date, fmtDate(item.date)],
+  [
+    'div',
+    ctx.ui.item.slim.body,
+    [
+      routeLink,
+      ROUTES.ITEM,
+      { id: item.id },
+      ctx.ui.item.slim.title,
+      item.title,
+    ],
+    [itemTags, item.tags],
+  ],
+];
+
+const itemList = (ctx: Context) => {
+  const items = ctx.views.items.deref();
+  return ['div', map(item => [itemSlim, item], items)];
+};
+
+const nav = (ctx: Context) => {
+  return [
+    'div',
+    [
+      'div',
+      { class: 'mb-16' },
+      [
+        'div',
+        { class: 'mr-2' },
+        [link, ctx.ui.link.external, 'https://github.com/stwind', 'github'],
+      ],
+      [
+        'div',
+        { class: 'mr-2' },
+        [
+          link,
+          ctx.ui.link.external,
+          'https://observablehq.com/@stwind',
+          'observable',
+        ],
+      ],
+      [
+        'div',
+        [link, ctx.ui.link.external, 'https://qiita.com/stwind', 'qiita'],
+      ],
+      ['div', { class: 'text-green' }, 'stwindfy # gmail'],
+    ],
+    [itemList],
+  ];
 };
 
 export const app = (ctx: Context) => {
@@ -172,7 +226,7 @@ export const app = (ctx: Context) => {
     'div',
     ctx.ui.app,
     header,
-    ['div', ctx.ui.profile, 'Creative Programmer'],
-    ['div', ctx.ui.content, navVisible ? tagList : ctx.views.content],
+    ['div', ctx.ui.profile, 'Software Engineer'],
+    ['div', ctx.ui.content, navVisible ? nav : ctx.views.content],
   ];
 };

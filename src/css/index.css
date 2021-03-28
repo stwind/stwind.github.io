@@ -1,6 +1,16 @@
 @tailwind base;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Inconsolata';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: local(''),
+       url('/assets/fonts/inconsolata-v21-latin-300.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+       url('/assets/fonts/inconsolata-v21-latin-300.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
 :root {
   --gray-96: hsl(0, 0%, 96%);
   --red: rgba(202, 38, 38);
