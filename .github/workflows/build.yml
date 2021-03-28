@@ -1,4 +1,4 @@
-name: hello
+name: build
 on:
   push:
     branches: [ source ]
