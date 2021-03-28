@@ -19,7 +19,6 @@ export interface Image {
 export interface Item extends IID<string> {
   title: string;
   date: DateTime;
-  featured: boolean;
   tags: Tag[];
   description?: string;
   url?: string;

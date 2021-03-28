@@ -33,14 +33,17 @@ const parse = file => {
       const { height, width } = sizeOf(imagePath(item.id, name));
       return { name, width, height };
     });
+    item.tags = item.tags.map(name2id);
   }
 
-  return { items, tags };
+  const featured = doc.featured.map(name2id);
+
+  return { items, tags, featured };
 };
 
 try {
   const data = parse(pathOf('data.yaml'));
-  fs.writeFileSync(pathOf('src/data.json'), JSON.stringify(data));
+  fs.writeFileSync(pathOf('public/data.json'), JSON.stringify(data));
 } catch (e) {
   console.error('Failed to build data', e);
   process.exit(1);

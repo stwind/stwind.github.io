@@ -1,4 +1,4 @@
-import { map, comp, transduce, push, drop, filter } from '@thi.ng/transducers';
+import { map, comp, transduce, push, drop } from '@thi.ng/transducers';
 import { EV_TOGGLE_VALUE } from '@thi.ng/interceptors';
 import { link as link_, mergeAttribs } from '@thi.ng/hdom-components';
 import { CLOSE, MENU } from '@thi.ng/hiccup-carbon-icons';
@@ -98,14 +98,7 @@ const itemThumb = (ctx: Context, item: Item) => [
 export const featuredItemList = (ctx: Context, items: Item[]) => [
   'div',
   ctx.ui.item.list,
-  transduce(
-    comp(
-      filter(x => x.featured),
-      map(x => [itemThumb, x])
-    ),
-    push(),
-    items
-  ),
+  map(x => [itemThumb, x], items),
 ];
 
 const itemHeader = (ctx: Context, item: Item) => [
@@ -141,7 +134,7 @@ export const itemFull = (ctx: Context, item: Item) => {
       ctx.ui.item.full.content,
       ['p', [itemImage, item, item.images[0]]],
       ['p', item.description],
-      ['p', [link, ctx.ui.link.external, item.url, '[link]']],
+      ['p', [link, ctx.ui.link.external, item.url, '[more]']],
       ...images,
     ],
   ];
@@ -196,20 +189,18 @@ const socialLink = (ctx: Context, url: string, name: string) => [
   name,
 ];
 
-const nav = (ctx: Context) => {
-  return [
+const nav = (ctx: Context) => [
+  'div',
+  [
     'div',
-    [
-      'div',
-      ctx.ui.nav.links,
-      ['div', [socialLink, 'https://github.com/stwind', 'github']],
-      ['div', [socialLink, 'https://observablehq.com/@stwind', 'observable']],
-      ['div', [socialLink, 'https://qiita.com/stwind', 'qiita']],
-      ['div', ctx.ui.email, 'stwindfy # gmail'],
-    ],
-    [itemList],
-  ];
-};
+    ctx.ui.nav.links,
+    ['div', [socialLink, 'https://github.com/stwind', 'github']],
+    ['div', [socialLink, 'https://observablehq.com/@stwind', 'observable']],
+    ['div', [socialLink, 'https://qiita.com/stwind', 'qiita']],
+    ['div', ctx.ui.email, 'stwindfy#gmail dot com'],
+  ],
+  [itemList],
+];
 
 export const app = (ctx: Context) => {
   const navVisible = ctx.views.nav.deref().visible;

@@ -1,23 +1,120 @@
 ---
+featured:
+  - Paintings of Butterflies
+  - Latent Flowers GANden
+  - Exploring Fashion MNIST
+  - Draco Meshes
+  - Nagel-Schreckenberg Traffic Model
+
 items:
   - title: Paintings of Butterflies
-    featured: true
     date: 2021-03
     url: https://observablehq.com/@stwind/paintings-of-butterfly
-    tags: ['one', 'two', 'three']
+    tags: ['machine learning', 'computer vision', 'stylegan2', 'pytorch']
     description: >-
       Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m
+
   - title: Latent Flowers GANden
-    featured: true
     date: 2021-02
     url: https://observablehq.com/@stwind/latent-flowers-ganden
-    tags: ['one', 'three', 'five']
+    tags: ['machine learning', 'data visualization', 'gan', 'webgl', 'pytorch']
     description: >-
       Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m
+
+  - title: Return To A Square
+    date: 2020-10
+    url: https://next.observablehq.com/@stwind/return-to-a-square
+    tags: ['generative']
+    description: >-
+      Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m
+
+  - title: Nagel-Schreckenberg Traffic Model
+    date: 2020-10
+    url: https://observablehq.com/@stwind/nagel-schreckenberg-traffic-model
+    tags: ['explorable', 'generative']
+    description: >-
+      Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m
+
   - title: Exploring Fashion MNIST
-    featured: true
     date: 2020-09
     url: https://observablehq.com/@stwind/exploring-fashion-mnist
-    tags: ['two', 'four']
+    tags: ['webgl', 'data visualization', 'umap']
+    description: >-
+      Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m
+
+  - title: Parametric Surface Plots
+    date: 2020-09
+    url: https://observablehq.com/@stwind/parametric-surface-plots
+    tags: ['webgl', 'explorable']
+    description: >-
+      Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m
+
+  - title: Screen Projected Lines
+    date: 2020-09
+    url: https://observablehq.com/@stwind/screen-projected-lines
+    tags: ['webgl', 'explorable']
+    description: >-
+      Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m
+
+  - title: Draco Meshes
+    date: 2020-09
+    url: https://observablehq.com/@stwind/hello-draco
+    tags: ['webgl']
+    description: >-
+      Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m
+
+  - title: JIS Colors In Munsell Space
+    date: 2020-04
+    url: https://observablehq.com/@stwind/jis-colors-in-munsell-space
+    tags: ['webgl', 'data visualization']
+    description: >-
+      Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m
+
+  - title: GLSL Chunk Tag
+    date: 2020-04
+    url: https://observablehq.com/@stwind/glsl-chunk-tag
+    tags: ['webgl', 'generative']
+    description: >-
+      Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m
+
+  - title: Raft Consensus Simulator
+    date: 2020-03
+    url: https://observablehq.com/@stwind/raft-consensus-simulator
+    tags: ['explorable', 'raft']
+    description: >-
+      Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m
+
+  - title: Sorting Algorithms
+    date: 2019-11
+    url: https://observablehq.com/@stwind/sorting-algorithms
+    tags: ['data visualization']
+    description: >-
+      Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m
+
+  - title: Deformation
+    date: 2019-11
+    url: https://observablehq.com/@stwind/hello-thi-ng-webgl
+    tags: ['webgl', 'generative', 'ssao']
+    description: >-
+      Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m
+
+  - title: How Raymarching Works
+    date: 2019-05
+    url: https://observablehq.com/@stwind/how-raymarching-works
+    tags: ['explorable', 'webgl']
+    description: >-
+      Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m
+
+  - title: Realtime CPPN
+    date: 2019-05
+    url: https://observablehq.com/@stwind/realtime-cppn
+    tags: ['machine learning', 'webgl', 'generative']
+    description: >-
+      Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m
+
+  - title: Noisy Drawing
+    date: 2019-04
+    url: https://observablehq.com/@stwind/noisy-drawing
+    tags: ['d3', 'generative']
     description: >-
       Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m

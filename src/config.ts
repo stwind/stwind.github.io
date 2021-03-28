@@ -4,14 +4,17 @@ import {
   Event,
   dispatchNow,
   EV_SET_VALUE,
+  FX_DISPATCH_ASYNC,
+  FX_FETCH,
+  trace,
+  EventDef,
 } from '@thi.ng/interceptors';
 import { EVENT_ROUTE_CHANGED } from '@thi.ng/router';
 import { dateTime } from '@thi.ng/date';
 
 import type { Context, ViewSpec } from './api';
 import { featuredItemList, itemFull } from './components';
-import { routeTo } from './utils';
-import data from './data.json';
+import { routeTo, readJson } from './utils';
 
 export enum ROUTES {
   HOME = 'home',
@@ -69,7 +72,7 @@ export const ui = {
       date: { class: 'fs--2' },
     },
     full: {
-      main: { class: 'item-full' },
+      main: { class: 'item-full relative' },
       header: { class: 'mb-4 sm:mb-6' },
       date: { class: 'fs--2' },
       title: {
@@ -79,7 +82,7 @@ export const ui = {
       image: { class: 'bg-gray-300 w-full object-cover' },
     },
     slim: {
-      main: { class: 'relative mb-4' },
+      main: { class: 'relative mb-6' },
       date: { class: 'absolute font-mono top-1' },
       body: { class: 'ml-14' },
       title: { class: 'fs-0 text-gray-600' },
@@ -87,11 +90,52 @@ export const ui = {
   },
 
   tag: {
-    sign: { class: 'text-gray-500 fs--2' },
+    sign: { class: 'text-gray-400 fs--2' },
     normal: { class: 'text-gray-600' },
     highlight: { class: 'tag bg-black text-white' },
   },
 };
+
+export const initialState = {
+  nav: { visible: false },
+};
+
+const components = {
+  [ROUTES.HOME]: (ctx: Context) => [
+    featuredItemList,
+    ctx.views.featured.deref() || [],
+  ],
+  [ROUTES.ITEM]: ({ views, bus }: Context) => {
+    const route = views.route.deref();
+    const items = views.items.deref();
+    if (!!items) {
+      const item = items.find(item => item.id == route.params.id);
+      if (item) return [itemFull, item];
+    } else routeTo(bus, ROUTES.HOME);
+  },
+};
+
+export const views: IObjectOf<ViewSpec> = {
+  nav: 'nav',
+  items: 'items',
+  tags: 'tags',
+  featured: 'featured',
+
+  route: 'route',
+  content: ['route.id', id => components[id]],
+};
+
+export enum EV {
+  ROUTE_TO = 'route-to',
+  FETCH_DATA = 'fetch-data',
+  FETCH_DATA_DONE = 'fetch-data-done',
+  FETCH_DATA_ERROR = 'fetch-data-error',
+  INITIALIZE = 'initialize',
+}
+
+export enum FX {
+  ROUTE_TO = 'route-to',
+}
 
 export const processData = data => {
   const tags = Object.fromEntries(data.tags.map(tag => [tag.id, tag]));
@@ -100,46 +144,31 @@ export const processData = data => {
     date: dateTime(Date.parse(item.date)),
     tags: item.tags.map(x => tags[x]),
   }));
-  return { items, tags };
+  const featured = data.featured.map(id => items.find(x => x.id == id));
+  return { items, tags, featured };
 };
 
-export const initialState = {
-  nav: { visible: true },
-  ...processData(data),
-};
-
-const components = {
-  [ROUTES.HOME]: (ctx: Context) => [featuredItemList, ctx.views.items.deref()],
-  [ROUTES.ITEM]: ({ views, bus }: Context) => {
-    const route = views.route.deref();
-    const items = views.items.deref();
-    const item = items.find(item => item.id == route.params.id);
-    if (item) return [itemFull, item];
-    else routeTo(bus, ROUTES.HOME);
-  },
-};
-
-export const views: IObjectOf<ViewSpec> = {
-  nav: 'nav',
-  items: 'items',
-  tags: 'tags',
-
-  route: 'route',
-  content: ['route.id', id => components[id]],
-};
-
-export enum EV {
-  ROUTE_TO = 'route-to',
-}
-
-export enum FX {
-  ROUTE_TO = 'route-to',
-}
-
-export const events = {
+export const events: IObjectOf<EventDef> = {
+  [EV.FETCH_DATA]: () => ({
+    [FX_DISPATCH_ASYNC]: [
+      FX_FETCH,
+      '/data.json',
+      EV.FETCH_DATA_DONE,
+      EV.FETCH_DATA_ERROR,
+    ],
+  }),
+  [EV.FETCH_DATA_DONE]: (_, [__, res], bus) =>
+    readJson(res, data => bus.dispatch([EV.INITIALIZE, processData(data)])),
+  [EV.FETCH_DATA_ERROR]: trace,
+  [EV.INITIALIZE]: [
+    valueSetter('items', (x: any) => x.items),
+    valueSetter('tags', (x: any) => x.tags),
+    valueSetter('featured', (x: any) => x.featured),
+  ],
   [EVENT_ROUTE_CHANGED]: [
+    trace,
     valueSetter('route'),
-    // dispatchNow([EV_SET_VALUE, ['nav.visible', false]]),
+    dispatchNow([EV_SET_VALUE, ['nav.visible', false]]),
   ],
   [EV.ROUTE_TO]: (_, [__, route]: Event) => ({ [FX.ROUTE_TO]: route }),
 };

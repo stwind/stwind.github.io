@@ -1,9 +1,18 @@
 import { start } from '@thi.ng/hdom';
 import { Atom } from '@thi.ng/atom';
 import { EventBus } from '@thi.ng/interceptors';
-import { HTMLRouter, EVENT_ROUTE_CHANGED } from '@thi.ng/router';
+import { HTMLRouter, EVENT_ROUTE_CHANGED, Route } from '@thi.ng/router';
 
-import { routes, initialState, ui, events, views, FX, ROUTES } from './config';
+import {
+  routes,
+  initialState,
+  ui,
+  events,
+  views,
+  EV,
+  FX,
+  ROUTES,
+} from './config';
 import { app } from './components';
 import { makeViews, routeTo } from './utils';
 
@@ -16,7 +25,6 @@ const router = new HTMLRouter({
   routes,
 });
 
-// router.addListener(EVENT_ROUTE_CHANGED, e => console.log(e.value));
 router.addListener(EVENT_ROUTE_CHANGED, e =>
   bus.dispatch([EVENT_ROUTE_CHANGED, e.value])
 );
@@ -28,9 +36,11 @@ bus.addEffect(FX.ROUTE_TO, ([id, params]) =>
 const ctx = { state, bus, ui, views: makeViews(state, views) };
 const stop = start(({ bus }) => (bus.processQueue() ? app : null), { ctx });
 
+bus.dispatch([EV.FETCH_DATA]);
+
 router.start();
 
-export function refresh(route) {
+export function refresh(route: Route) {
   const { id, params } = route;
   routeTo(bus, id, params);
 }
