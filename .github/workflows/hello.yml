@@ -19,7 +19,7 @@ jobs:
           
           git init
           git remote add origin https://github.com/stwind/stwind.github.io.git
-          git pull origin master
+          git merge origin/master --allow-unrelated-histories -X ours --no-edit
 
           git add -A
           git commit -m "Site updated at $(date +%Y-%m-%dT%H:%M:%S)"
