@@ -25,6 +25,7 @@ const router = new HTMLRouter({
   routes,
 });
 
+router.addListener(EVENT_ROUTE_CHANGED, e => console.log(e.value));
 router.addListener(EVENT_ROUTE_CHANGED, e =>
   bus.dispatch([EVENT_ROUTE_CHANGED, e.value])
 );

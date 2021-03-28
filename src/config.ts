@@ -111,7 +111,8 @@ const components = {
     if (!!items) {
       const item = items.find(item => item.id == route.params.id);
       if (item) return [itemFull, item];
-    } else routeTo(bus, ROUTES.HOME);
+      else routeTo(bus, ROUTES.HOME);
+    }
   },
 };
 
