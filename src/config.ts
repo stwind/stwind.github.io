@@ -33,8 +33,7 @@ export const ui = {
     external: { class: 'text-red' },
   },
   image: {
-    default: { class: 'h-auto' },
-    loading: { class: 'bg-gray-200' },
+    main: { class: 'object-cover bg-gray-300' },
   },
   email: { class: 'text-green' },
 
@@ -66,7 +65,7 @@ export const ui = {
       cover: {
         class: 'h-52 md:h-60 bg-gray-300 cursor-pointer overflow-hidden mb-2',
       },
-      image: { class: 'object-cover h-full w-full' },
+      image: { class: 'h-full w-full' },
       content: { class: '' },
       title: { class: 'fs-0 text-gray-600' },
       date: { class: 'fs--2' },
@@ -79,7 +78,7 @@ export const ui = {
         class: 'font-thin fs-2 sm:fs-3 sm:text-gray-600 leading-tight',
       },
       content: { class: 'bg-gray-98' },
-      image: { class: 'bg-gray-300 w-full object-cover' },
+      image: { class: 'w-full' },
     },
     slim: {
       main: { class: 'relative mb-6' },
