@@ -17,15 +17,22 @@ jobs:
         run: |
           set -euxo pipefail
           
-          pushd build
+          DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+
+          mkdir -p out
+          pushd out
           
           git init
           git remote add origin 'https://stwind:${{ secrets.GITHUB_TOKEN }}@github.com/stwind/stwind.github.io.git'
-
-          git add -A
+          git remote update
+          git merge origin/master
           
+          ls -1 | xargs -I {} rm -rf {}
+          cp -R ../build/* .
+
           git config --local user.email "stwindfy@gmail.com"
           git config --local user.name "stwind"
           
+          git add -A
           git commit -m "Site updated at $(date +%Y-%m-%dT%H:%M:%S)"
-          git push -f origin master
+          git push origin master
