@@ -1,5 +1,4 @@
 import { map, comp, transduce, push, drop } from '@thi.ng/transducers';
-// import { EV_TOGGLE_VALUE } from '@thi.ng/interceptors';
 import { link as link_, mergeAttribs } from '@thi.ng/hdom-components';
 import { CLOSE, MENU } from '@thi.ng/hiccup-carbon-icons';
 
