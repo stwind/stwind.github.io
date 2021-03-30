@@ -1,21 +1,31 @@
 import { map, comp, transduce, push, drop } from '@thi.ng/transducers';
-import { EV_TOGGLE_VALUE } from '@thi.ng/interceptors';
+// import { EV_TOGGLE_VALUE } from '@thi.ng/interceptors';
 import { link as link_, mergeAttribs } from '@thi.ng/hdom-components';
 import { CLOSE, MENU } from '@thi.ng/hiccup-carbon-icons';
 
 import type { Context, Item, Tag, Image } from './api';
-import { ROUTES } from './config';
+import { ROUTES, EV } from './config';
 import { routeTo, fmtDate } from './utils';
 
-export const link = ({ ui }: Context, attribs: any, href: string, body: any) =>
+const link = ({ ui }: Context, attribs: any, href: string, body: any) =>
   link_({ href, ...mergeAttribs(ui.link.default, attribs) }, body);
 
-export const image = {
-  init(el: HTMLImageElement, __: any, _: any, src: string) {
+const linkExtern = (ctx: Context, url: string, name: string) => [
+  link,
+  ctx.ui.link.external,
+  url,
+  name,
+];
+
+const image = {
+  init(el: HTMLElement, __: any, _: any, src: string) {
     const im = el.childNodes[0] as HTMLImageElement;
     const img = new Image();
     img.src = src;
-    img.onload = () => (im.src = src);
+    img.onload = () => {
+      im.classList.remove('hidden');
+      im.src = src;
+    };
   },
   render({ ui }: Context, _attribs: any, src: string, size: [number, number]) {
     const ratio = size[1] / size[0];
@@ -32,7 +42,7 @@ export const image = {
   release() {},
 };
 
-export const routeLink = (
+const routeLink = (
   ctx: Context,
   routeID: PropertyKey,
   routeParams: any,
@@ -111,7 +121,7 @@ const itemHeader = (ctx: Context, item: Item) => [
   ctx.ui.item.full.header,
   ['div', ctx.ui.item.full.date, fmtDate(item.date)],
   ['h1', ctx.ui.item.full.title, item.title],
-  [itemTags, item.tags],
+  ['div', ctx.ui.item.full.tags, [itemTags, item.tags]],
 ];
 
 const itemImage = (ctx: Context, item: Item, img: Image) => [
@@ -139,7 +149,7 @@ export const itemFull = (ctx: Context, item: Item) => {
       ctx.ui.item.full.content,
       ['p', [itemImage, item, item.images[0]]],
       ['p', item.description],
-      ['p', [link, ctx.ui.link.external, item.url, '[more]']],
+      ['p', [linkExtern, item.url, '[link]']],
       ...images,
     ],
   ];
@@ -155,11 +165,14 @@ const title = (ctx: Context) => [
 
 const navToggle = (ctx: Context) => {
   const navVisible = ctx.views.nav.deref().visible;
-  const attribs = {
-    ...ctx.ui.nav.button,
-    onclick: () => ctx.bus.dispatch([EV_TOGGLE_VALUE, 'nav.visible']),
-  };
-  return ['div', attribs, navVisible ? CLOSE : MENU];
+  return [
+    'div',
+    {
+      ...ctx.ui.nav.toggle,
+      onclick: () => ctx.bus.dispatch([EV.TOGGLE_NAV]),
+    },
+    navVisible ? CLOSE : MENU,
+  ];
 };
 
 const header = (ctx: Context) => ['div', ctx.ui.header, title, navToggle];
@@ -184,27 +197,20 @@ const itemSlim = (ctx: Context, item: Item) => [
 
 const itemList = (ctx: Context) => {
   const items = ctx.views.items.deref();
-  return ['div', map(item => [itemSlim, item], items)];
+  return ['div', ctx.ui.nav.content, map(item => [itemSlim, item], items)];
 };
-
-const socialLink = (ctx: Context, url: string, name: string) => [
-  link,
-  ctx.ui.link.external,
-  url,
-  name,
-];
 
 const nav = (ctx: Context) => [
   'div',
   [
     'div',
     ctx.ui.nav.links,
-    ['div', [socialLink, 'https://github.com/stwind', 'github']],
-    ['div', [socialLink, 'https://observablehq.com/@stwind', 'observable']],
-    ['div', [socialLink, 'https://qiita.com/stwind', 'qiita']],
+    ['div', [linkExtern, 'https://github.com/stwind', 'github']],
+    ['div', [linkExtern, 'https://observablehq.com/@stwind', 'observable']],
+    ['div', [linkExtern, 'https://qiita.com/stwind', 'qiita']],
     ['div', ctx.ui.email, 'stwindfy#gmail dot com'],
   ],
-  [itemList],
+  itemList,
 ];
 
 export const app = (ctx: Context) => {

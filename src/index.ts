@@ -8,6 +8,7 @@ import {
   initialState,
   ui,
   events,
+  effects,
   views,
   EV,
   FX,
@@ -17,7 +18,7 @@ import { app } from './components';
 import { makeViews, routeTo } from './utils';
 
 const state = new Atom(initialState);
-const bus = new EventBus(state, events);
+const bus = new EventBus(state, events, effects);
 
 const router = new HTMLRouter({
   useFragment: true,
@@ -35,7 +36,7 @@ bus.addEffect(FX.ROUTE_TO, ([id, params]) =>
 );
 
 const ctx = { state, bus, ui, views: makeViews(state, views) };
-const stop = start(({ bus }) => (bus.processQueue() ? app : null), { ctx });
+const stop = start(({ bus }) => (bus.processQueue() ? [app] : null), { ctx });
 
 bus.dispatch([EV.FETCH_DATA]);
 

@@ -25,16 +25,18 @@ export const routeTo = (bus: EventBus, id: PropertyKey, params: any = null) => {
 
 export const fmtDate = defFormat(['yyyy', '.', 'MM']);
 
-export const readJson = (res: Response, cb: (x: any) => void) => {
+export const readJson = (res: Response) => {
   const reader = res.body!.getReader();
   const decoder = new TextDecoder();
   let data = '';
-  reader.read().then(function process({ done, value }) {
-    if (done) {
-      cb(JSON.parse(data.replace(/(?:\r\n|\r|\n)/g, '')));
-    } else {
-      data += decoder.decode(value);
-      return reader.read().then(process);
-    }
+  return new Promise(resolve => {
+    reader.read().then(function process({ done, value }) {
+      if (done) {
+        resolve(JSON.parse(data.replace(/(?:\r\n|\r|\n)/g, '')));
+      } else {
+        data += decoder.decode(value);
+        return reader.read().then(process);
+      }
+    });
   });
 };

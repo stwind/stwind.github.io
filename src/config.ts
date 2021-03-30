@@ -8,6 +8,9 @@ import {
   FX_FETCH,
   trace,
   EventDef,
+  EffectDef,
+  EV_TOGGLE_VALUE,
+  forwardSideFx,
 } from '@thi.ng/interceptors';
 import { EVENT_ROUTE_CHANGED } from '@thi.ng/router';
 import { dateTime } from '@thi.ng/date';
@@ -19,11 +22,10 @@ import { routeTo, readJson } from './utils';
 export enum ROUTES {
   HOME = 'home',
   ITEM = 'item',
-  TAG = 'tag',
 }
 
 export const routes = [
-  { id: ROUTES.HOME, title: 'Home page', match: ['home'] },
+  { id: ROUTES.HOME, title: 'Home', match: ['home'] },
   { id: ROUTES.ITEM, title: 'Item', match: ['items', '?id'] },
 ];
 
@@ -34,7 +36,7 @@ export const ui = {
   },
   image: {
     main: { class: 'bg-gray-200 relative' },
-    content: { class: 'object-cover absolute w-full h-full inset-0' },
+    content: { class: 'object-cover absolute w-full h-full inset-0 hidden' },
   },
   email: { class: 'text-green' },
 
@@ -48,15 +50,16 @@ export const ui = {
     class:
       'inset-x-0 sticky font-thin text-black top-0 py-5 mb-8 sm:mb-12 md:mb-20 z-10',
   },
-  title: { class: 'fs-1 inline-block' },
+  title: { class: 'fs-1 inline-block leading-none' },
   profile: { class: 'text-gray-600 fixed top-12 -z-1' },
   content: { class: 'w-full py-4' },
 
   nav: {
-    button: {
+    toggle: {
       class: 'h-5 w-5 svg-icon absolute top-7 -right-0.5 cursor-pointer',
     },
-    links: { class: 'mb-16' },
+    links: { class: 'mb-16 -z-1 sticky top-0' },
+    content: { class: 'bg-gray-96' },
   },
 
   item: {
@@ -73,12 +76,14 @@ export const ui = {
     },
     full: {
       main: { class: 'item-full relative' },
-      header: { class: 'mb-4 sm:mb-6' },
+      header: { class: 'mb-4 sm:mb-6 -z-1 sticky top-0' },
       date: { class: 'fs--2' },
       title: {
-        class: 'font-thin fs-2 sm:fs-3 sm:text-gray-600 leading-tight',
+        class:
+          'font-thin fs-2 sm:fs-3 text-gray-600 sm:text-gray-600 leading-tight',
       },
-      content: { class: 'bg-gray-98' },
+      tags: { class: '' },
+      content: { class: 'bg-gray-96' },
       image: { class: 'w-full' },
     },
     slim: {
@@ -132,10 +137,12 @@ export enum EV {
   FETCH_DATA_DONE = 'fetch-data-done',
   FETCH_DATA_ERROR = 'fetch-data-error',
   INITIALIZE = 'initialize',
+  TOGGLE_NAV = 'toggle-nav',
 }
 
 export enum FX {
   ROUTE_TO = 'route-to',
+  SCROLL_TOP = 'scroll-top',
 }
 
 export const processData = data => {
@@ -159,16 +166,27 @@ export const events: IObjectOf<EventDef> = {
     ],
   }),
   [EV.FETCH_DATA_DONE]: (_, [__, res], bus) =>
-    readJson(res, data => bus.dispatch([EV.INITIALIZE, processData(data)])),
+    readJson(res).then(data =>
+      bus.dispatch([EV.INITIALIZE, processData(data)])
+    ),
   [EV.FETCH_DATA_ERROR]: trace,
   [EV.INITIALIZE]: [
     valueSetter('items', (x: any) => x.items),
     valueSetter('tags', (x: any) => x.tags),
     valueSetter('featured', (x: any) => x.featured),
   ],
+  [EV.TOGGLE_NAV]: [
+    dispatchNow([EV_TOGGLE_VALUE, 'nav.visible']),
+    forwardSideFx(FX.SCROLL_TOP),
+  ],
   [EVENT_ROUTE_CHANGED]: [
     valueSetter('route'),
     dispatchNow([EV_SET_VALUE, ['nav.visible', false]]),
+    forwardSideFx(FX.SCROLL_TOP),
   ],
   [EV.ROUTE_TO]: (_, [__, route]: Event) => ({ [FX.ROUTE_TO]: route }),
+};
+
+export const effects: IObjectOf<EffectDef> = {
+  [FX.SCROLL_TOP]: () => window.scrollTo(0, 0),
 };
