@@ -92,7 +92,7 @@ items:
       Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m
 
   - title: Deformation
-    date: 2019-11
+    date: 2019-07
     url: https://observablehq.com/@stwind/hello-thi-ng-webgl
     tags: ['webgl', 'generative', 'ssao']
     description: >-
