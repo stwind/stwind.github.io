@@ -15,7 +15,7 @@ import {
 import { EVENT_ROUTE_CHANGED } from '@thi.ng/router';
 import { dateTime } from '@thi.ng/date';
 
-import type { Context, ViewSpec } from './api';
+import type { Context, State, ViewSpec } from './api';
 import { featuredItemList, itemFull } from './components';
 import { routeTo, readJson } from './utils';
 
@@ -52,13 +52,14 @@ export const ui = {
   },
   title: { class: 'fs-1 inline-block leading-none' },
   profile: { class: 'text-gray-600 fixed top-12 -z-1' },
-  content: { class: 'w-full py-4' },
+  content: { class: 'w-full py-4 relative' },
 
   nav: {
+    main: { class: '' },
     toggle: {
       class: 'h-5 w-5 svg-icon absolute top-7 -right-0.5 cursor-pointer',
     },
-    links: { class: 'mb-16 -z-1 sticky top-0' },
+    links: { class: 'sticky top-0 mb-12' },
     content: { class: 'bg-gray-96' },
   },
 
@@ -101,8 +102,10 @@ export const ui = {
   },
 };
 
-export const initialState = {
-  nav: { visible: false },
+export const initialState: State = {
+  nav: { visible: true },
+  items: [],
+  tags: [],
 };
 
 const components = {

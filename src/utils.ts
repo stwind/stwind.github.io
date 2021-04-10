@@ -18,7 +18,7 @@ export const makeViews = (state: IAtom<any>, specs: IObjectOf<ViewSpec>) => {
   return views;
 };
 
-export const routeTo = (bus: EventBus, id: PropertyKey, params: any = null) => {
+export const routeTo = (bus: EventBus, id: PropertyKey, params?) => {
   bus.dispatch([EV_SET_VALUE, ['nav.visible', false]]);
   bus.dispatch([EV.ROUTE_TO, [id, params]]);
 };

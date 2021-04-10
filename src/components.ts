@@ -199,26 +199,50 @@ const itemList = (ctx: Context) => {
   return ['div', ctx.ui.nav.content, map(item => [itemSlim, item], items)];
 };
 
-const nav = (ctx: Context) => [
-  'div',
-  [
-    'div',
-    ctx.ui.nav.links,
-    ['div', [linkExtern, 'https://github.com/stwind', 'github']],
-    ['div', [linkExtern, 'https://observablehq.com/@stwind', 'observable']],
-    ['div', [linkExtern, 'https://qiita.com/stwind', 'qiita']],
-    ['div', ctx.ui.email, 'stwindfy#gmail dot com'],
-  ],
-  itemList,
-];
+const nav = {
+  init(el: HTMLElement) {
+    const linksEl = el.querySelector('[key="links"]');
+    const observer = new IntersectionObserver(
+      ([e]) => {
+        e.target.classList.toggle('-z-1', e.intersectionRatio < 1);
+      },
+      { threshold: 1.0 }
+    );
 
-export const app = (ctx: Context) => {
+    observer.observe(linksEl!);
+  },
+  render(ctx: Context) {
+    return [
+      'div',
+      ctx.ui.nav.main,
+      [
+        'div',
+        {
+          key: 'links',
+          ...ctx.ui.nav.links,
+          style: {
+            top: '-1px',
+            'padding-top': '1px',
+          },
+        },
+        ['div', [linkExtern, 'https://github.com/stwind', 'github']],
+        ['div', [linkExtern, 'https://observablehq.com/@stwind', 'observable']],
+        ['div', [linkExtern, 'https://qiita.com/stwind', 'qiita']],
+        ['div', ctx.ui.email, 'stwindfy#gmail dot com'],
+      ],
+      itemList,
+    ];
+  },
+  release() {},
+};
+
+export const root = (ctx: Context) => {
   const navVisible = ctx.views.nav.deref().visible;
   return [
     'div',
     ctx.ui.app,
     header,
     ['div', ctx.ui.profile, 'Software Engineer'],
-    ['div', ctx.ui.content, navVisible ? nav : ctx.views.content],
+    ['div', ctx.ui.content, navVisible ? [nav] : ctx.views.content],
   ];
 };

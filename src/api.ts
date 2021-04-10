@@ -26,7 +26,7 @@ export interface Item extends IID<string> {
 }
 
 export interface State {
-  route: RouteMatch;
+  route?: RouteMatch;
   nav: {
     visible: boolean;
   };
