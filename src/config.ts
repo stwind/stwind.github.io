@@ -103,7 +103,7 @@ export const ui = {
 };
 
 export const initialState: State = {
-  nav: { visible: true },
+  nav: { visible: false },
   items: [],
   tags: [],
 };
@@ -145,6 +145,7 @@ export enum EV {
 
 export enum FX {
   ROUTE_TO = 'route-to',
+  ROUTER_START = 'router-start',
   SCROLL_TOP = 'scroll-top',
 }
 
@@ -177,6 +178,7 @@ export const events: IObjectOf<EventDef> = {
     valueSetter('items', (x: any) => x.items),
     valueSetter('tags', (x: any) => x.tags),
     valueSetter('featured', (x: any) => x.featured),
+    forwardSideFx(FX.ROUTER_START),
   ],
   [EV.TOGGLE_NAV]: [
     dispatchNow([EV_TOGGLE_VALUE, 'nav.visible']),

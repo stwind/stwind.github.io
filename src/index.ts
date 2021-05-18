@@ -43,9 +43,11 @@ class App {
       this.bus.dispatch([EVENT_ROUTE_CHANGED, e.value])
     );
 
-    this.bus.addEffect(FX.ROUTE_TO, ([id, params]) =>
-      this.router.routeTo(this.router.format(id, params))
-    );
+    this.bus.addEffects({
+      [FX.ROUTE_TO]: ([id, params]) =>
+        this.router.routeTo(this.router.format(id, params)),
+      [FX.ROUTER_START]: () => this.router.start(),
+    });
   }
 
   start() {
@@ -58,7 +60,6 @@ class App {
       },
     });
     this.bus.dispatch([EV.FETCH_DATA]);
-    this.router.start();
   }
 
   stop() {
