@@ -12,116 +12,116 @@ items:
     url: https://observablehq.com/@stwind/source-hans-serif-a-glyph-atlas
     tags: ['machine learning', 'webgl2', 'typography', 'pytorch']
     description: >-
-      Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m
+      An experiment of exploring large glyphs data of Source Hans Serif. Trained an autoencoder for latent features and generated 3D and 2D embedding using PyMDE and GeomLoss. WebGL2 vector font rendering was done with the Slug algorithm.
 
   - title: Paintings of Butterflies
     date: 2021-03
     url: https://observablehq.com/@stwind/paintings-of-butterfly
     tags: ['machine learning', 'computer vision', 'stylegan2', 'pytorch']
     description: >-
-      Hello again
+      An experiment of generating butterfly drawing with StyleGAN2. Dataset was compiled from the open data of Biodiversity Heritage Library, utilizing various computer vision techniques like objects detection, saliency detection etc.
 
   - title: Latent Flowers GANden
     date: 2021-02
     url: https://observablehq.com/@stwind/latent-flowers-ganden
     tags: ['machine learning', 'data visualization', 'gan', 'webgl', 'pytorch']
     description: >-
-      Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m
+      An exeriment of running GAN on web in realtime. A variant of DCGAN was trained on the Oxford Flower 102 dataset, and ran in browser with WebGL at realtime 60FPS.
 
   - title: Return To A Square
     date: 2020-10
     url: https://observablehq.com/@stwind/return-to-a-square
     tags: ['generative']
     description: >-
-      Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m
+      Replicating a classic work of GTC, the early Japanese computer art collective.
 
   - title: Nagel-Schreckenberg Traffic Model
     date: 2020-10
     url: https://observablehq.com/@stwind/nagel-schreckenberg-traffic-model
     tags: ['explorable', 'generative']
     description: >-
-      Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m
+      Experimenting a simple traffic model.
 
   - title: Exploring Fashion MNIST
     date: 2020-09
     url: https://observablehq.com/@stwind/exploring-fashion-mnist
     tags: ['webgl', 'data visualization', 'umap']
     description: >-
-      Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m
+      An experiment of exploring 70k images the Fashion MNIST dataset embeded in 3D using UMAP, also with various compression techniques like Draco and Basis compressed GPU textures.
 
   - title: Parametric Surface Plots
     date: 2020-09
     url: https://observablehq.com/@stwind/parametric-surface-plots
     tags: ['webgl', 'explorable']
     description: >-
-      Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m
+      An attempt at making better 3D surface plots.
 
   - title: Screen Projected Lines
     date: 2020-09
     url: https://observablehq.com/@stwind/screen-projected-lines
     tags: ['webgl', 'explorable']
     description: >-
-      Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m
+      An experiment of drawing lines with WebGL.
 
   - title: Draco Meshes
     date: 2020-09
     url: https://observablehq.com/@stwind/hello-draco
     tags: ['webgl']
     description: >-
-      Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m
+      Nymph Preparing For The Bath
 
   - title: JIS Colors In Munsell Space
     date: 2020-04
     url: https://observablehq.com/@stwind/jis-colors-in-munsell-space
     tags: ['webgl', 'data visualization']
     description: >-
-      Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m
+      An experiment of exploring the JIS colors in Munsell Space.
 
   - title: GLSL Chunk Tag
     date: 2020-04
     url: https://observablehq.com/@stwind/glsl-chunk-tag
     tags: ['webgl', 'generative']
     description: >-
-      Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m
+      A small Observable utility for better GLSL coding.
 
   - title: Raft Consensus Simulator
     date: 2020-03
     url: https://observablehq.com/@stwind/raft-consensus-simulator
     tags: ['explorable', 'raft']
     description: >-
-      Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m
+      A interactive explorable of the Raft distributed concensus algorithm.
 
   - title: Sorting Algorithms
     date: 2019-11
     url: https://observablehq.com/@stwind/sorting-algorithms
     tags: ['data visualization']
     description: >-
-      Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m
+      Static visualization of various sorting algorithms.
 
   - title: Deformation
     date: 2019-07
     url: https://observablehq.com/@stwind/hello-thi-ng-webgl
     tags: ['webgl', 'generative', 'ssao']
     description: >-
-      Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m
+      A first attempt of SSAO with @thi.ng/webgl.
 
   - title: How Raymarching Works
     date: 2019-05
     url: https://observablehq.com/@stwind/how-raymarching-works
     tags: ['explorable', 'webgl']
     description: >-
-      Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m
+      A simple explorables of how raymarching works.
 
   - title: Realtime CPPN
     date: 2019-05
     url: https://observablehq.com/@stwind/realtime-cppn
     tags: ['machine learning', 'webgl', 'generative']
     description: >-
-      Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m
+      An experiment of realtime Compositional pattern-producing network on the web with WebGL.
 
   - title: Noisy Drawing
     date: 2019-04
     url: https://observablehq.com/@stwind/noisy-drawing
     tags: ['d3', 'generative']
     description: >-
-      Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m
+      Drawing with noise.
