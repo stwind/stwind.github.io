@@ -1,12 +1,19 @@
 ---
 featured:
+  - Source Hans Serif A Glyph Atlas
   - Paintings of Butterflies
   - Latent Flowers GANden
   - Exploring Fashion MNIST
   - Draco Meshes
-  - Nagel-Schreckenberg Traffic Model
 
 items:
+  - title: Source Hans Serif A Glyph Atlas
+    date: 2021-05
+    url: https://observablehq.com/@stwind/source-hans-serif-a-glyph-atlas
+    tags: ['machine learning', 'webgl2', 'typography', 'pytorch']
+    description: >-
+      Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean m
+
   - title: Paintings of Butterflies
     date: 2021-03
     url: https://observablehq.com/@stwind/paintings-of-butterfly
