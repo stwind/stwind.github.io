@@ -225,6 +225,7 @@ const nav = {
             'padding-top': '1px',
           },
         },
+        ['div', [linkExtern, 'https://twitter.com/st_ind', 'twitter']],
         ['div', [linkExtern, 'https://github.com/stwind', 'github']],
         ['div', [linkExtern, 'https://observablehq.com/@stwind', 'observable']],
         ['div', [linkExtern, 'https://qiita.com/stwind', 'qiita']],
